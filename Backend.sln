@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{859D40CA-885D-4A46-891E-14455DB44470}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Notizap.Api", "src\Notizap.Api\Notizap.Api.csproj", "{F4D9E224-0AE3-40E5-8F04-320AB491D335}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F4D9E224-0AE3-40E5-8F04-320AB491D335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4D9E224-0AE3-40E5-8F04-320AB491D335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4D9E224-0AE3-40E5-8F04-320AB491D335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4D9E224-0AE3-40E5-8F04-320AB491D335}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F4D9E224-0AE3-40E5-8F04-320AB491D335} = {859D40CA-885D-4A46-891E-14455DB44470}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A2ACE55-7496-4C9B-A20B-9176CB9E49A2}
+	EndGlobalSection
+EndGlobal
