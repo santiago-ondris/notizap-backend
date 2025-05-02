@@ -49,4 +49,13 @@ public class ReelsController(IReelsService service) : ControllerBase
         var top = await _service.GetTopByLikesAsync(count);
         return Ok(top);
     }
+    [HttpPost("upload-image")]
+    public async Task<IActionResult> UploadImage(IFormFile file, [FromServices] IImageUploadService imageService)
+    {
+        if (file == null || file.Length == 0)
+            return BadRequest("No file uploaded.");
+
+        var url = await imageService.UploadImageAsync(file);
+        return Ok(new { url });
+    }
 }

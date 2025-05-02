@@ -6,4 +6,5 @@ public class ReelDto
         public int Likes { get; set; }
         public int Comments { get; set; }
         public string ThumbnailUrl { get; set; } = null!;
+        public string InstagramUrl { get; set; } = null!;
 }

@@ -31,7 +31,8 @@ public class ReelsService : IReelsService
                 Likes = dto.Likes,
                 Comments = dto.Comments,
                 ThumbnailUrl = dto.ThumbnailUrl,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                InstagramUrl = dto.InstagramUrl
             };
 
             _context.Reels.Add(reel);
@@ -60,6 +61,7 @@ public class ReelsService : IReelsService
             existing.Likes = dto.Likes;
             existing.Comments = dto.Comments;
             existing.ThumbnailUrl = dto.ThumbnailUrl;
+            existing.InstagramUrl = dto.InstagramUrl;
 
             await _context.SaveChangesAsync();
             return existing;

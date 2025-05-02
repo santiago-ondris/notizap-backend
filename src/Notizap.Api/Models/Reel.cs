@@ -6,6 +6,7 @@
         public int Views { get; set; }
         public int Likes { get; set; }
         public int Comments { get; set; }
+        public string InstagramUrl  { get; set; } = null!;
         public string ThumbnailUrl { get; set; } = null!;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }
