@@ -1,5 +1,8 @@
 public interface IMercadoLibreService
 {
-    Task<SalesStatsDto> GetStatsByRangeAsync(DateTime from, DateTime to);
-    Task<List<ProductStatsDto>> GetTopProductsAsync(DateTime from, DateTime to, int topN = 5);
+    Task<List<MercadoLibreManualReport>> GetAllAsync();
+    Task<MercadoLibreManualReport?> GetByIdAsync(int id);
+    Task<MercadoLibreManualReport> CreateAsync(MercadoLibreManualDto dto);
+    Task<MercadoLibreManualReport?> UpdateAsync(int id, MercadoLibreManualDto dto);
+    Task<bool> DeleteAsync(int id);
 }

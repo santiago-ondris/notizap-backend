@@ -5,6 +5,7 @@ public class NotizapDbContext : DbContext
         public NotizapDbContext(DbContextOptions<NotizapDbContext> options) : base(options) { }
 
         public DbSet<Reel> Reels => Set<Reel>();
+        public DbSet<MercadoLibreManualReport> MercadoLibreManualReports { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

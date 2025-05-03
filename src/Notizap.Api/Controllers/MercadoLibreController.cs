@@ -1,39 +1,51 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Notizap.Controllers
+[ApiController]
+[Route("api/mercadolibre/manual")]
+public class MercadoLibreController : ControllerBase
 {
-    [ApiController]
-    [Route("api/mercadolibre")]
-    public class MercadoLibreController : ControllerBase
+    private readonly IMercadoLibreService _service;
+
+    public MercadoLibreController(IMercadoLibreService service)
     {
-        private readonly IMercadoLibreService _service;
+        _service = service;
+    }
 
-        public MercadoLibreController(IMercadoLibreService service)
-        {
-            _service = service;
-        }
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var result = await _service.GetAllAsync();
+        return Ok(result);
+    }
 
-        [HttpGet("simple-stats")]
-        public async Task<IActionResult> GetStats([FromQuery] DateTime from, [FromQuery] DateTime to)
-        {
-            if (from > to)
-                return BadRequest(new { message = "'from' date cannot be greater than 'to' date." });
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var result = await _service.GetByIdAsync(id);
+        if (result == null) return NotFound();
+        return Ok(result);
+    }
 
-            var stats = await _service.GetStatsByRangeAsync(from, to);
-            return Ok(stats);
-        }
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] MercadoLibreManualDto dto)
+    {
+        var created = await _service.CreateAsync(dto);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
 
-        [HttpGet("top-products")]
-        public async Task<IActionResult> GetTopProducts(
-            [FromQuery] DateTime from,
-            [FromQuery] DateTime to,
-            [FromQuery] int top = 5)
-        {
-            if (from > to)
-                return BadRequest(new { message = "'from' date cannot be greater than 'to' date." });
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Update(int id, [FromBody] MercadoLibreManualDto dto)
+    {
+        var updated = await _service.UpdateAsync(id, dto);
+        if (updated == null) return NotFound();
+        return Ok(updated);
+    }
 
-            var products = await _service.GetTopProductsAsync(from, to, top);
-            return Ok(products);
-        }
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await _service.DeleteAsync(id);
+        if (!deleted) return NotFound();
+        return NoContent();
     }
 }

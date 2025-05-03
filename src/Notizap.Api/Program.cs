@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Notizap.Services.MercadoLibre;
 using NotiZap.Dashboard.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,9 +21,7 @@ builder.Services.Configure<WooCommerceSettings>(
     builder.Configuration.GetSection("WooCommerce"));
 builder.Services.AddHttpClient<IWooCommerceService, WooCommerceService>();
 
-builder.Services.Configure<MercadoLibreSettings>(
-    builder.Configuration.GetSection("MercadoLibreSettings"));
-builder.Services.AddHttpClient<IMercadoLibreService, MercadoLibreService>();
+builder.Services.AddScoped<IMercadoLibreService, MercadoLibreService>();
 
 builder.Services.AddDbContext<NotizapDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
