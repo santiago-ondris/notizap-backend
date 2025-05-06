@@ -6,6 +6,8 @@ public class NotizapDbContext : DbContext
 
         public DbSet<Reel> Reels => Set<Reel>();
         public DbSet<MercadoLibreManualReport> MercadoLibreManualReports { get; set; }
+        public DbSet<WooCommerceMonthlyReport> WooCommerceMonthlyReports { get; set; }
+        public DbSet<WooDailySale> WooDailySales { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,5 +22,12 @@ public class NotizapDbContext : DbContext
                 entity.Property(r => r.ThumbnailUrl).IsRequired().HasMaxLength(500);
                 entity.Property(r => r.CreatedAt).HasDefaultValueSql("NOW()");
             });
+
+            // Relación WooCommerce Report -> DailySales
+            modelBuilder.Entity<WooCommerceMonthlyReport>()
+                .HasMany(r => r.DailySales)
+                .WithOne(s => s.MonthlyReport)
+                .HasForeignKey(s => s.MonthlyReportId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }

@@ -48,4 +48,11 @@ public class MercadoLibreController : ControllerBase
         if (!deleted) return NotFound();
         return NoContent();
     }
+
+    [HttpGet("daily")]
+    public async Task<ActionResult<List<DailySalesDto>>> GetDailyStats([FromQuery] int year, [FromQuery] int month)
+    {
+        var result = await _service.GetSimulatedDailyStatsAsync(year, month);
+        return Ok(result);
+    }
 }

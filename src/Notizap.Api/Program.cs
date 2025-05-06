@@ -19,7 +19,8 @@ builder.Services.AddHttpClient<IMailchimpService, MailchimpService>();
 
 builder.Services.Configure<WooCommerceSettings>(
     builder.Configuration.GetSection("WooCommerce"));
-builder.Services.AddHttpClient<IWooCommerceService, WooCommerceService>();
+builder.Services.AddHttpClient(); 
+builder.Services.AddScoped<IWooCommerceService, WooCommerceService>();
 
 builder.Services.AddScoped<IMercadoLibreService, MercadoLibreService>();
 
