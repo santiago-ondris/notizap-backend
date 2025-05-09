@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("api/mercadolibre/manual")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class MercadoLibreController : ControllerBase
 {
     private readonly IMercadoLibreService _service;

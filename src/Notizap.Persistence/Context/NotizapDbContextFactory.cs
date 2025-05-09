@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 public class NotizapDbContextFactory : IDesignTimeDbContextFactory<NotizapDbContext>
     {

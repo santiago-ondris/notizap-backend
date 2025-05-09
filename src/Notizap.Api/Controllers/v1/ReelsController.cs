@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class ReelsController(IReelsService service) : ControllerBase
 {
     private readonly IReelsService _service = service;

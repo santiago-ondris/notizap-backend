@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace NotiZap.Dashboard.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/[controller]")]
 public class MailchimpController : ControllerBase
 {
   private readonly IMailchimpService _service;
