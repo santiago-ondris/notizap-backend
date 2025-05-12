@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -12,6 +13,7 @@ public class MercadoLibreController : ControllerBase
         _service = service;
     }
 
+    [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet]
     public async Task<IActionResult> GetAll()
     {
@@ -19,6 +21,7 @@ public class MercadoLibreController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -27,6 +30,7 @@ public class MercadoLibreController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize(Roles = "admin,superadmin")]
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] MercadoLibreManualDto dto)
     {
@@ -34,6 +38,7 @@ public class MercadoLibreController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
+    [Authorize(Roles = "admin,superadmin")]
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] MercadoLibreManualDto dto)
     {
@@ -42,6 +47,7 @@ public class MercadoLibreController : ControllerBase
         return Ok(updated);
     }
 
+    [Authorize(Roles = "admin,superadmin")]
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
@@ -50,6 +56,7 @@ public class MercadoLibreController : ControllerBase
         return NoContent();
     }
 
+    [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("daily")]
     public async Task<ActionResult<List<DailySalesDto>>> GetDailyStats([FromQuery] int year, [FromQuery] int month)
     {

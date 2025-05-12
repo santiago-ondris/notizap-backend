@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +18,7 @@ public class WooCommerceController : ControllerBase
         _context = context;
     }
 
-    // Simple-stats por rango
+    [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("simple-stats")]
     public async Task<ActionResult<SalesStatsDto>> GetSimpleStats(
         [FromQuery] DateTime from,
@@ -31,7 +32,7 @@ public class WooCommerceController : ControllerBase
         return Ok(stats);
     }
 
-    // Top productos por tienda
+    [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("top-products")]
     public async Task<ActionResult<List<ProductStatsDto>>> GetTopProducts(
         [FromQuery] DateTime from,
@@ -46,6 +47,7 @@ public class WooCommerceController : ControllerBase
         return Ok(list);
     }
 
+    [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("monthly")]
     public async Task<ActionResult<SalesStatsDto>> GetMonthly(
         [FromQuery] int year,
@@ -58,12 +60,16 @@ public class WooCommerceController : ControllerBase
         var stats = await _wooService.GetMonthlyStatsSimpleAsync(year, month, store);
         return Ok(stats);
     }
+
+    [Authorize(Roles = "admin,superadmin")]
     [HttpPost("monthly-report/save")]
     public async Task<ActionResult<WooCommerceMonthlyReport>> SaveMonthly([FromBody] SaveWooMonthlyReportDto dto)
     {
         var result = await _wooService.SaveMonthlyReportAsync(dto);
         return Ok(result);
     }
+
+    [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("monthly-report")]
     public async Task<ActionResult<WooCommerceMonthlyReport>> GetSavedMonthlyReport(
         [FromQuery] int year,
@@ -76,6 +82,8 @@ public class WooCommerceController : ControllerBase
 
         return Ok(report);
     }
+
+    [Authorize(Roles = "admin,superadmin")]
     [HttpPut("monthly-report/{id}")]
     public async Task<IActionResult> UpdateMonthlyReport(int id, [FromBody] SaveWooMonthlyReportDto dto)
     {
@@ -92,7 +100,6 @@ public class WooCommerceController : ControllerBase
         report.UnitsSold = dto.UnitsSold;
         report.Revenue = dto.Revenue;
 
-        // Reemplazar ventas diarias
         _context.WooDailySales.RemoveRange(report.DailySales);
         report.DailySales = dto.DailySales.Select(d => new WooDailySale
         {
@@ -104,6 +111,8 @@ public class WooCommerceController : ControllerBase
         await _context.SaveChangesAsync();
         return Ok(report);
     }
+
+    [Authorize(Roles = "admin,superadmin")]
     [HttpDelete("monthly-report/{id}")]
     public async Task<IActionResult> DeleteMonthlyReport(int id)
     {
@@ -120,6 +129,8 @@ public class WooCommerceController : ControllerBase
 
         return NoContent();
     }
+
+    [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("reports")]
     public async Task<ActionResult<List<WooCommerceMonthlyReport>>> GetAllReports([FromQuery] WooCommerceStore store)
     {

@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace NotiZap.Dashboard.API.Controllers;
 
+[Authorize(Roles = "viewer,admin,superadmin")]
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
@@ -27,6 +29,7 @@ public class MailchimpController : ControllerBase
     var list = await _service.GetAvailableCampaignsAsync();
     return Ok(list);
   }
+
   [HttpGet("highlights")]
   public async Task<IActionResult> GetHighlights()
   {

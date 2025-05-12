@@ -5,6 +5,7 @@ public class NotizapDbContext : DbContext
         public NotizapDbContext(DbContextOptions<NotizapDbContext> options) : base(options) { }
 
         public DbSet<Reel> Reels => Set<Reel>();
+        public DbSet<Gasto> Gastos { get; set; }
         public DbSet<MercadoLibreManualReport> MercadoLibreManualReports { get; set; }
         public DbSet<WooCommerceMonthlyReport> WooCommerceMonthlyReports { get; set; }
         public DbSet<WooDailySale> WooDailySales { get; set; }
