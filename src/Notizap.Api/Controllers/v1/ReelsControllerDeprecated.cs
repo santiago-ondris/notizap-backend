@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
-public class ReelsController(IReelsService service) : ControllerBase
+public class ReelsControllerDeprecated(IReelsServiceDeprecated service) : ControllerBase
 {
-    private readonly IReelsService _service = service;
+    private readonly IReelsServiceDeprecated _service = service;
 
     [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet]

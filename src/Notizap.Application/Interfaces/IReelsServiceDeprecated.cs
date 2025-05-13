@@ -1,4 +1,4 @@
-public interface IReelsService
+public interface IReelsServiceDeprecated
 {
         Task<List<Reel>> GetAllAsync();
         Task<Reel?> GetByIdAsync(int id);

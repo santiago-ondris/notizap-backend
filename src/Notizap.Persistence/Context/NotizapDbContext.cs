@@ -9,9 +9,15 @@ public class NotizapDbContext : DbContext
         public DbSet<MercadoLibreManualReport> MercadoLibreManualReports { get; set; }
         public DbSet<WooCommerceMonthlyReport> WooCommerceMonthlyReports { get; set; }
         public DbSet<WooDailySale> WooDailySales { get; set; }
+        public DbSet<InstagramReel> InstagramReels => Set<InstagramReel>();
+        public DbSet<InstagramStory> InstagramStories => Set<InstagramStory>();
+        public DbSet<InstagramPost> InstagramPosts => Set<InstagramPost>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new InstagramReelConfiguration());
+            modelBuilder.ApplyConfiguration(new InstagramStoryConfiguration());
+            modelBuilder.ApplyConfiguration(new InstagramPostConfiguration());
             modelBuilder.Entity<Reel>(entity =>
             {
                 entity.HasKey(r => r.Id);

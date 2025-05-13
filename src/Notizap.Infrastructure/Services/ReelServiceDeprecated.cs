@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 
-public class ReelsService : IReelsService
+public class ReelsServiceDeprecated : IReelsServiceDeprecated
     {
         private readonly NotizapDbContext _context;
 
-        public ReelsService(NotizapDbContext context)
+        public ReelsServiceDeprecated(NotizapDbContext context)
         {
             _context = context;
         }

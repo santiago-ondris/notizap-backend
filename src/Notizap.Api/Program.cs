@@ -100,6 +100,12 @@ builder.Services.AddScoped<IReelsService, ReelsService>();
 builder.Services.AddScoped<IImageUploadService, ImageUploadService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGastoService, GastoService>();
+builder.Services.Configure<MetricoolSettings>(
+    builder.Configuration.GetSection("Metricool"));
+builder.Services.AddScoped<IReelsService, ReelsService>();
+builder.Services.AddScoped<IFollowersService, FollowersService>();
+builder.Services.AddScoped<IStoriesService, StoriesService>();
+builder.Services.AddScoped<IPostsService, PostsService>();
 
 // DbContext
 builder.Services.AddDbContext<NotizapDbContext>(options =>

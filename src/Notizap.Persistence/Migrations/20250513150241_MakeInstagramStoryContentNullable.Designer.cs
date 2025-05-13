@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Notizap.Api.Migrations
 {
     [DbContext(typeof(NotizapDbContext))]
-    partial class NotizapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250513150241_MakeInstagramStoryContentNullable")]
+    partial class MakeInstagramStoryContentNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,80 +52,6 @@ namespace Notizap.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Gastos");
-                });
-
-            modelBuilder.Entity("InstagramPost", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("BusinessId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<double>("Clicks")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("Comments")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Content")
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Cuenta")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<double>("Engagement")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime>("FechaPublicacion")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Impressions")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("Interactions")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("PostId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Reach")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Saved")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Shares")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("VideoViews")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId")
-                        .IsUnique();
-
-                    b.ToTable("InstagramPosts");
                 });
 
             modelBuilder.Entity("InstagramReel", b =>
@@ -228,6 +157,7 @@ namespace Notizap.Api.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("MediaUrl")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Permalink")
