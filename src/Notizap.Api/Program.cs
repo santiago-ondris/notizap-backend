@@ -109,6 +109,7 @@ builder.Services.AddScoped<IReelsService, ReelsService>();
 builder.Services.AddScoped<IFollowersService, FollowersService>();
 builder.Services.AddScoped<IStoriesService, StoriesService>();
 builder.Services.AddScoped<IPostsService, PostsService>();
+builder.Services.AddScoped<IEnvioService, EnvioService>();
 
 // DbContext
 builder.Services.AddDbContext<NotizapDbContext>(options =>

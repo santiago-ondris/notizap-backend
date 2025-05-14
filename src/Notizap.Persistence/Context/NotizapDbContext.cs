@@ -12,6 +12,7 @@ public class NotizapDbContext : DbContext
         public DbSet<InstagramStory> InstagramStories => Set<InstagramStory>();
         public DbSet<InstagramPost> InstagramPosts => Set<InstagramPost>();
         public DbSet<CampaignMailchimp> CampaignMailchimps => Set<CampaignMailchimp>();
+        public DbSet<EnvioDiario> EnviosDiarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
