@@ -93,7 +93,10 @@ builder.Services.AddSwaggerGen(options =>
 
 // Inyección de dependencias
 builder.Services.AddHttpClient();
-builder.Services.AddScoped<IMailchimpService, MailchimpService>();
+builder.Services.Configure<MailchimpSettings>(builder.Configuration.GetSection("Mailchimp"));
+builder.Services.AddScoped<IMailchimpServiceFactory, MailchimpServiceFactory>();
+builder.Services.AddScoped<IMailchimpSyncService, MailchimpSyncService>();
+builder.Services.AddScoped<IMailchimpQueryService, MailchimpQueryService>();
 builder.Services.AddScoped<IWooCommerceService, WooCommerceService>();
 builder.Services.AddScoped<IMercadoLibreService, MercadoLibreService>();
 builder.Services.AddScoped<IReelsService, ReelsService>();

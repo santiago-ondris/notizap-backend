@@ -9,31 +9,59 @@ namespace NotiZap.Dashboard.API.Controllers;
 [Route("api/v{version:apiVersion}/[controller]")]
 public class MailchimpController : ControllerBase
 {
-  private readonly IMailchimpService _service;
+    private readonly IMailchimpQueryService _queryService;
+    private readonly IMailchimpSyncService _syncService;
 
-  public MailchimpController(IMailchimpService service)
-  {
-    _service = service;
-  }
+    public MailchimpController(
+        IMailchimpQueryService queryService,
+        IMailchimpSyncService syncService)
+    {
+        _queryService = queryService;
+        _syncService = syncService;
+    }
 
-  [HttpGet("stats")]
-  public async Task<IActionResult> GetStats([FromQuery] string? campaignId)
-  {
-    var result = await _service.GetCampaignStatsAsync(campaignId);
-    return Ok(result);
-  }
+    /// <summary>
+    /// Devuelve campañas de Mailchimp almacenadas en la base de datos
+    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> GetAll([FromQuery] string cuenta)
+    {
+        var data = await _queryService.GetAllCampaignsAsync(cuenta);
+        return Ok(data);
+    }
 
-  [HttpGet("campaigns")]
-  public async Task<IActionResult> GetCampaigns()
-  {
-    var list = await _service.GetAvailableCampaignsAsync();
-    return Ok(list);
-  }
+    /// <summary>
+    /// Devuelve estadísticas de una campaña por ID (desde DB)
+    /// </summary>
+    [HttpGet("stats")]
+    public async Task<IActionResult> GetStats([FromQuery] string campaignId)
+    {
+        var result = await _queryService.GetStatsByCampaignIdAsync(campaignId);
+        return result is null ? NotFound() : Ok(result);
+    }
 
-  [HttpGet("highlights")]
-  public async Task<IActionResult> GetHighlights()
-  {
-    var result = await _service.GetHighlightsAsync();
-    return Ok(result);
-  }
+    /// <summary>
+    /// Devuelve las campañas destacadas (mayor open, click y conversion)
+    /// </summary>
+    [HttpGet("highlights")]
+    public async Task<IActionResult> GetHighlights([FromQuery] string cuenta)
+    {
+        var result = await _queryService.GetHighlightsAsync(cuenta);
+        return Ok(result);
+    }
+
+    /// <summary>
+    /// Sincroniza campañas desde la API de Mailchimp (solo admin)
+    /// </summary>
+    [HttpPost("sync")]
+    [Authorize(Roles = "admin,superadmin")]
+    public async Task<IActionResult> Sync([FromQuery] string cuenta)
+    {
+        var nuevas = await _syncService.SyncAsync(cuenta);
+
+        if (nuevas == 0)
+            return Ok("No se añadieron campañas nuevas, todas se encontraban ya en la base de datos.");
+        else
+            return Ok($"{nuevas} campaña(s) nueva(s) añadida(s) a la base de datos.");
+    }
 }
