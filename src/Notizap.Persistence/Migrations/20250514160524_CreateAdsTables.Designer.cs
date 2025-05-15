@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Notizap.Api.Migrations
 {
     [DbContext(typeof(NotizapDbContext))]
-    partial class NotizapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250514160524_CreateAdsTables")]
+    partial class CreateAdsTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,27 +35,11 @@ namespace Notizap.Api.Migrations
                     b.Property<int>("AdReportId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("CampaignId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Clicks")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("Ctr")
-                        .HasColumnType("numeric");
-
                     b.Property<DateTime>("FechaFin")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("FechaInicio")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("FollowersCount")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Impressions")
-                        .HasColumnType("integer");
 
                     b.Property<decimal>("MontoInvertido")
                         .HasColumnType("numeric");
@@ -65,9 +52,6 @@ namespace Notizap.Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Reach")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Resultados")
                         .IsRequired()
                         .HasColumnType("text");
@@ -75,9 +59,6 @@ namespace Notizap.Api.Migrations
                     b.Property<string>("Tipo")
                         .IsRequired()
                         .HasColumnType("text");
-
-                    b.Property<int>("ValorResultado")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

@@ -9,8 +9,11 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Notizap.Application.Ads.Services;
 using Notizap.Application.Mapping;
+using Notizap.Infrastructure.Ads;
 using Notizap.Infrastructure.Services;
+using Notizap.Infrastructure.Services.Publicidad;
 using NotiZap.Dashboard.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -110,6 +113,11 @@ builder.Services.AddScoped<IFollowersService, FollowersService>();
 builder.Services.AddScoped<IStoriesService, StoriesService>();
 builder.Services.AddScoped<IPostsService, PostsService>();
 builder.Services.AddScoped<IEnvioService, EnvioService>();
+builder.Services.AddScoped<IAdService, AdService>();
+builder.Services.Configure<MetaAdsSettings>(
+    builder.Configuration.GetSection("MetaAds"));
+builder.Services.AddScoped<IMetaAdsService, MetaAdsService>();
+builder.Services.AddScoped<IMixedAdsService, MixedAdsService>();    
 
 // DbContext
 builder.Services.AddDbContext<NotizapDbContext>(options =>

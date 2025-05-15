@@ -13,12 +13,17 @@ public class NotizapDbContext : DbContext
         public DbSet<InstagramPost> InstagramPosts => Set<InstagramPost>();
         public DbSet<CampaignMailchimp> CampaignMailchimps => Set<CampaignMailchimp>();
         public DbSet<EnvioDiario> EnviosDiarios { get; set; }
+        public DbSet<AdReport> AdReports { get; set; }
+        public DbSet<AdCampaign> AdCampaigns { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new InstagramReelConfiguration());
             modelBuilder.ApplyConfiguration(new InstagramStoryConfiguration());
             modelBuilder.ApplyConfiguration(new InstagramPostConfiguration());
+
+            modelBuilder.ApplyConfiguration(new AdReportConfiguration());
+            modelBuilder.ApplyConfiguration(new AdCampaignConfiguration());
 
             // Relación WooCommerce Report -> DailySales
             modelBuilder.Entity<WooCommerceMonthlyReport>()

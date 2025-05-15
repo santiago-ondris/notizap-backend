@@ -24,7 +24,8 @@ public class EnviosController : ControllerBase
     [Authorize(Roles = "viewer,admin,superadmin")]
     public async Task<ActionResult<EnvioDiarioDto>> GetPorFecha([FromQuery] DateTime fecha)
     {
-        var envio = await _envioService.ObtenerPorFechaAsync(fecha);
+        var fechaUtc = DateTime.SpecifyKind(fecha, DateTimeKind.Utc);
+        var envio = await _envioService.ObtenerPorFechaAsync(fechaUtc);
         if (envio == null) return NotFound();
         return envio;
     }
