@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/envios")]
@@ -15,6 +16,7 @@ public class EnviosController : ControllerBase
 
     [HttpGet("mensual")]
     [Authorize(Roles = "viewer,admin,superadmin")]
+    [SwaggerOperation(Summary = "Obtener envios mensuales")]
     public async Task<ActionResult<List<EnvioDiarioDto>>> GetMensual([FromQuery] int year, [FromQuery] int month)
     {
         return await _envioService.ObtenerPorMesAsync(year, month);
@@ -22,6 +24,7 @@ public class EnviosController : ControllerBase
 
     [HttpGet("fecha")]
     [Authorize(Roles = "viewer,admin,superadmin")]
+    [SwaggerOperation(Summary = "Obtener envios por dia")]
     public async Task<ActionResult<EnvioDiarioDto>> GetPorFecha([FromQuery] DateTime fecha)
     {
         var fechaUtc = DateTime.SpecifyKind(fecha, DateTimeKind.Utc);
@@ -32,6 +35,7 @@ public class EnviosController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Crear un envio")]
     public async Task<IActionResult> Post([FromBody] CreateEnvioDiarioDto dto)
     {
         await _envioService.CrearOActualizarAsync(dto);
@@ -40,6 +44,7 @@ public class EnviosController : ControllerBase
 
     [HttpPut("{id}")]
     [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Actualizar un envio diario")]
     public async Task<IActionResult> Put(int id, [FromBody] CreateEnvioDiarioDto dto)
     {
         await _envioService.EditarAsync(id, dto);
@@ -48,6 +53,7 @@ public class EnviosController : ControllerBase
 
     [HttpDelete("{id}")]
     [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Eliminar un envio diario")]
     public async Task<IActionResult> Delete(int id)
     {
         await _envioService.EliminarAsync(id);
@@ -56,6 +62,7 @@ public class EnviosController : ControllerBase
 
     [HttpGet("resumen")]
     [Authorize(Roles = "viewer,admin,superadmin")]
+    [SwaggerOperation(Summary = "Obtener resumen mensual de envios")]
     public async Task<ActionResult<EnvioResumenMensualDto>> GetResumen([FromQuery] int year, [FromQuery] int month)
     {
         var resumen = await _envioService.ObtenerResumenMensualAsync(year, month);

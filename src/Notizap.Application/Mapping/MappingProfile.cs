@@ -56,7 +56,19 @@ namespace Notizap.Application.Mapping
                 .ForMember(dest => dest.FechaInicio,    opt => opt.MapFrom(src => src.Start))
                 .ForMember(dest => dest.FechaFin,       opt => opt.MapFrom(src => src.End))
 
-                .ForMember(dest => dest.FollowersCount, opt => opt.Ignore());   
-                    }
+                .ForMember(dest => dest.FollowersCount, opt => opt.Ignore());
+
+            CreateMap<CreateProductAdDto, ReportePublicidadML>()
+                .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => TipoPublicidadML.ProductAds));
+
+            CreateMap<CreateBrandAdDto, ReportePublicidadML>()
+                .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => TipoPublicidadML.BrandAds));
+
+            CreateMap<CreateDisplayAdDto, ReportePublicidadML>()
+                .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => TipoPublicidadML.DisplayAds));
+
+            CreateMap<DisplayAnuncioDto, AnuncioDisplayML>();   
+        }
+                    
     }
 }

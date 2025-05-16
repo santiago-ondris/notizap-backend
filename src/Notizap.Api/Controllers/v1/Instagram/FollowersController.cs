@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Notizap.API.Controllers.v1;
 
@@ -17,6 +18,7 @@ public class FollowersController : ControllerBase
     }
 
     [HttpGet("{account}/followers")]
+    [SwaggerOperation(Summary = "Obtener seguidores de Instagram")]
     public async Task<ActionResult<List<FollowerDayData>>> GetFollowersMetrics(string account, [FromQuery] DateTime from, [FromQuery] DateTime to)
     {
         try

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Notizap.API.Controllers.v1;
 
@@ -17,6 +18,7 @@ public class PostsController : ControllerBase
     }
 
     [HttpGet("{account}/posts/top")]
+    [SwaggerOperation(Summary = "Obtener posteos de Instagram")]
     public async Task<ActionResult<List<InstagramPost>>> GetTopPosts(
         string account,
         [FromQuery] DateTime from,
@@ -42,6 +44,7 @@ public class PostsController : ControllerBase
         }
     }
     [HttpPost("{account}/posts/sync")]
+    [SwaggerOperation(Summary = "Obtener posteos de Instagram desde la API de Metricool")]
     public async Task<IActionResult> SyncInstagramPosts(string account, [FromQuery] DateTime from, [FromQuery] DateTime to)
     {
         try

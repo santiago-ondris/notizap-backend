@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Notizap.API.Controllers.v1;
 
@@ -17,6 +18,7 @@ public class StoriesController : ControllerBase
     }
 
     [HttpGet("{account}/stories/top")]
+    [SwaggerOperation(Summary = "Obtener Stories ordenadas")]
     public async Task<ActionResult<List<InstagramStory>>> GetTopStories(
         string account,
         [FromQuery] DateTime from,
@@ -43,6 +45,7 @@ public class StoriesController : ControllerBase
     }
 
     [HttpPost("{account}/stories/sync")]
+    [SwaggerOperation(Summary = "Obtener Stories desde la API de Metricool")]
     public async Task<IActionResult> SyncInstagramStories(string account, [FromQuery] DateTime from, [FromQuery] DateTime to)
     {
         try

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Notizap.API.Controllers.v1;
 
@@ -17,6 +18,7 @@ public class ReelsController : ControllerBase
     }
 
     [HttpPost("{account}/reels/sync")]
+    [SwaggerOperation(Summary = "Obtener Reels desde la API de Metricool")]
     public async Task<IActionResult> SyncInstagramReels(string account, [FromQuery] DateTime from, [FromQuery] DateTime to)
     {
         try
@@ -34,7 +36,9 @@ public class ReelsController : ControllerBase
             });
         }
     }
+
     [HttpGet("{account}/reels/top-views")]
+    [SwaggerOperation(Summary = "Obtener Reels con mas vistas")]
     public async Task<ActionResult<List<InstagramReel>>> GetTopReelsByViews(string account, [FromQuery] DateTime from, [FromQuery] DateTime to)
     {
         var result = await _reelsService.GetTopReelsByViewsAsync(account, from, to);
@@ -42,12 +46,15 @@ public class ReelsController : ControllerBase
     }
 
     [HttpGet("{account}/reels/top-likes")]
+    [SwaggerOperation(Summary = "Obtener Reels con mas likes")]
     public async Task<ActionResult<List<InstagramReel>>> GetTopReelsByLikes(string account, [FromQuery] DateTime from, [FromQuery] DateTime to)
     {
         var result = await _reelsService.GetTopReelsByLikesAsync(account, from, to);
         return Ok(result);
     }
+
     [HttpGet("{account}/reels/all")]
+    [SwaggerOperation(Summary = "Obtener todos los Reels")]
     public async Task<ActionResult<List<InstagramReel>>> GetAllReels(string account, [FromQuery] DateTime from, [FromQuery] DateTime to)
     {
         var result = await _reelsService.GetAllReelsAsync(account, from, to);

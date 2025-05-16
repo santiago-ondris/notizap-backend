@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Notizap.Application.Ads.Dtos;
 using Notizap.Application.Ads.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
 [Route("api/v{version:apiVersion}/publicidad")]
@@ -25,6 +23,7 @@ public class PublicidadController : ControllerBase
 
     [HttpGet]
     [Authorize(Roles = "viewer,admin,superadmin")]
+    [SwaggerOperation(Summary = "Obtener todos los reportes de campañas")]
     public async Task<ActionResult<List<AdReportDto>>> GetAll()
     {
         var result = await _adService.GetAllAsync();
@@ -33,6 +32,7 @@ public class PublicidadController : ControllerBase
 
     [HttpGet("{id}")]
     [Authorize(Roles = "viewer,admin,superadmin")]
+    [SwaggerOperation(Summary = "Obtener un reporte de campaña por Id")]
     public async Task<ActionResult<AdReportDto>> GetById(int id)
     {
         var result = await _adService.GetByIdAsync(id);
@@ -44,6 +44,7 @@ public class PublicidadController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Crear un reporte de campañas")]
     public async Task<ActionResult<AdReportDto>> Create(SaveAdReportDto dto)
     {
         var result = await _adService.CreateAsync(dto);
@@ -52,6 +53,7 @@ public class PublicidadController : ControllerBase
 
     [HttpPut("{id}")]
     [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Actualizar un reporte de campañas")]
     public async Task<ActionResult<AdReportDto>> Update(int id, SaveAdReportDto dto)
     {
         var result = await _adService.UpdateAsync(id, dto);
@@ -63,6 +65,7 @@ public class PublicidadController : ControllerBase
 
     [HttpDelete("{id}")]
     [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Eliminar un reporte de campañas")]
     public async Task<ActionResult> Delete(int id)
     {
         var deleted = await _adService.DeleteAsync(id);
@@ -74,19 +77,22 @@ public class PublicidadController : ControllerBase
 
     [HttpGet("stats/resumen")]
     [Authorize(Roles = "viewer,admin,superadmin")]
+    [SwaggerOperation(Summary = "Obtener resumen mensual de campañas")]
     public async Task<ActionResult<List<PublicidadResumenMensualDto>>> GetResumenMensual(
         [FromQuery] int year,
-        [FromQuery] int month)
+        [FromQuery] int month,
+        [FromQuery] string? unidad = null)
     {
         if (month < 1 || month > 12)
             return BadRequest("Mes inválido. Debe estar entre 1 y 12.");
 
-        var result = await _adService.GetResumenMensualAsync(year, month);
+        var result = await _adService.GetResumenMensualAsync(year, month, unidad!);
         return Ok(result);
     }
 
     [HttpGet("meta-insights")]
     [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Obtener metricas campañas desde Meta")]
     public async Task<ActionResult<List<MetaCampaignInsightDto>>> GetMetaInsights(
         [FromQuery] string unidad,
         [FromQuery] DateTime from,
@@ -106,6 +112,7 @@ public class PublicidadController : ControllerBase
 
     [HttpGet("mixed-insights")]
     [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Obtener un reporte con metricas de la API y manuales")]
     public async Task<ActionResult<List<MixedCampaignInsightDto>>> GetMixedInsights(
         [FromQuery] string unidad,
         [FromQuery] DateTime from,
@@ -125,22 +132,16 @@ public class PublicidadController : ControllerBase
         return Ok(insights);
     }
 
-    [HttpPost("{id}/sync")]
+    [HttpPost("sync")]
     [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Sincronizar metricas de la API de meta a la DB")]
     public async Task<ActionResult<SyncResultDto>> SyncFromApi(
-        int id,
         [FromQuery] string unidad,
         [FromQuery] DateTime from,
         [FromQuery] DateTime to)
     {
-        var accountId = unidad.ToLower() switch
-        {
-            "montella" => "act_70862159",
-            "alenka"   => "act_891129171656093",
-            _ => throw new ArgumentException("Unidad de negocio no reconocida.")
-        };
-
-        var result = await _adService.SyncReportFromApiAsync(id, accountId, from, to);
+        var result = await _adService
+            .SyncReportFromApiAsync(unidad, from, to);
         return Ok(result);
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Notizap.API.Controllers.v1
 {
@@ -17,6 +18,7 @@ namespace Notizap.API.Controllers.v1
 
         [HttpGet]
         [Authorize(Roles = "viewer,admin,superadmin")]
+        [SwaggerOperation(Summary = "Obtener todos los gastos")]
         public async Task<IActionResult> ObtenerTodos()
         {
             var gastos = await _gastoService.ObtenerTodosAsync();
@@ -25,6 +27,7 @@ namespace Notizap.API.Controllers.v1
 
         [HttpGet("{id}")]
         [Authorize(Roles = "viewer,admin,superadmin")]
+        [SwaggerOperation(Summary = "Obtener gasto por Id")]
         public async Task<IActionResult> ObtenerPorId(int id)
         {
             var gasto = await _gastoService.ObtenerPorIdAsync(id);
@@ -33,6 +36,7 @@ namespace Notizap.API.Controllers.v1
 
         [HttpPost]
         [Authorize(Roles = "admin,superadmin")]
+        [SwaggerOperation(Summary = "Crear un gasto")]
         public async Task<IActionResult> Crear([FromBody] CreateGastoDto dto)
         {
             var nuevoGasto = await _gastoService.CrearAsync(dto);
@@ -41,6 +45,7 @@ namespace Notizap.API.Controllers.v1
 
         [HttpPut("{id}")]
         [Authorize(Roles = "admin,superadmin")]
+        [SwaggerOperation(Summary = "Actualizar gasto")]
         public async Task<IActionResult> Actualizar(int id, [FromBody] UpdateGastoDto dto)
         {
             var actualizado = await _gastoService.ActualizarAsync(id, dto);
@@ -49,6 +54,7 @@ namespace Notizap.API.Controllers.v1
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin,superadmin")]
+        [SwaggerOperation(Summary = "Eliminar un gasto")]
         public async Task<IActionResult> Eliminar(int id)
         {
             var eliminado = await _gastoService.EliminarAsync(id);

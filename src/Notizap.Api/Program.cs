@@ -67,6 +67,8 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1",
         Description = "Documentación de la API versionada de Notizap"
     });
+
+    options.EnableAnnotations();
         
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -117,7 +119,9 @@ builder.Services.AddScoped<IAdService, AdService>();
 builder.Services.Configure<MetaAdsSettings>(
     builder.Configuration.GetSection("MetaAds"));
 builder.Services.AddScoped<IMetaAdsService, MetaAdsService>();
-builder.Services.AddScoped<IMixedAdsService, MixedAdsService>();    
+builder.Services.AddScoped<IMixedAdsService, MixedAdsService>();
+builder.Services.AddScoped<IMercadoLibrePublicidadService, MercadoLibrePublicidadService>();
+builder.Services.AddScoped<IMercadoLibreExcelProcessor, MercadoLibreExcelProcessor>();    
 
 // DbContext
 builder.Services.AddDbContext<NotizapDbContext>(options =>

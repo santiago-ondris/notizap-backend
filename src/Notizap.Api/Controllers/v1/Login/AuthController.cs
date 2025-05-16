@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Notizap.API.Controllers.v1
 {
@@ -17,6 +18,7 @@ namespace Notizap.API.Controllers.v1
 
         [AllowAnonymous]
         [HttpPost("login")]
+        [SwaggerOperation(Summary = "Inicio de sesion")]
         public IActionResult Login([FromBody] LoginRequestDto request)
         {
             try

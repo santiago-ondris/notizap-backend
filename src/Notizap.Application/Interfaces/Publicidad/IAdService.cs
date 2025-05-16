@@ -5,6 +5,6 @@ public interface IAdService
     Task<AdReportDto> CreateAsync(SaveAdReportDto dto);
     Task<AdReportDto?> UpdateAsync(int id, SaveAdReportDto dto);
     Task<bool> DeleteAsync(int id);
-    Task<List<PublicidadResumenMensualDto>> GetResumenMensualAsync(int year, int month);
-    Task<SyncResultDto> SyncReportFromApiAsync(int reportId, string adAccountId, DateTime from, DateTime to);
+    Task<List<PublicidadResumenMensualDto>> GetResumenMensualAsync(int year, int month, string unidadNegocio = null!);
+    Task<SyncResultDto> SyncReportFromApiAsync(string unidadNegocio, DateTime from, DateTime to);
 }

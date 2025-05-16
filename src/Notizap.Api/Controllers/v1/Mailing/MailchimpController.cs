@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace NotiZap.Dashboard.API.Controllers;
 
@@ -20,40 +21,32 @@ public class MailchimpController : ControllerBase
         _syncService = syncService;
     }
 
-    /// <summary>
-    /// Devuelve campañas de Mailchimp almacenadas en la base de datos
-    /// </summary>
     [HttpGet]
+    [SwaggerOperation(Summary = "Obtener campañas de Mailchimp de la DB")]
     public async Task<IActionResult> GetAll([FromQuery] string cuenta)
     {
         var data = await _queryService.GetAllCampaignsAsync(cuenta);
         return Ok(data);
     }
 
-    /// <summary>
-    /// Devuelve estadísticas de una campaña por ID (desde DB)
-    /// </summary>
     [HttpGet("stats")]
+    [SwaggerOperation(Summary = "Obtener una campaña de Mailchimp por Id")]
     public async Task<IActionResult> GetStats([FromQuery] string campaignId)
     {
         var result = await _queryService.GetStatsByCampaignIdAsync(campaignId);
         return result is null ? NotFound() : Ok(result);
     }
 
-    /// <summary>
-    /// Devuelve las campañas destacadas (mayor open, click y conversion)
-    /// </summary>
     [HttpGet("highlights")]
+    [SwaggerOperation(Summary = "Obtener campañas destacadas (mayor open, click y conversion)")]
     public async Task<IActionResult> GetHighlights([FromQuery] string cuenta)
     {
         var result = await _queryService.GetHighlightsAsync(cuenta);
         return Ok(result);
     }
 
-    /// <summary>
-    /// Sincroniza campañas desde la API de Mailchimp (solo admin)
-    /// </summary>
     [HttpPost("sync")]
+    [SwaggerOperation(Summary = "Sincroniza campaña desde la API de Mailchimp")]
     [Authorize(Roles = "admin,superadmin")]
     public async Task<IActionResult> Sync([FromQuery] string cuenta)
     {

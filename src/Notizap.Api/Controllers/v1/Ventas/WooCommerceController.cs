@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace NotiZap.Dashboard.API.Controllers;
 
@@ -20,6 +21,7 @@ public class WooCommerceController : ControllerBase
 
     [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("simple-stats")]
+    [SwaggerOperation(Summary = "Llamar a la API de WooCommere para obtener metricas de ventas")]
     public async Task<ActionResult<SalesStatsDto>> GetSimpleStats(
         [FromQuery] DateTime from,
         [FromQuery] DateTime to,
@@ -34,6 +36,7 @@ public class WooCommerceController : ControllerBase
 
     [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("top-products")]
+    [SwaggerOperation(Summary = "Llamar a la API de WooCommere para obtener top productos vendidos")]
     public async Task<ActionResult<List<ProductStatsDto>>> GetTopProducts(
         [FromQuery] DateTime from,
         [FromQuery] DateTime to,
@@ -49,6 +52,7 @@ public class WooCommerceController : ControllerBase
 
     [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("monthly")]
+    [SwaggerOperation(Summary = "Llamar a la API de WooCommere para obtener resumen vensual de ventas")]
     public async Task<ActionResult<SalesStatsDto>> GetMonthly(
         [FromQuery] int year,
         [FromQuery] int month,
@@ -63,6 +67,7 @@ public class WooCommerceController : ControllerBase
 
     [Authorize(Roles = "admin,superadmin")]
     [HttpPost("monthly-report/save")]
+    [SwaggerOperation(Summary = "Guardar reporte de ventas en la DB")]
     public async Task<ActionResult<WooCommerceMonthlyReport>> SaveMonthly([FromBody] SaveWooMonthlyReportDto dto)
     {
         var result = await _wooService.SaveMonthlyReportAsync(dto);
@@ -71,6 +76,7 @@ public class WooCommerceController : ControllerBase
 
     [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("monthly-report")]
+    [SwaggerOperation(Summary = "Obtener reporte mensual de ventas de la DB")]
     public async Task<ActionResult<WooCommerceMonthlyReport>> GetSavedMonthlyReport(
         [FromQuery] int year,
         [FromQuery] int month,
@@ -85,6 +91,7 @@ public class WooCommerceController : ControllerBase
 
     [Authorize(Roles = "admin,superadmin")]
     [HttpPut("monthly-report/{id}")]
+    [SwaggerOperation(Summary = "Actualizar reporte en la DB")]
     public async Task<IActionResult> UpdateMonthlyReport(int id, [FromBody] SaveWooMonthlyReportDto dto)
     {
         var report = await _context.WooCommerceMonthlyReports
@@ -114,6 +121,7 @@ public class WooCommerceController : ControllerBase
 
     [Authorize(Roles = "admin,superadmin")]
     [HttpDelete("monthly-report/{id}")]
+    [SwaggerOperation(Summary = "Eliminar reporte de la DB")]
     public async Task<IActionResult> DeleteMonthlyReport(int id)
     {
         var report = await _context.WooCommerceMonthlyReports
@@ -132,6 +140,7 @@ public class WooCommerceController : ControllerBase
 
     [Authorize(Roles = "viewer,admin,superadmin")]
     [HttpGet("reports")]
+    [SwaggerOperation(Summary = "Obtener todos los reportes")]
     public async Task<ActionResult<List<WooCommerceMonthlyReport>>> GetAllReports([FromQuery] WooCommerceStore store)
     {
         var list = await _context.WooCommerceMonthlyReports
