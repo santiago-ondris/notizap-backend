@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Notizap.Api.Migrations
 {
     [DbContext(typeof(NotizapDbContext))]
-    partial class NotizapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250516171005_AddCambios")]
+    partial class AddCambios
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -223,9 +226,6 @@ namespace Notizap.Api.Migrations
                     b.Property<int>("IdOperativa")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("IdOrdenRetiro")
-                        .HasColumnType("integer");
-
                     b.Property<decimal>("Largo")
                         .HasColumnType("numeric");
 
@@ -285,12 +285,6 @@ namespace Notizap.Api.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("TrackingNumber")
-                        .HasColumnType("text");
-
-                    b.Property<string>("UrlEtiquetaPdf")
-                        .HasColumnType("text");
-
                     b.Property<decimal>("ValorDeclarado")
                         .HasColumnType("numeric");
 
@@ -340,57 +334,6 @@ namespace Notizap.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CampaignMailchimps");
-                });
-
-            modelBuilder.Entity("Devolucion", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Celular")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("DineroDevuelto")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("LlegoAlDeposito")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("Modelo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<decimal?>("Monto")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Motivo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("NotaCreditoEmitida")
-                        .HasColumnType("boolean");
-
-                    b.Property<decimal?>("PagoEnvio")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Pedido")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Responsable")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Devoluciones");
                 });
 
             modelBuilder.Entity("EnvioDiario", b =>

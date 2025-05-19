@@ -122,6 +122,8 @@ builder.Services.AddScoped<IMetaAdsService, MetaAdsService>();
 builder.Services.AddScoped<IMixedAdsService, MixedAdsService>();
 builder.Services.AddScoped<IMercadoLibrePublicidadService, MercadoLibrePublicidadService>();
 builder.Services.AddScoped<IMercadoLibreExcelProcessor, MercadoLibreExcelProcessor>();    
+builder.Services.AddScoped<ICambioService, CambioService>();
+builder.Services.AddScoped<IOcaService, OcaService>();        
 
 // DbContext
 builder.Services.AddDbContext<NotizapDbContext>(options =>
@@ -152,6 +154,12 @@ builder.Services.AddAuthorization(options =>
         .RequireAuthenticatedUser()
         .Build();
 });    
+
+builder.Services.Configure<OcaSettings>(
+    builder.Configuration.GetSection("OcaSettings")
+);
+builder.Services.Configure<OcaOperativasSettings>(
+    builder.Configuration.GetSection("OcaOperativas"));
 
 var app = builder.Build();
 

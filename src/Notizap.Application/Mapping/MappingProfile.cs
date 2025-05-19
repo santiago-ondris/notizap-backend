@@ -67,7 +67,14 @@ namespace Notizap.Application.Mapping
             CreateMap<CreateDisplayAdDto, ReportePublicidadML>()
                 .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => TipoPublicidadML.DisplayAds));
 
-            CreateMap<DisplayAnuncioDto, AnuncioDisplayML>();   
+            CreateMap<DisplayAnuncioDto, AnuncioDisplayML>();  
+             
+            CreateMap<CreateCambioDto, Cambio>();
+            CreateMap<Cambio, CambioDto>();
+            CreateMap<CambioDto, Cambio>();
+            CreateMap<CreateDevolucionDto, Devolucion>();
+            CreateMap<Devolucion, DevolucionDto>();
+            CreateMap<DevolucionDto, Devolucion>();
         }
                     
     }
