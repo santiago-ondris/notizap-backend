@@ -9,12 +9,9 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Notizap.Application.Ads.Services;
+using Notizap.API.Extensions;
 using Notizap.Application.Mapping;
-using Notizap.Infrastructure.Ads;
-using Notizap.Infrastructure.Services;
-using Notizap.Infrastructure.Services.Publicidad;
-using NotiZap.Dashboard.API.Services;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -98,32 +95,7 @@ builder.Services.AddSwaggerGen(options =>
 
 // Inyección de dependencias
 builder.Services.AddHttpClient();
-builder.Services.Configure<MailchimpSettings>(builder.Configuration.GetSection("Mailchimp"));
-builder.Services.AddScoped<IMailchimpServiceFactory, MailchimpServiceFactory>();
-builder.Services.AddScoped<IMailchimpSyncService, MailchimpSyncService>();
-builder.Services.AddScoped<IMailchimpQueryService, MailchimpQueryService>();
-builder.Services.AddScoped<IWooCommerceService, WooCommerceService>();
-builder.Services.AddScoped<IMercadoLibreService, MercadoLibreService>();
-builder.Services.AddScoped<IReelsService, ReelsService>();
-builder.Services.AddScoped<IImageUploadService, ImageUploadService>();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IGastoService, GastoService>();
-builder.Services.Configure<MetricoolSettings>(
-    builder.Configuration.GetSection("Metricool"));
-builder.Services.AddScoped<IReelsService, ReelsService>();
-builder.Services.AddScoped<IFollowersService, FollowersService>();
-builder.Services.AddScoped<IStoriesService, StoriesService>();
-builder.Services.AddScoped<IPostsService, PostsService>();
-builder.Services.AddScoped<IEnvioService, EnvioService>();
-builder.Services.AddScoped<IAdService, AdService>();
-builder.Services.Configure<MetaAdsSettings>(
-    builder.Configuration.GetSection("MetaAds"));
-builder.Services.AddScoped<IMetaAdsService, MetaAdsService>();
-builder.Services.AddScoped<IMixedAdsService, MixedAdsService>();
-builder.Services.AddScoped<IMercadoLibrePublicidadService, MercadoLibrePublicidadService>();
-builder.Services.AddScoped<IMercadoLibreExcelProcessor, MercadoLibreExcelProcessor>();    
-builder.Services.AddScoped<ICambioService, CambioService>();
-builder.Services.AddScoped<IOcaService, OcaService>();        
+builder.Services.AddNotizapServices(builder.Configuration);        
 
 // DbContext
 builder.Services.AddDbContext<NotizapDbContext>(options =>
@@ -165,6 +137,8 @@ var app = builder.Build();
 
 // Obtener proveedor de versiones de API
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+QuestPDF.Settings.License = LicenseType.Community;
+QuestPDF.Settings.EnableDebugging = true;
 
 // Middleware
 app.UseCors("AllowFrontend");
