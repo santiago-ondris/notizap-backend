@@ -5,7 +5,8 @@ using QuestPDF.Fluent;
 namespace Notizap.API.Controllers;
 
 [ApiController]
-[Route("api/v1/informe-global")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/informe-global")]
 public class InformeController : ControllerBase
 {
     private readonly IInformeMensualService _informeService;

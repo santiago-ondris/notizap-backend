@@ -20,6 +20,7 @@ public class NotizapDbContext : DbContext
         public DbSet<ExcelTopProductoML> ExcelTopProductosML { get; set; }
         public DbSet<Cambio> Cambios { get; set; }
         public DbSet<Devolucion> Devoluciones { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

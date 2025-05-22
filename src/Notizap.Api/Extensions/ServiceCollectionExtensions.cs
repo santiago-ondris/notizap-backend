@@ -52,6 +52,10 @@ namespace Notizap.API.Extensions
             services.AddScoped<CambiosResumenBuilder>();
             services.AddScoped<IInformeMensualService, InformeMensualService>();
 
+            services.AddScoped<IImageProcessingService, ImageProcessingService>();
+
+            services.AddScoped<IEmailService, EmailService>();
+
             return services;
         }
     }

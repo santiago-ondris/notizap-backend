@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -9,29 +10,51 @@ namespace Notizap.Infrastructure.Services
     public class AuthService : IAuthService
     {
         private readonly IConfiguration _config;
+        private readonly NotizapDbContext _context;
 
-        // Lista de usuarios mockeados
-        private readonly List<User> _users = new()
-        {
-            new User { Email = "viewer@notizap.com", Password = "viewer123", Role = "viewer" },
-            new User { Email = "admin@notizap.com", Password = "admin123", Role = "admin" },
-            new User { Email = "superadmin@notizap.com", Password = "superadmin123", Role = "superadmin" }
-        };
-
-        public AuthService(IConfiguration config)
+        public AuthService(IConfiguration config, NotizapDbContext context)
         {
             _config = config;
+            _context = context;
         }
 
-        public LoginResponseDto Authenticate(LoginRequestDto request)
+        public async Task<UserDto> RegisterAsync(CreateUserDto dto)
         {
-            var user = _users.SingleOrDefault(u =>
-                u.Email.Equals(request.Email, StringComparison.OrdinalIgnoreCase) &&
-                u.Password == request.Password);
+            if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
+                throw new Exception("El email ya está registrado");
 
-            if (user == null)
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+
+            var user = new User
+            {
+                Username = dto.Username,
+                Email = dto.Email,
+                PasswordHash = passwordHash,
+                Role = "superadmin"
+            };
+
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            return new UserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Email = user.Email,
+                Role = user.Role
+            };
+        }
+
+
+        public async Task<LoginResponseDto> AuthenticateAsync(LoginRequestDto request)
+        {
+            var user = await _context.Users
+                .SingleOrDefaultAsync(u => u.Email.ToLower() == request.Email.ToLower());
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 throw new UnauthorizedAccessException("Credenciales inválidas");
 
+            // Generar token
             var token = GenerateJwtToken(user);
 
             return new LoginResponseDto
@@ -57,7 +80,7 @@ namespace Notizap.Infrastructure.Services
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(2),
+                expires: DateTime.UtcNow.AddMonths(6),
                 signingCredentials: creds
             );
 
