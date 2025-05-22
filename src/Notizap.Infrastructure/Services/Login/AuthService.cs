@@ -30,7 +30,7 @@ namespace Notizap.Infrastructure.Services
                 Username = dto.Username,
                 Email = dto.Email,
                 PasswordHash = passwordHash,
-                Role = "superadmin"
+                Role = "viewer"
             };
 
             _context.Users.Add(user);
@@ -60,7 +60,9 @@ namespace Notizap.Infrastructure.Services
             return new LoginResponseDto
             {
                 Token = token,
-                Role = user.Role
+                Role = user.Role,
+                Username = user.Username,
+                Email = user.Email
             };
         }
 

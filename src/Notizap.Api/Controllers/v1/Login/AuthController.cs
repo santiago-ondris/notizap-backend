@@ -66,7 +66,7 @@ namespace Notizap.API.Controllers.v1
                 user.PasswordResetTokenExpiry = DateTime.UtcNow.AddHours(1);
                 await _context.SaveChangesAsync();
 
-                var resetLink = $"hhttp://localhost:5173/reset-password?token={token}";
+                var resetLink = $"http://localhost:5173/reset-password?token={token}";
                 await _emailService.SendPasswordResetEmailAsync(user.Email, resetLink);
             }
 

@@ -19,7 +19,7 @@ public class WooCommerceController : ControllerBase
         _context = context;
     }
 
-    [Authorize(Roles = "viewer,admin,superadmin")]
+    [Authorize(Roles = "admin,superadmin")]
     [HttpGet("simple-stats")]
     [SwaggerOperation(Summary = "Llamar a la API de WooCommere para obtener metricas de ventas")]
     public async Task<ActionResult<SalesStatsDto>> GetSimpleStats(
@@ -34,7 +34,7 @@ public class WooCommerceController : ControllerBase
         return Ok(stats);
     }
 
-    [Authorize(Roles = "viewer,admin,superadmin")]
+    [Authorize(Roles = "admin,superadmin")]
     [HttpGet("top-products")]
     [SwaggerOperation(Summary = "Llamar a la API de WooCommere para obtener top productos vendidos")]
     public async Task<ActionResult<List<ProductStatsDto>>> GetTopProducts(
@@ -50,7 +50,7 @@ public class WooCommerceController : ControllerBase
         return Ok(list);
     }
 
-    [Authorize(Roles = "viewer,admin,superadmin")]
+    [Authorize(Roles = "admin,superadmin")]
     [HttpGet("monthly")]
     [SwaggerOperation(Summary = "Llamar a la API de WooCommere para obtener resumen vensual de ventas")]
     public async Task<ActionResult<SalesStatsDto>> GetMonthly(
