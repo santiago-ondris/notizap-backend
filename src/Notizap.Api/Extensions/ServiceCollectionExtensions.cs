@@ -53,6 +53,9 @@ namespace Notizap.API.Extensions
             services.AddScoped<IInformeMensualService, InformeMensualService>();
 
             services.AddScoped<IImageProcessingService, ImageProcessingService>();
+            services.AddScoped<IComprasMergeService, ComprasMergeService>();
+            services.AddScoped<AnalisisRotacionService>();
+            services.AddScoped<IEvolucionStockService, EvolucionStockService>();
 
             services.AddScoped<IEmailService, EmailService>();
 

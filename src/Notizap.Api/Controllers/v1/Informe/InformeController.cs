@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuestPDF.Fluent;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Notizap.API.Controllers;
 
@@ -18,6 +19,7 @@ public class InformeController : ControllerBase
 
     [HttpGet("pdf")]
     [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Informe global PDF de metricas")]
     public async Task<IActionResult> ObtenerPdf([FromQuery] int year, [FromQuery] int month, [FromQuery] bool visual = true)
     {
         var resumen = await _informeService.GenerarResumenMensualAsync(year, month);

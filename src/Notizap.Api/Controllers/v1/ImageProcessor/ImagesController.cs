@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
 [ApiVersion("1.0")]
@@ -12,6 +13,7 @@ public class ImagesController : ControllerBase
     }
 
     [HttpPost("process")]
+    [SwaggerOperation(Summary = "Convierte imagenes a 1600x1600, 72DPI, JPG")]
     [RequestSizeLimit(100_000_000)]
     public async Task<IActionResult> ProcessImages(
         [FromForm] List<IFormFile> files,

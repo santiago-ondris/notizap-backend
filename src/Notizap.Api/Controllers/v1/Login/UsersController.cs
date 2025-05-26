@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
 [ApiVersion("1.0")]
@@ -17,6 +18,7 @@ public class UsersController : ControllerBase
 
     // 1. Listar todos los usuarios
     [HttpGet]
+    [SwaggerOperation(Summary = "Obtiene todos los usuarios de la DB")]
     public async Task<ActionResult<List<UserDto>>> GetUsers()
     {
         var users = await _context.Users
@@ -34,6 +36,7 @@ public class UsersController : ControllerBase
 
     // 2. Cambiar rol de usuario (solo admin o viewer, nunca superadmin)
     [HttpPut("{id}/role")]
+    [SwaggerOperation(Summary = "Cambio el rol del usuario")]
     public async Task<IActionResult> UpdateUserRole(int id, [FromBody] UpdateUserRoleDto dto)
     {
         if (dto.Role != "admin" && dto.Role != "viewer")

@@ -39,6 +39,7 @@ namespace Notizap.API.Controllers.v1
 
         [HttpPost("register")]
         [AllowAnonymous]
+        [SwaggerOperation(Summary = "Regitro de usuario")]
         public async Task<IActionResult> Register([FromBody] CreateUserDto dto)
         {
             try
@@ -54,6 +55,7 @@ namespace Notizap.API.Controllers.v1
 
         [HttpPost("forgot-password")]
         [AllowAnonymous]
+        [SwaggerOperation(Summary = "Contraseña olvidada")]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto dto)
         {
             var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == dto.Email);
@@ -74,6 +76,7 @@ namespace Notizap.API.Controllers.v1
         }
 
         [HttpPost("reset-password")]
+        [SwaggerOperation(Summary = "Reseteo de contraseña")]
         [AllowAnonymous]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto dto)
         {
