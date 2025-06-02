@@ -16,7 +16,6 @@ public class UsersController : ControllerBase
         _context = context;
     }
 
-    // 1. Listar todos los usuarios
     [HttpGet]
     [SwaggerOperation(Summary = "Obtiene todos los usuarios de la DB")]
     public async Task<ActionResult<List<UserDto>>> GetUsers()
@@ -51,6 +50,23 @@ public class UsersController : ControllerBase
             return BadRequest(new { message = "No se puede modificar el rol de un superadmin." });
 
         user.Role = dto.Role;
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+    [HttpDelete("{id}")]
+    [SwaggerOperation(Summary = "Elimina un usuario (excepto superadmin)")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        var user = await _context.Users.FindAsync(id);
+
+        if (user == null)
+            return NotFound(new { message = "Usuario no encontrado." });
+
+        if (user.Role == "superadmin")
+            return BadRequest(new { message = "No se puede eliminar un superadmin." });
+
+        _context.Users.Remove(user);
         await _context.SaveChangesAsync();
 
         return NoContent();

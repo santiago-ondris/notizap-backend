@@ -38,7 +38,7 @@ namespace Notizap.API.Controllers.v1
         }
 
         [HttpPost("register")]
-        [AllowAnonymous]
+        [Authorize(Roles = "superadmin")]
         [SwaggerOperation(Summary = "Regitro de usuario")]
         public async Task<IActionResult> Register([FromBody] CreateUserDto dto)
         {

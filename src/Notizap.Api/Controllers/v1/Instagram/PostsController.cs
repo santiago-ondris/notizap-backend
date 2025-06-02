@@ -45,6 +45,7 @@ public class PostsController : ControllerBase
     }
     [HttpPost("{account}/posts/sync")]
     [SwaggerOperation(Summary = "Obtener posteos de Instagram desde la API de Metricool")]
+    [Authorize(Roles = "admin,superadmin")]
     public async Task<IActionResult> SyncInstagramPosts(string account, [FromQuery] DateTime from, [FromQuery] DateTime to)
     {
         try

@@ -78,7 +78,7 @@ public class StoriesService : IStoriesService
         return nuevas.Count;
     }
 
-    public async Task<List<InstagramStory>> GetTopStoriesAsync(string accountName, DateTime from, DateTime to, string criterio, int limit = 5)
+    public async Task<List<InstagramStory>> GetTopStoriesAsync(string accountName, DateTime from, DateTime to, string criterio, int limit = 10)
     {
         from = DateTime.SpecifyKind(from, DateTimeKind.Utc);
         to = DateTime.SpecifyKind(to, DateTimeKind.Utc);

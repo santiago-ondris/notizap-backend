@@ -19,6 +19,7 @@ public class ReelsController : ControllerBase
 
     [HttpPost("{account}/reels/sync")]
     [SwaggerOperation(Summary = "Obtener Reels desde la API de Metricool")]
+    [Authorize(Roles = "admin,superadmin")]
     public async Task<IActionResult> SyncInstagramReels(string account, [FromQuery] DateTime from, [FromQuery] DateTime to)
     {
         try

@@ -6,16 +6,28 @@ public class AnalisisRotacionService
     private static readonly Dictionary<string, string> PuntosDeVentaComerciales = new Dictionary<string, string>
     {
         { "0001", "General Paz" },
+        { "0096", "General Paz" },
         { "0002", "Dean Funes" },
         { "0005", "Dean Funes" },
+        { "0095", "Dean Funes" },
         { "0003", "Peatonal" },
+        { "0020", "Peatonal" },
         { "0004", "Nueva Cordoba" },
-        { "0006", "E-Commerce" }
+        { "0092", "Nueva Cordoba" },
+        { "0006", "E-Commerce" },
+        { "0098", "E-Commerce" },
+        { "0099", "Casa Central" },
+        { "0007", "Casa Central" }
     };
+    
   public List<VentaDto> LeerVentas(IFormFile archivoVentas)
   {
     var ventas = new List<VentaDto>();
-    var utilitarios = new[] { "AJUSTE POR", "DESCUENTO POR", "BONIFICACION POR", "REDONDEO", "PROMOCION" };
+    var utilitarios = new[] { "AJUSTE POR", "DESCUENTO POR", "BONIFICACION POR", "REDONDEO", "PROMOCION", "GENERICO" };
+    var categoriasIgnoradas = new HashSet<string> {
+    "BANDOLERAS", "MOCHILAS", "MOCHILAS ESPALDA", "CARTERAS", "MOCHILAS CARRO", 
+    "BILLETERAS", "BOTELLITAS", "CARTUCHERAS", "PERFUMERIA", "PORTACOSMETICOS", "RIÑONERAS", "INDUMENTARIA"
+    };
 
     using (var stream = archivoVentas.OpenReadStream())
     using (var workbook = new XLWorkbook(stream))
@@ -29,6 +41,7 @@ public class AnalisisRotacionService
       var nroCol = EncontrarColumna(ws, filaHeader, "NRO");
       var productoCol = EncontrarColumna(ws, filaHeader, "PRODUCTO");
       var cantidadCol = EncontrarColumna(ws, filaHeader, "CANT");
+      var categoriaCol = EncontrarColumna(ws, filaHeader, "CATEGORIA");
 
       for (int row = filaHeader + 1; row <= ws.LastRowUsed()!.RowNumber(); row++)
       {
@@ -40,6 +53,10 @@ public class AnalisisRotacionService
         var partes = productoFull.Split(" - ");
         var productoBase = partes[0].Trim();
         string? color = partes.Length > 1 ? partes[1].Trim() : null;
+
+        var categoria = ws.Cell(row, categoriaCol).GetString()?.Trim().ToUpper();
+        if (!string.IsNullOrWhiteSpace(categoria) && categoriasIgnoradas.Contains(categoria))
+        continue;
 
         var nroFactura = ws.Cell(row, nroCol).GetString()?.Trim();
         string? puntoDeVenta = null;
