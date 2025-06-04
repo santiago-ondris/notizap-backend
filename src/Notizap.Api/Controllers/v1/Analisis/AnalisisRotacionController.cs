@@ -9,15 +9,18 @@ public class AnalisisRotacionController : ControllerBase
     private readonly IComprasMergeService _comprasMergeService;
     private readonly AnalisisRotacionService _analisisRotacionService;
     private readonly IEvolucionStockService _evolucionStockService;
+    private readonly IEvolucionVentasService _evolucionVentasService;
 
     public AnalisisRotacionController(
         IComprasMergeService comprasMergeService,
         AnalisisRotacionService analisisRotacionService,
-        IEvolucionStockService evolucionStockService)
+        IEvolucionStockService evolucionStockService,
+        IEvolucionVentasService evolucionVentasService)
     {
         _comprasMergeService = comprasMergeService;
         _analisisRotacionService = analisisRotacionService;
         _evolucionStockService = evolucionStockService;
+        _evolucionVentasService = evolucionVentasService;
     }
 
     [HttpPost]
@@ -61,6 +64,25 @@ public class AnalisisRotacionController : ControllerBase
         {
             var evolucion = _evolucionStockService.CalcularEvolucionStock(compras, ventas, request.Producto.Trim());
             return Ok(evolucion);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("evolucion-ventas")]
+    [ProducesResponseType(typeof(EvolucionVentasResponse), 200)]
+    [SwaggerOperation(Summary = "Devuelve la evolución diaria de ventas de todos los productos")]
+    public IActionResult EvolucionVentas([FromForm] EvolucionVentasRequest request)
+    {
+        if (request.ArchivoVentas == null)
+            return BadRequest("Debes adjuntar el archivo de ventas (.xlsx)");
+
+        try
+        {
+            var resultado = _evolucionVentasService.CalcularEvolucionVentas(request.ArchivoVentas);
+            return Ok(resultado);
         }
         catch (Exception ex)
         {

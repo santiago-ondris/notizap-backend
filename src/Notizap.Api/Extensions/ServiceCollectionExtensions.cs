@@ -2,6 +2,7 @@ using Notizap.Application.Ads.Services;
 using Notizap.Infrastructure.Ads;
 using Notizap.Infrastructure.Services;
 using Notizap.Infrastructure.Services.Publicidad;
+using Notizap.Services.Analisis;
 using NotiZap.Dashboard.API.Services;
 
 namespace Notizap.API.Extensions
@@ -56,6 +57,7 @@ namespace Notizap.API.Extensions
             services.AddScoped<IComprasMergeService, ComprasMergeService>();
             services.AddScoped<AnalisisRotacionService>();
             services.AddScoped<IEvolucionStockService, EvolucionStockService>();
+            services.AddScoped<IEvolucionVentasService, EvolucionVentasService>();
 
             services.AddScoped<IEmailService, EmailService>();
 
