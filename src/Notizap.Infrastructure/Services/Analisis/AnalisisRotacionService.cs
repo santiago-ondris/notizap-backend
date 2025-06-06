@@ -83,7 +83,8 @@ public class AnalisisRotacionService
           Producto = productoBase,
           Color = color,
           PuntoDeVenta = puntoDeVenta,
-          Cantidad = cantidad
+          Cantidad = cantidad,
+          Categoria = categoria,
         });
       }
     }
@@ -130,7 +131,8 @@ public class AnalisisRotacionService
                 Producto = g.Key.Producto,
                 Color = g.Key.Color,
                 PuntoDeVenta = g.Key.PuntoDeVenta,
-                CantidadVendida = g.Sum(v => v.Cantidad)
+                CantidadVendida = g.Sum(v => v.Cantidad),
+                Categoria = g.Select(v => v.Categoria).FirstOrDefault(c => !string.IsNullOrEmpty(c))
             })
             .ToList();
 
@@ -147,7 +149,8 @@ public class AnalisisRotacionService
                 Color = string.IsNullOrWhiteSpace(venta.Color) ? null : venta.Color,
                 PuntoDeVenta = venta.PuntoDeVenta,
                 CantidadComprada = cantidadComprada,
-                CantidadVendida = venta.CantidadVendida
+                CantidadVendida = venta.CantidadVendida,
+                Categoria = venta.Categoria
             });
         }
         return resultado;
@@ -172,7 +175,8 @@ public class AnalisisRotacionService
                 Producto = g.Key.Producto,
                 Color = string.IsNullOrWhiteSpace(g.Key.Color) ? null : g.Key.Color,
                 PuntoDeVenta = g.Key.PuntoDeVenta,
-                CantidadVendida = g.Sum(v => v.Cantidad)
+                CantidadVendida = g.Sum(v => v.Cantidad),
+                Categoria = g.Select(v => v.Categoria).FirstOrDefault(c => !string.IsNullOrEmpty(c)) // <--- ESTA LINEA
             })
             .ToList();
     }

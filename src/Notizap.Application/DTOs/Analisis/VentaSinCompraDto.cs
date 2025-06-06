@@ -4,4 +4,5 @@ public class VentaSinCompraDto
     public string? Color { get; set; }
     public string? PuntoDeVenta { get; set; }
     public int CantidadVendida { get; set; }
+    public string? Categoria { get; set; }
 }

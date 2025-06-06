@@ -6,4 +6,5 @@ public class RotacionProductoColorDto
     public int CantidadComprada { get; set; }
     public int CantidadVendida { get; set; }
     public double TasaRotacion => CantidadComprada == 0 ? 0 : (double)CantidadVendida / CantidadComprada;
+    public string? Categoria { get; set; }
 }
