@@ -89,4 +89,22 @@ public class AnalisisRotacionController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    // helper
+    [HttpPost("compras/fechas-compra")]
+    public async Task<ActionResult<List<string>>> GetFechasCompra([FromForm] FechasCompraRequest request)
+    {
+        var compras = await _comprasMergeService.MergeComprasConDetallesAsync(request.ArchivoCabecera, request.ArchivoDetalles);
+        var productoNorm = request.Producto.Trim().ToUpper();
+        var fechas = compras
+            .Where(c => c.Producto != null && c.Producto.Trim().ToUpper() == productoNorm)
+            .Select(c => c.Fecha)
+            .Distinct()
+            .Where(f => !string.IsNullOrWhiteSpace(f))
+            .OrderBy(f => f)
+            .Select(f => DateTime.Parse(f!.Split(' ')[0]).ToString("yyyy-MM-dd"))
+            .ToList();
+
+        return Ok(fechas);
+    }
 }
