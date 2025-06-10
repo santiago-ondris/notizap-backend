@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 
 public interface IComprasMergeService
 {
-    Task<List<CompraDetalleConFechaDto>> MergeComprasConDetallesAsync(
+    List<CompraDetalleConFechaDto> MergeComprasConDetalles(
         IFormFile archivoComprasCabecera,
         IFormFile archivoComprasDetalles
     );

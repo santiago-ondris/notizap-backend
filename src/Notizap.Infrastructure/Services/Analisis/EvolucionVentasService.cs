@@ -168,14 +168,14 @@ namespace Notizap.Services.Analisis
             {
                 var ws = workbook.Worksheet(1);
                 // Buscar header (soporta archivos exportados del ERP)
-                var filaHeader = EncontrarFilaHeader(ws, new[] { "FECHA", "NRO", "PRODUCTO", "CANT" });
+                var filaHeader = ExcelFinder.EncontrarFilaHeader(ws, new[] { "FECHA", "NRO", "PRODUCTO", "CANT" });
                 if (filaHeader == -1)
                     throw new Exception("No se encontró encabezado válido en ventas.");
 
-                var fechaCol = EncontrarColumna(ws, filaHeader, "FECHA");
-                var nroCol = EncontrarColumna(ws, filaHeader, "NRO");
-                var productoCol = EncontrarColumna(ws, filaHeader, "PRODUCTO");
-                var cantidadCol = EncontrarColumna(ws, filaHeader, "CANT");
+                var fechaCol = ExcelFinder.EncontrarColumna(ws, filaHeader, "FECHA");
+                var nroCol = ExcelFinder.EncontrarColumna(ws, filaHeader, "NRO");
+                var productoCol = ExcelFinder.EncontrarColumna(ws, filaHeader, "PRODUCTO");
+                var cantidadCol = ExcelFinder.EncontrarColumna(ws, filaHeader, "CANT");
 
                 for (int row = filaHeader + 1; row <= ws.LastRowUsed()!.RowNumber(); row++)
                 {
@@ -221,28 +221,6 @@ namespace Notizap.Services.Analisis
             }
 
             return ventas;
-        }
-
-        private int EncontrarFilaHeader(IXLWorksheet ws, string[] claves)
-        {
-            for (int row = 1; row <= 20; row++)
-            {
-                var rowCells = ws.Row(row).Cells().Select(c => c.GetString().ToUpper()).ToList();
-                if (claves.All(clave => rowCells.Any(c => c.Contains(clave))))
-                    return row;
-            }
-            return -1;
-        }
-
-        private int EncontrarColumna(IXLWorksheet ws, int headerRow, string nombreCol)
-        {
-            var cells = ws.Row(headerRow).Cells();
-            foreach (var cell in cells)
-            {
-                if (cell.GetString().ToUpper().Contains(nombreCol.ToUpper()))
-                    return cell.Address.ColumnNumber;
-            }
-            throw new Exception($"No se encontró la columna '{nombreCol}' en el header.");
         }
 
         private List<int> SerieAcumuladaPorDia(List<string> fechas, List<VentaFlat> ventas)

@@ -26,12 +26,12 @@ public class AnalisisRotacionController : ControllerBase
     [HttpPost]
     [ProducesResponseType(typeof(AnalisisRotacionResponse), 200)]
     [SwaggerOperation(Summary = "Calcula la tasa de rotacion de los productos de los archivos subidos")]
-    public async Task<IActionResult> AnalizarRotacion([FromForm] AnalisisRotacionRequest request)
+    public IActionResult AnalizarRotacion([FromForm] AnalisisRotacionRequest request)
     {
         if (request.ArchivoComprasCabecera == null || request.ArchivoComprasDetalles == null || request.ArchivoVentas == null)
             return BadRequest("Debes adjuntar los tres archivos .xlsx (cabecera de compras, detalles de compras y ventas)");
 
-        var compras = await _comprasMergeService.MergeComprasConDetallesAsync(
+        var compras =  _comprasMergeService.MergeComprasConDetalles(
             request.ArchivoComprasCabecera, request.ArchivoComprasDetalles);
 
         var ventas =  _analisisRotacionService.LeerVentas(request.ArchivoVentas);
@@ -45,33 +45,33 @@ public class AnalisisRotacionController : ControllerBase
             VentasSinCompras = ventasSinCompras
         });
     }
-    [HttpPost("evolucion-stock")]
-    [ProducesResponseType(typeof(List<EvolucionStockPorPuntoDeVentaDto>), 200)]
-    [SwaggerOperation(Summary = "Evolucion de stock diaria de los productos de los archivos subidos")]
-    public async Task<IActionResult> EvolucionStock([FromForm] EvolucionStockRequest request)
+  [HttpPost("evolucion-stock")]
+  [ProducesResponseType(typeof(List<EvolucionStockPorPuntoDeVentaDto>), 200)]
+  [SwaggerOperation(Summary = "Evolucion de stock diaria de los productos de los archivos subidos")]
+  public IActionResult EvolucionStock([FromForm] EvolucionStockRequest request)
+  {
+    if (request.ArchivoComprasCabecera == null || request.ArchivoComprasDetalles == null || request.ArchivoVentas == null)
+      return BadRequest("Debes adjuntar los tres archivos .xlsx (cabecera de compras, detalles de compras y ventas)");
+    if (string.IsNullOrWhiteSpace(request.Producto))
+      return BadRequest("Debes especificar el producto base a analizar.");
+
+    var compras = _comprasMergeService.MergeComprasConDetalles(
+        request.ArchivoComprasCabecera, request.ArchivoComprasDetalles);
+
+    var ventas = _analisisRotacionService.LeerVentas(request.ArchivoVentas);
+
+    try
     {
-        if (request.ArchivoComprasCabecera == null || request.ArchivoComprasDetalles == null || request.ArchivoVentas == null)
-            return BadRequest("Debes adjuntar los tres archivos .xlsx (cabecera de compras, detalles de compras y ventas)");
-        if (string.IsNullOrWhiteSpace(request.Producto))
-            return BadRequest("Debes especificar el producto base a analizar.");
-
-        var compras = await _comprasMergeService.MergeComprasConDetallesAsync(
-            request.ArchivoComprasCabecera, request.ArchivoComprasDetalles);
-
-        var ventas = _analisisRotacionService.LeerVentas(request.ArchivoVentas);
-
-        try
-        {
-            var evolucion = _evolucionStockService.CalcularEvolucionStock(compras, ventas, request.Producto.Trim());
-            return Ok(evolucion);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+      var evolucion = _evolucionStockService.CalcularEvolucionStock(compras, ventas, request.Producto.Trim());
+      return Ok(evolucion);
     }
+    catch (Exception ex)
+    {
+      return BadRequest(ex.Message);
+    }
+  }
 
-    [HttpPost("evolucion-ventas")]
+  [HttpPost("evolucion-ventas")]
     [ProducesResponseType(typeof(EvolucionVentasResponse), 200)]
     [SwaggerOperation(Summary = "Devuelve la evolución diaria de ventas de todos los productos")]
     public IActionResult EvolucionVentas([FromForm] EvolucionVentasRequest request)
@@ -90,21 +90,21 @@ public class AnalisisRotacionController : ControllerBase
         }
     }
 
-    // helper
-    [HttpPost("compras/fechas-compra")]
-    public async Task<ActionResult<List<string>>> GetFechasCompra([FromForm] FechasCompraRequest request)
-    {
-        var compras = await _comprasMergeService.MergeComprasConDetallesAsync(request.ArchivoCabecera, request.ArchivoDetalles);
-        var productoNorm = request.Producto.Trim().ToUpper();
-        var fechas = compras
-            .Where(c => c.Producto != null && c.Producto.Trim().ToUpper() == productoNorm)
-            .Select(c => c.Fecha)
-            .Distinct()
-            .Where(f => !string.IsNullOrWhiteSpace(f))
-            .OrderBy(f => f)
-            .Select(f => DateTime.Parse(f!.Split(' ')[0]).ToString("yyyy-MM-dd"))
-            .ToList();
+  // helper
+  [HttpPost("compras/fechas-compra")]
+  public ActionResult<List<string>> GetFechasCompra([FromForm] FechasCompraRequest request)
+  {
+    var compras = _comprasMergeService.MergeComprasConDetalles(request.ArchivoCabecera, request.ArchivoDetalles);
+    var productoNorm = request.Producto.Trim().ToUpper();
+    var fechas = compras
+        .Where(c => c.Producto != null && c.Producto.Trim().ToUpper() == productoNorm)
+        .Select(c => c.Fecha)
+        .Distinct()
+        .Where(f => !string.IsNullOrWhiteSpace(f))
+        .OrderBy(f => f)
+        .Select(f => DateTime.Parse(f!.Split(' ')[0]).ToString("yyyy-MM-dd"))
+        .ToList();
 
-        return Ok(fechas);
-    }
+    return Ok(fechas);
+  }
 }

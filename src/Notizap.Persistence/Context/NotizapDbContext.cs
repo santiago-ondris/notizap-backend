@@ -21,6 +21,10 @@ public class NotizapDbContext : DbContext
         public DbSet<Cambio> Cambios { get; set; }
         public DbSet<Devolucion> Devoluciones { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Compra> Compras { get; set; }
+        public DbSet<CompraDetalle> CompraDetalles { get; set; }
+        public DbSet<HistorialImportacionClientes> HistorialImportacionClientes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +38,11 @@ public class NotizapDbContext : DbContext
             modelBuilder.ApplyConfiguration(new ReportePublicidadMLConfiguration());
             modelBuilder.ApplyConfiguration(new AnuncioDisplayMLConfiguration());
             modelBuilder.ApplyConfiguration(new ExcelTopProductoMLConfiguration());
+
+            modelBuilder.ApplyConfiguration(new ClienteConfiguration());
+            modelBuilder.ApplyConfiguration(new CompraConfiguration());
+            modelBuilder.ApplyConfiguration(new CompraDetalleConfiguration());
+            modelBuilder.ApplyConfiguration(new HistorialImportacionClientesConfiguration());
 
             // Relación WooCommerce Report -> DailySales
             modelBuilder.Entity<WooCommerceMonthlyReport>()
