@@ -239,11 +239,11 @@ public class ClienteImportService : IClienteImportService
         if (canal != "KIBOO") return "E-Commerce";
         var mapa = new Dictionary<string, string>
         {
-            { "0001", "General Paz" }, { "0096", "General Paz" },
-            { "0002", "Dean Funes" }, { "0005", "Dean Funes" }, { "0095", "Dean Funes" },
-            { "0003", "Peatonal" }, { "0020", "Peatonal" },
-            { "0004", "Nueva Cordoba" }, { "0092", "Nueva Cordoba" },
-            { "0006", "E-Commerce" }, { "0098", "E-Commerce" },
+            { "0001", "General Paz" }, { "0016", "General Paz" }, { "0096", "General Paz" },
+            { "0002", "Dean Funes" }, { "0005", "Dean Funes" }, { "0017", "Dean Funes" }, { "0014", "Dean Funes" }, { "0095", "Dean Funes" },
+            { "0003", "Peatonal" }, { "0015", "Peatonal" }, { "0020", "Peatonal" },
+            { "0004", "Nueva Cordoba" }, { "0018", "Nueva Cordoba" }, { "0092", "Nueva Cordoba" },
+            { "0006", "E-Commerce" }, { "0008", "E-Commerce" }, { "0098", "E-Commerce" },
             { "0099", "Casa Central" }, { "0007", "Casa Central" }
         };
         var partes = nro.Split('-');
