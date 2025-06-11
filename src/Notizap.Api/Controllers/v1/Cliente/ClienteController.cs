@@ -33,10 +33,26 @@ public class ClienteController : ControllerBase
 
     [HttpGet("ranking")]
     [SwaggerOperation(Summary = "Obtener clientes por monto consumido")]
-    public async Task<ActionResult<List<ClienteResumenDto>>> GetRanking([FromQuery] string ordenarPor = "monto", [FromQuery] int top = 10)
+    public async Task<ActionResult<List<ClienteResumenDto>>> GetRanking(
+        [FromQuery] string ordenarPor = "monto", 
+        [FromQuery] int top = 10,
+        [FromQuery] DateTime? desde = null,
+        [FromQuery] DateTime? hasta = null,
+        [FromQuery] string? canal = null,
+        [FromQuery] string? sucursal = null,
+        [FromQuery] string? marca = null,
+        [FromQuery] string? categoria = null)
     {
-        var ranking = await _clienteService.GetRankingAsync(ordenarPor, top);
-        return Ok(ranking);
+        try 
+        {
+            var ranking = await _clienteService.GetRankingAsync(ordenarPor, top, desde, hasta, canal, sucursal, marca, categoria);
+            return Ok(ranking);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error en ranking: {ex.Message}");
+            return BadRequest($"Error al obtener ranking: {ex.Message}");
+        }
     }
 
     [HttpGet("buscar")]

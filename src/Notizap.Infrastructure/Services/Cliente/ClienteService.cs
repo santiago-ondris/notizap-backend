@@ -114,14 +114,94 @@ public class ClienteService : IClienteService
         };
     }
 
-    public async Task<List<ClienteResumenDto>> GetRankingAsync(string ordenarPor = "monto", int top = 10)
+    public async Task<List<ClienteResumenDto>> GetRankingAsync(
+        string ordenarPor = "monto", 
+        int top = 10,
+        DateTime? desde = null,
+        DateTime? hasta = null,
+        string? canal = null,
+        string? sucursal = null,
+        string? marca = null,
+        string? categoria = null)
     {
-        var query = _context.Clientes.AsQueryable();
+        var query = _context.Clientes
+            .Include(c => c.Compras)
+            .ThenInclude(c => c.Detalles)
+            .AsQueryable();
+
+        // Aplicar los mismos filtros que en FiltrarAsync
+        if (!string.IsNullOrWhiteSpace(canal))
+        {
+            var canalesArray = canal.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(c => c.Trim())
+                                .Where(c => !string.IsNullOrEmpty(c))
+                                .ToArray();
+            
+            if (canalesArray.Any())
+            {
+                query = query.Where(c => canalesArray.Any(canal => c.Canales != null && c.Canales.Contains(canal)));
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(sucursal))
+        {
+            var sucursalesArray = sucursal.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                        .Select(s => s.Trim())
+                                        .Where(s => !string.IsNullOrEmpty(s))
+                                        .ToArray();
+            
+            if (sucursalesArray.Any())
+            {
+                query = query.Where(c => sucursalesArray.Any(sucursal => c.Sucursales != null && c.Sucursales.Contains(sucursal)));
+            }
+        }
+
+        if (desde.HasValue)
+        {
+            desde = DateTime.SpecifyKind(desde.Value, DateTimeKind.Utc);
+            query = query.Where(c => c.FechaPrimeraCompra >= desde.Value);
+        }
+
+        if (hasta.HasValue)
+        {
+            hasta = DateTime.SpecifyKind(hasta.Value, DateTimeKind.Utc);
+            query = query.Where(c => c.FechaUltimaCompra <= hasta.Value);
+        }
+
+        if (!string.IsNullOrWhiteSpace(marca) || !string.IsNullOrWhiteSpace(categoria))
+        {
+            var marcasArray = string.IsNullOrWhiteSpace(marca) ? Array.Empty<string>() :
+                            marca.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(m => m.Trim())
+                                .Where(m => !string.IsNullOrEmpty(m))
+                                .ToArray();
+
+            var categoriasArray = string.IsNullOrWhiteSpace(categoria) ? Array.Empty<string>() :
+                                categoria.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                        .Select(cat => cat.Trim())
+                                        .Where(cat => !string.IsNullOrEmpty(cat))
+                                        .ToArray();
+
+            if (marcasArray.Any() || categoriasArray.Any())
+            {
+                query = query.Where(cliente =>
+                    cliente.Compras.Any(compra =>
+                        compra.Detalles!.Any(det =>
+                            (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
+                            (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                        )
+                    )
+                );
+            }
+        }
+
+        // Aplicar ordenamiento después de filtrar
         if (ordenarPor == "cantidad")
             query = query.OrderByDescending(c => c.CantidadCompras);
         else
             query = query.OrderByDescending(c => c.MontoTotalGastado);
 
+        // Aplicar el top y mapear a DTO
         return await query.Take(top)
             .Select(c => new ClienteResumenDto
             {
