@@ -1,13 +1,16 @@
 using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 public class ClienteImportService : IClienteImportService
 {
     private readonly NotizapDbContext _context;
+    private readonly ILogger<ClienteImportService> _logger;
 
-    public ClienteImportService(NotizapDbContext context)
+    public ClienteImportService(NotizapDbContext context, ILogger<ClienteImportService> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     public async Task<ImportacionClientesDto> ImportarDesdeExcelAsync(Stream excelFileStream, string nombreArchivo)
@@ -32,13 +35,17 @@ public class ClienteImportService : IClienteImportService
         var colCant = ExcelFinder.EncontrarColumna(ws, filaHeader, "CANT");
         var colTotal = ExcelFinder.EncontrarColumna(ws, filaHeader, "TOTAL");
 
-        var clientesDb = _context.Clientes
-            .AsNoTracking()
-            .ToList()
+        // Cargar TODOS los clientes de la BD con tracking para poder modificarlos
+        var clientesDb = await _context.Clientes
+            .ToListAsync(); // Cambié a async y con tracking
+        
+        // Diccionario para búsqueda rápida por nombre
+        var clientesPorNombre = clientesDb
             .GroupBy(c => c.Nombre.Trim().ToLower())
             .ToDictionary(g => g.Key, g => g.First());
 
-        var clientesMemoria = new Dictionary<string, Cliente>();
+        // Diccionario para tracking de clientes procesados en esta importación
+        var clientesProcesados = new Dictionary<string, Cliente>();
 
         for (int row = filaHeader + 1; row <= ws.LastRowUsed()!.RowNumber(); row++)
         {
@@ -67,10 +74,22 @@ public class ClienteImportService : IClienteImportService
             if (total <= 0)
                 continue;
 
-            if (!clientesMemoria.TryGetValue(nombreKey, out var cliente))
+            // Buscar o crear cliente
+            Cliente? cliente;
+            bool esClienteNuevo = false;
+            
+            // Primero buscar en los ya procesados
+            if (!clientesProcesados.TryGetValue(nombreKey, out cliente))
             {
-                if (!clientesDb.TryGetValue(nombreKey, out cliente))
+                // Si no está procesado, buscar en la BD
+                if (clientesPorNombre.TryGetValue(nombreKey, out cliente))
                 {
+                    // Cliente existente en BD
+                    _logger.LogInformation("Cliente existente encontrado: {Cliente}", nombreCliente);
+                }
+                else
+                {
+                    // Cliente nuevo
                     cliente = new Cliente
                     {
                         Nombre = nombreCliente,
@@ -83,17 +102,46 @@ public class ClienteImportService : IClienteImportService
                         Observaciones = ""
                     };
                     _context.Clientes.Add(cliente);
-                    clientesDb[nombreKey] = cliente;
                     clientesNuevos++;
+                    esClienteNuevo = true;
+                    _logger.LogInformation("Nuevo cliente creado: {Cliente}", nombreCliente);
                 }
-                clientesMemoria[nombreKey] = cliente;
+                
+                // Agregar a procesados
+                clientesProcesados[nombreKey] = cliente;
             }
 
-            if (cliente.FechaPrimeraCompra > fechaCompra) cliente.FechaPrimeraCompra = fechaCompra;
-            if (cliente.FechaUltimaCompra < fechaCompra) cliente.FechaUltimaCompra = fechaCompra;
-            if (!cliente.Canales!.Contains(canal)) cliente.Canales += $",{canal}";
-            if (!cliente.Sucursales!.Contains(sucursal)) cliente.Sucursales += $",{sucursal}";
+            // Actualizar información del cliente
+            if (cliente.FechaPrimeraCompra > fechaCompra) 
+                cliente.FechaPrimeraCompra = fechaCompra;
+            if (cliente.FechaUltimaCompra < fechaCompra) 
+                cliente.FechaUltimaCompra = fechaCompra;
+            
+            // Actualizar canales únicos
+            if (!string.IsNullOrEmpty(cliente.Canales))
+            {
+                var canalesExistentes = cliente.Canales.Split(',').Select(c => c.Trim()).ToHashSet();
+                if (!canalesExistentes.Contains(canal))
+                    cliente.Canales += $",{canal}";
+            }
+            else
+            {
+                cliente.Canales = canal;
+            }
+            
+            // Actualizar sucursales únicas
+            if (!string.IsNullOrEmpty(cliente.Sucursales))
+            {
+                var sucursalesExistentes = cliente.Sucursales.Split(',').Select(s => s.Trim()).ToHashSet();
+                if (!sucursalesExistentes.Contains(sucursal))
+                    cliente.Sucursales += $",{sucursal}";
+            }
+            else
+            {
+                cliente.Sucursales = sucursal;
+            }
 
+            // Crear compra
             var compra = new Compra
             {
                 Cliente = cliente,
@@ -115,13 +163,16 @@ public class ClienteImportService : IClienteImportService
             };
             _context.Compras.Add(compra);
 
+            // Actualizar estadísticas del cliente
             cliente.CantidadCompras += 1;
             cliente.MontoTotalGastado += total;
             comprasNuevas++;
         }
 
+        // Guardar cambios
         await _context.SaveChangesAsync();
 
+        // Registrar historial
         _context.HistorialImportacionClientes.Add(new HistorialImportacionClientes
         {
             NombreArchivo = nombreArchivo,
@@ -140,46 +191,49 @@ public class ClienteImportService : IClienteImportService
         };
     }
 
-        public List<string> ValidarArchivo(Stream excelFileStream)
+    public List<string> ValidarArchivo(Stream excelFileStream)
+    {
+        var errores = new List<string>();
+        using var workbook = new XLWorkbook(excelFileStream);
+        var ws = workbook.Worksheet(1);
+
+        var headerKeys = new[] { "FECHA", "NRO", "CANAL", "CLIENTE", "PRODUCTO", "MARCA", "CATEGORIA", "CANT", "TOTAL" };
+        var filaHeader = ExcelFinder.EncontrarFilaHeader(ws, headerKeys);
+        if (filaHeader == -1)
         {
-            var errores = new List<string>();
-            using var workbook = new XLWorkbook(excelFileStream);
-            var ws = workbook.Worksheet(1);
-
-            var headerKeys = new[] { "FECHA", "NRO", "CANAL", "CLIENTE", "PRODUCTO", "MARCA", "CATEGORIA", "CANT", "TOTAL" };
-            var filaHeader = ExcelFinder.EncontrarFilaHeader(ws, headerKeys);
-            if (filaHeader == -1)
-                throw new Exception("No se encontró encabezado válido en el archivo.");
-
-            var colCliente = ExcelFinder.EncontrarColumna(ws, filaHeader, "CLIENTE");
-            var colTotal = ExcelFinder.EncontrarColumna(ws, filaHeader, "TOTAL");
-
-            for (int row = filaHeader + 1; row <= ws.LastRowUsed()!.RowNumber(); row++)
-            {
-                try
-                {
-                    var nombre = ws.Cell(row, colCliente).GetString();
-                    var totalStr = ws.Cell(row, colTotal).GetString();
-                    var total = ExcelFinder.ParsearMoneda(totalStr);
-
-                    if (string.IsNullOrWhiteSpace(nombre) && string.IsNullOrWhiteSpace(totalStr))
-                        continue; 
-
-                    if (total <= 0)
-                        continue;
-
-                    if (string.IsNullOrWhiteSpace(nombre))
-                        errores.Add($"Fila {row}: CLIENTE vacío.");
-                }
-                catch (Exception ex)
-                {
-                    errores.Add($"Fila {row}: Error al leer datos ({ex.Message})");
-                }
-            }
+            errores.Add("No se encontró encabezado válido en el archivo.");
             return errores;
         }
 
-  // Helper para mapear sucursal usando el diccionario
+        var colCliente = ExcelFinder.EncontrarColumna(ws, filaHeader, "CLIENTE");
+        var colTotal = ExcelFinder.EncontrarColumna(ws, filaHeader, "TOTAL");
+
+        for (int row = filaHeader + 1; row <= ws.LastRowUsed()!.RowNumber(); row++)
+        {
+            try
+            {
+                var nombre = ws.Cell(row, colCliente).GetString();
+                var totalStr = ws.Cell(row, colTotal).GetString();
+                var total = ExcelFinder.ParsearMoneda(totalStr);
+
+                if (string.IsNullOrWhiteSpace(nombre) && string.IsNullOrWhiteSpace(totalStr))
+                    continue; 
+
+                if (total <= 0)
+                    continue;
+
+                if (string.IsNullOrWhiteSpace(nombre))
+                    errores.Add($"Fila {row}: CLIENTE vacío.");
+            }
+            catch (Exception ex)
+            {
+                errores.Add($"Fila {row}: Error al leer datos ({ex.Message})");
+            }
+        }
+        return errores;
+    }
+
+    // Helper para mapear sucursal usando el diccionario
     private string MapearSucursal(string nro, string canal)
     {
         if (canal != "KIBOO") return "E-Commerce";
