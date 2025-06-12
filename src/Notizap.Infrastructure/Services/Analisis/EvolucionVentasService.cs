@@ -148,6 +148,7 @@ namespace Notizap.Services.Analisis
             public string Color { get; set; } = "";    
             public string Sucursal { get; set; } = "";
             public int Cantidad { get; set; }
+            public double Total { get; set; }
         }
 
         private static readonly string[] ProductosExcluidos =
@@ -176,6 +177,7 @@ namespace Notizap.Services.Analisis
                 var nroCol = ExcelFinder.EncontrarColumna(ws, filaHeader, "NRO");
                 var productoCol = ExcelFinder.EncontrarColumna(ws, filaHeader, "PRODUCTO");
                 var cantidadCol = ExcelFinder.EncontrarColumna(ws, filaHeader, "CANT");
+                var totalCol = ExcelFinder.EncontrarColumna(ws, filaHeader, "TOTAL");
 
                 for (int row = filaHeader + 1; row <= ws.LastRowUsed()!.RowNumber(); row++)
                 {
@@ -208,6 +210,7 @@ namespace Notizap.Services.Analisis
 
                     // Cantidad
                     int cantidad = int.TryParse(ws.Cell(row, cantidadCol).GetString(), out var cant) ? cant : 0;
+                    double total = double.TryParse(ws.Cell(row, totalCol).GetString(), out var tot) ? tot : 0;
 
                     ventas.Add(new VentaFlat
                     {
@@ -215,7 +218,8 @@ namespace Notizap.Services.Analisis
                         Producto = productoBase,
                         Color = color,
                         Sucursal = !string.IsNullOrEmpty(sucursal) ? sucursal : "Sin Sucursal",
-                        Cantidad = cantidad
+                        Cantidad = cantidad,
+                        Total = total
                     });
                 }
             }
@@ -259,38 +263,59 @@ namespace Notizap.Services.Analisis
                                 .Select(d => fechaMin.AddDays(d).ToString("yyyy-MM-dd"))
                                 .ToList();
 
-            // 3. Agrupar por sucursal y calcular series
+            // 3. Agrupar por sucursal y calcular series (CANTIDAD)
             var sucursalesConVentas = ventas
                 .Where(v => !string.IsNullOrWhiteSpace(v.Sucursal))
                 .GroupBy(v => v.Sucursal)
                 .ToList();
             
-            var sucursalesDto = new List<EvolucionSucursalResumenDto>();
+            var sucursalesCantidadDto = new List<EvolucionSucursalResumenDto>();
+            var sucursalesFacturacionDto = new List<EvolucionSucursalResumenDto>();
             
             foreach (var grupo in sucursalesConVentas)
             {
-                var serie = SerieAcumuladaPorDia(fechas, grupo.ToList());
-                sucursalesDto.Add(new EvolucionSucursalResumenDto
+                // Serie por cantidad
+                var serieCantidad = SerieAcumuladaPorDia(fechas, grupo.ToList());
+                sucursalesCantidadDto.Add(new EvolucionSucursalResumenDto
                 {
                     Sucursal = grupo.Key,
-                    Serie = serie,
+                    Serie = serieCantidad.Select(x => (double)x).ToList(), // Convertir a double
+                    Color = ObtenerColorSucursal(grupo.Key)
+                });
+                
+                // Serie por facturación
+                var serieFacturacion = SerieAcumuladaPorDiaTotal(fechas, grupo.ToList());
+                sucursalesFacturacionDto.Add(new EvolucionSucursalResumenDto
+                {
+                    Sucursal = grupo.Key,
+                    Serie = serieFacturacion,
                     Color = ObtenerColorSucursal(grupo.Key)
                 });
             }
             
-            // 4. Agregar serie GLOBAL (suma de todas las sucursales)
-            var serieGlobal = SerieAcumuladaPorDia(fechas, ventas);
-            sucursalesDto.Add(new EvolucionSucursalResumenDto
+            // 4. Agregar serie GLOBAL para cantidad
+            var serieGlobalCantidad = SerieAcumuladaPorDia(fechas, ventas);
+            sucursalesCantidadDto.Add(new EvolucionSucursalResumenDto
             {
                 Sucursal = "GLOBAL",
-                Serie = serieGlobal,
+                Serie = serieGlobalCantidad.Select(x => (double)x).ToList(),
+                Color = "#FF7675"
+            });
+            
+            // 5. Agregar serie GLOBAL para facturación
+            var serieGlobalFacturacion = SerieAcumuladaPorDiaTotal(fechas, ventas);
+            sucursalesFacturacionDto.Add(new EvolucionSucursalResumenDto
+            {
+                Sucursal = "GLOBAL",
+                Serie = serieGlobalFacturacion,
                 Color = "#FF7675"
             });
 
             return new EvolucionVentasResumenResponse
             {
                 Fechas = fechas,
-                Sucursales = sucursalesDto
+                Cantidad = new EvolucionDatasetDto { Sucursales = sucursalesCantidadDto },
+                Facturacion = new EvolucionDatasetDto { Sucursales = sucursalesFacturacionDto }
             };
         }
 
@@ -308,6 +333,22 @@ namespace Notizap.Services.Analisis
                 "Sin Sucursal" => "#1ABC9C",     // Verde agua saturado
                 _ => "#34495E"                   // Azul oscuro
             };
+        }
+        private List<double> SerieAcumuladaPorDiaTotal(List<string> fechas, List<VentaFlat> ventas)
+        {
+            var serie = new List<double>();
+            double acumulado = 0;
+
+            var ventasPorFecha = ventas.GroupBy(v => v.Fecha.ToString("yyyy-MM-dd"))
+                                    .ToDictionary(g => g.Key, g => g.Sum(v => v.Total));
+
+            foreach (var fecha in fechas)
+            {
+                if (ventasPorFecha.TryGetValue(fecha, out var totalDia))
+                    acumulado += totalDia;
+                serie.Add(acumulado);
+            }
+            return serie;
         }
     }
 }
