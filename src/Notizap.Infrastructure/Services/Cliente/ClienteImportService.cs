@@ -247,8 +247,16 @@ public class ClienteImportService : IClienteImportService
             { "0099", "Casa Central" }, { "0007", "Casa Central" }
         };
         var partes = nro.Split('-');
-        if (partes.Length < 2) return "Desconocida";
-        var sucursal = mapa.ContainsKey(partes[1]) ? mapa[partes[1]] : "Desconocida";
-        return sucursal;
-    }
+        if (partes.Length < 2) 
+        {
+            _logger.LogWarning("Sucursal desconocida por formato NRO: '{Nro}' Canal: '{Canal}'", nro, canal);
+            return "Desconocida";
+        }
+        if (!mapa.ContainsKey(partes[1]))
+        {
+            _logger.LogWarning("Sucursal desconocida, código no mapeado: '{CodigoSucursal}' NRO: '{Nro}' Canal: '{Canal}'", partes[1], nro, canal);
+            return "Desconocida";
+        }
+        return mapa[partes[1]];
+        }
 }

@@ -246,5 +246,68 @@ namespace Notizap.Services.Analisis
             if (partes.Length < 2) return "";
             return partes[1].Trim();
         }
+
+        public EvolucionVentasResumenResponse CalcularEvolucionVentasResumen(IFormFile archivoVentas)
+        {
+            // 1. Leer ventas del archivo (reutiliza el método existente)
+            var ventas = LeerVentas(archivoVentas);
+
+            // 2. Detectar fechas límites del archivo
+            var fechaMin = ventas.Min(v => v.Fecha.Date);
+            var fechaMax = ventas.Max(v => v.Fecha.Date);
+            var fechas = Enumerable.Range(0, (fechaMax - fechaMin).Days + 1)
+                                .Select(d => fechaMin.AddDays(d).ToString("yyyy-MM-dd"))
+                                .ToList();
+
+            // 3. Agrupar por sucursal y calcular series
+            var sucursalesConVentas = ventas
+                .Where(v => !string.IsNullOrWhiteSpace(v.Sucursal))
+                .GroupBy(v => v.Sucursal)
+                .ToList();
+            
+            var sucursalesDto = new List<EvolucionSucursalResumenDto>();
+            
+            foreach (var grupo in sucursalesConVentas)
+            {
+                var serie = SerieAcumuladaPorDia(fechas, grupo.ToList());
+                sucursalesDto.Add(new EvolucionSucursalResumenDto
+                {
+                    Sucursal = grupo.Key,
+                    Serie = serie,
+                    Color = ObtenerColorSucursal(grupo.Key)
+                });
+            }
+            
+            // 4. Agregar serie GLOBAL (suma de todas las sucursales)
+            var serieGlobal = SerieAcumuladaPorDia(fechas, ventas);
+            sucursalesDto.Add(new EvolucionSucursalResumenDto
+            {
+                Sucursal = "GLOBAL",
+                Serie = serieGlobal,
+                Color = "#FF7675"
+            });
+
+            return new EvolucionVentasResumenResponse
+            {
+                Fechas = fechas,
+                Sucursales = sucursalesDto
+            };
+        }
+
+        // Método helper para colores consistentes
+        private static string ObtenerColorSucursal(string sucursal)
+        {
+            return sucursal switch
+            {
+                "General Paz" => "#E74C3C",      // Rojo intenso
+                "Dean Funes" => "#3498DB",       // Azul brillante
+                "Peatonal" => "#27AE60",         // Verde puro
+                "Nueva Cordoba" => "#F1C40F",    // Amarillo vivo
+                "E-Commerce" => "#8E44AD",       // Violeta fuerte
+                "Casa Central" => "#FF9800",     // Naranja vibrante
+                "Sin Sucursal" => "#1ABC9C",     // Verde agua saturado
+                _ => "#34495E"                   // Azul oscuro
+            };
+        }
     }
 }

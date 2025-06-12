@@ -72,23 +72,23 @@ public class AnalisisRotacionController : ControllerBase
   }
 
   [HttpPost("evolucion-ventas")]
-    [ProducesResponseType(typeof(EvolucionVentasResponse), 200)]
-    [SwaggerOperation(Summary = "Devuelve la evolución diaria de ventas de todos los productos")]
-    public IActionResult EvolucionVentas([FromForm] EvolucionVentasRequest request)
-    {
-        if (request.ArchivoVentas == null)
-            return BadRequest("Debes adjuntar el archivo de ventas (.xlsx)");
+  [ProducesResponseType(typeof(EvolucionVentasResponse), 200)]
+  [SwaggerOperation(Summary = "Devuelve la evolución diaria de ventas de todos los productos")]
+  public IActionResult EvolucionVentas([FromForm] EvolucionVentasRequest request)
+  {
+      if (request.ArchivoVentas == null)
+        return BadRequest("Debes adjuntar el archivo de ventas (.xlsx)");
 
-        try
-        {
-            var resultado = _evolucionVentasService.CalcularEvolucionVentas(request.ArchivoVentas);
-            return Ok(resultado);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
-    }
+      try
+      {
+          var resultado = _evolucionVentasService.CalcularEvolucionVentas(request.ArchivoVentas);
+          return Ok(resultado);
+      }
+      catch (Exception ex)
+      {
+          return BadRequest(ex.Message);
+      }
+  }
 
   // helper
   [HttpPost("compras/fechas-compra")]
@@ -106,5 +106,24 @@ public class AnalisisRotacionController : ControllerBase
         .ToList();
 
     return Ok(fechas);
+  }
+  
+  [HttpPost("evolucion-ventas/resumen")]
+  [ProducesResponseType(typeof(EvolucionVentasResumenResponse), 200)]
+  [SwaggerOperation(Summary = "Devuelve la evolución de ventas agregada por sucursal para gráficos")]
+  public IActionResult EvolucionVentasResumen([FromForm] EvolucionVentasRequest request)
+  {
+      if (request.ArchivoVentas == null)
+          return BadRequest("Debes adjuntar el archivo de ventas (.xlsx)");
+
+      try
+      {
+          var resultado = _evolucionVentasService.CalcularEvolucionVentasResumen(request.ArchivoVentas);
+          return Ok(resultado);
+      }
+      catch (Exception ex)
+      {
+          return BadRequest(ex.Message);
+      }
   }
 }
