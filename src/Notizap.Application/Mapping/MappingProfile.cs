@@ -9,16 +9,26 @@ namespace Notizap.Application.Mapping
         {
             CreateMap<MetaCampaignInsightDto, MixedCampaignInsightDto>();
 
+            // === GASTOS MAPPING ===
             CreateMap<Gasto, GastoDto>();
-            CreateMap<CreateGastoDto, Gasto>();
-            CreateMap<UpdateGastoDto, Gasto>();
+            
+            CreateMap<CreateGastoDto, Gasto>()
+                .ForMember(dest => dest.Fecha, opt => opt.MapFrom(src => src.Fecha ?? DateTime.UtcNow))
+                .ForMember(dest => dest.FechaCreacion, opt => opt.MapFrom(src => DateTime.UtcNow))
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+            
+            CreateMap<UpdateGastoDto, Gasto>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.FechaCreacion, opt => opt.Ignore());
 
+            // === ENVIOS MAPPING ===
             CreateMap<EnvioDiario, EnvioDiarioDto>()
                 .ForMember(dest => dest.TotalCordobaCapital, opt => opt.MapFrom(src => src.TotalCordobaCapital))
                 .ForMember(dest => dest.TotalEnvios,          opt => opt.MapFrom(src => src.TotalEnvios));
 
             CreateMap<CreateEnvioDiarioDto, EnvioDiario>();
 
+            // === PUBLICIDAD MAPPING ===
             // Reportes de publicidad
             CreateMap<AdReport, AdReportDto>();
             CreateMap<SaveAdReportDto, AdReport>();
@@ -58,6 +68,7 @@ namespace Notizap.Application.Mapping
 
                 .ForMember(dest => dest.FollowersCount, opt => opt.Ignore());
 
+            // === MERCADOLIBRE MAPPING ===
             CreateMap<CreateProductAdDto, ReportePublicidadML>()
                 .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => TipoPublicidadML.ProductAds));
 
@@ -68,7 +79,8 @@ namespace Notizap.Application.Mapping
                 .ForMember(dest => dest.Tipo, opt => opt.MapFrom(src => TipoPublicidadML.DisplayAds));
 
             CreateMap<DisplayAnuncioDto, AnuncioDisplayML>();  
-             
+
+            // === CAMBIOS Y DEVOLUCIONES MAPPING ===
             CreateMap<CreateCambioDto, Cambio>();
             CreateMap<Cambio, CambioDto>();
             CreateMap<CambioDto, Cambio>();
