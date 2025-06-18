@@ -40,7 +40,6 @@ namespace Notizap.API.Extensions
             services.AddScoped<IMercadoLibreExcelProcessor, MercadoLibreExcelProcessor>();
             services.AddScoped<ICambioService, CambioService>();
             services.AddScoped<IDevolucionService, DevolucionService>();
-            services.AddScoped<IOcaService, OcaService>();
 
             // Servicios para el informe mensual
             services.AddScoped<WooResumenBuilder>();

@@ -87,6 +87,8 @@ namespace Notizap.Application.Mapping
             CreateMap<CreateDevolucionDto, Devolucion>();
             CreateMap<Devolucion, DevolucionDto>();
             CreateMap<DevolucionDto, Devolucion>();
+            CreateMap<CreateCambioSimpleDto, Cambio>();
+            CreateMap<Cambio, CambioSimpleDto>();
         }
                     
     }

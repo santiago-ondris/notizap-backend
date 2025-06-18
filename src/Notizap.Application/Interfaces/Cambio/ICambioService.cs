@@ -1,8 +1,9 @@
 public interface ICambioService
 {
-    Task<int> CrearCambioAsync(CreateCambioDto dto);
-    Task<List<CambioDto>> ObtenerTodosAsync();
-    Task<CambioDto?> ObtenerPorIdAsync(int id);
-    Task<bool> ActualizarCambioAsync(int id, CambioDto dto);
+    Task<int> CrearCambioAsync(CreateCambioSimpleDto dto);
+    Task<List<CambioSimpleDto>> ObtenerTodosAsync();
+    Task<CambioSimpleDto?> ObtenerPorIdAsync(int id);
+    Task<bool> ActualizarCambioAsync(int id, CambioSimpleDto dto);
+    Task<bool> ActualizarEstadosAsync(int id, bool llegoAlDeposito, bool yaEnviado, bool cambioRegistradoSistema);
     Task<bool> EliminarCambioAsync(int id);
 }

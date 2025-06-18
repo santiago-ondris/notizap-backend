@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Notizap.Api.Migrations
 {
     [DbContext(typeof(NotizapDbContext))]
-    partial class NotizapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250617194442_CambioSimple")]
+    partial class CambioSimple
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -173,7 +176,8 @@ namespace Notizap.Api.Migrations
                     b.Property<decimal?>("DiferenciaAbonada")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Envio")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Fecha")

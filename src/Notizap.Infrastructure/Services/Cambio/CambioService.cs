@@ -12,42 +12,77 @@ public class CambioService : ICambioService
         _mapper = mapper;
     }
 
-    public async Task<int> CrearCambioAsync(CreateCambioDto dto)
+    public async Task<int> CrearCambioAsync(CreateCambioSimpleDto dto)
     {
         var cambio = _mapper.Map<Cambio>(dto);
+        
+        // Setear estados iniciales
         cambio.LlegoAlDeposito = false;
         cambio.YaEnviado = false;
         cambio.CambioRegistradoSistema = false;
 
+        // Configurar fecha como UTC
         cambio.Fecha = DateTime.SpecifyKind(cambio.Fecha, DateTimeKind.Utc);
-        cambio.FechaRetiro = DateTime.SpecifyKind(cambio.FechaRetiro, DateTimeKind.Utc);
 
         _context.Cambios.Add(cambio);
         await _context.SaveChangesAsync();
         return cambio.Id;
     }
 
-    public async Task<List<CambioDto>> ObtenerTodosAsync()
+    public async Task<List<CambioSimpleDto>> ObtenerTodosAsync()
     {
         var cambios = await _context.Cambios
             .OrderByDescending(c => c.Fecha)
             .ToListAsync();
 
-        return _mapper.Map<List<CambioDto>>(cambios);
+        return _mapper.Map<List<CambioSimpleDto>>(cambios);
     }
 
-    public async Task<CambioDto?> ObtenerPorIdAsync(int id)
+    public async Task<CambioSimpleDto?> ObtenerPorIdAsync(int id)
     {
         var cambio = await _context.Cambios.FindAsync(id);
-        return cambio == null ? null : _mapper.Map<CambioDto>(cambio);
+        return cambio == null ? null : _mapper.Map<CambioSimpleDto>(cambio);
     }
 
-    public async Task<bool> ActualizarCambioAsync(int id, CambioDto dto)
+    public async Task<bool> ActualizarCambioAsync(int id, CambioSimpleDto dto)
     {
         var existente = await _context.Cambios.FindAsync(id);
         if (existente == null) return false;
 
-        _mapper.Map(dto, existente); // sobrescribe los valores
+        // Mapear campos del DTO
+        existente.Fecha = DateTime.SpecifyKind(dto.Fecha, DateTimeKind.Utc);
+        existente.Pedido = dto.Pedido;
+        existente.Celular = dto.Celular;
+        existente.Nombre = dto.Nombre;
+        existente.Apellido = dto.Apellido ?? string.Empty;
+        existente.ModeloOriginal = dto.ModeloOriginal;
+        existente.ModeloCambio = dto.ModeloCambio;
+        existente.Motivo = dto.Motivo;
+        existente.ParPedido = dto.ParPedido;
+        existente.DiferenciaAbonada = dto.DiferenciaAbonada;
+        existente.DiferenciaAFavor = dto.DiferenciaAFavor;
+        existente.Responsable = dto.Responsable ?? string.Empty;
+        existente.Email = dto.Email;
+
+        // Mantener los estados del DTO
+        existente.LlegoAlDeposito = dto.LlegoAlDeposito;
+        existente.YaEnviado = dto.YaEnviado;
+        existente.CambioRegistradoSistema = dto.CambioRegistradoSistema;
+
+        await _context.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> ActualizarEstadosAsync(int id, bool llegoAlDeposito, bool yaEnviado, bool cambioRegistradoSistema)
+    {
+        var existente = await _context.Cambios.FindAsync(id);
+        if (existente == null) return false;
+
+        // Solo actualizar los estados
+        existente.LlegoAlDeposito = llegoAlDeposito;
+        existente.YaEnviado = yaEnviado;
+        existente.CambioRegistradoSistema = cambioRegistradoSistema;
+
         await _context.SaveChangesAsync();
         return true;
     }

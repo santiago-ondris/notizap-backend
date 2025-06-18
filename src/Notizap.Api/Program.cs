@@ -22,7 +22,9 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins(
             "http://localhost:5173",
-            "https://icy-water-08037f110.6.azurestaticapps.net"
+            "https://icy-water-08037f110.6.azurestaticapps.net",
+            "https://notizap.app",
+            "https://www.notizap.app"
             )
               .AllowAnyHeader()
               .AllowAnyMethod();
