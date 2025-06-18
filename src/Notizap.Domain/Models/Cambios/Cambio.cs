@@ -14,7 +14,7 @@ public class Cambio
     public bool YaEnviado { get; set; }
     public decimal? DiferenciaAbonada { get; set; }
     public decimal? DiferenciaAFavor { get; set; }
-    // public string Envio { get; set; } = default!;
+    public string? Envio { get; set; }
     public bool CambioRegistradoSistema { get; set; }
     public string Responsable { get; set; } = default!;
     public string? Observaciones { get; set; }

@@ -61,7 +61,7 @@ public class CambioService : ICambioService
         existente.ParPedido = dto.ParPedido;
         existente.DiferenciaAbonada = dto.DiferenciaAbonada;
         existente.DiferenciaAFavor = dto.DiferenciaAFavor;
-        existente.Responsable = dto.Responsable ?? string.Empty;
+        existente.Envio = dto.Envio;
         existente.Email = dto.Email;
 
         // Mantener los estados del DTO

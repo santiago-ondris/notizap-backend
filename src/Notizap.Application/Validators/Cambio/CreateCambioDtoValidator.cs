@@ -30,8 +30,5 @@ public class CreateCambioDtoValidator : AbstractValidator<CambioSimpleDto>
 
         RuleFor(x => x.Email)
             .EmailAddress().WithMessage("El email no tiene un formato válido.");
-
-        RuleFor(x => x.Responsable)
-            .NotEmpty().WithMessage("Debe asignarse un responsable.");
     }
 }

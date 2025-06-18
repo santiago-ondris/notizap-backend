@@ -12,8 +12,9 @@ public class CreateCambioSimpleDto
     public bool ParPedido { get; set; }
     public decimal? DiferenciaAbonada { get; set; }
     public decimal? DiferenciaAFavor { get; set; }
-    public string? Responsable { get; set; }
+    // public string? Responsable { get; set; }
     public string? Observaciones { get; set; }
+    public string? Envio { get; set; }
 }
 
 public class CambioSimpleDto : CreateCambioSimpleDto

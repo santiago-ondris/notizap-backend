@@ -81,9 +81,6 @@ namespace Notizap.Application.Mapping
             CreateMap<DisplayAnuncioDto, AnuncioDisplayML>();  
 
             // === CAMBIOS Y DEVOLUCIONES MAPPING ===
-            CreateMap<CreateCambioDto, Cambio>();
-            CreateMap<Cambio, CambioDto>();
-            CreateMap<CambioDto, Cambio>();
             CreateMap<CreateDevolucionDto, Devolucion>();
             CreateMap<Devolucion, DevolucionDto>();
             CreateMap<DevolucionDto, Devolucion>();
