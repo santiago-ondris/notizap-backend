@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Notizap.Api.Migrations
 {
     [DbContext(typeof(NotizapDbContext))]
-    partial class NotizapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250623134552_AgregarWhatsAppLimpio")]
+    partial class AgregarWhatsAppLimpio
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -782,6 +785,118 @@ namespace Notizap.Api.Migrations
                     b.ToTable("InstagramStories");
                 });
 
+            modelBuilder.Entity("MensajeWhatsApp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ClienteId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ConversationId")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("ErrorDetalle")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<bool>("EsEntrante")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasDefaultValue("enviando");
+
+                    b.Property<DateTime?>("FechaEntregado")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("FechaEnvio")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("FechaLeido")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("FechaProximoIntento")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("IntentoEnvio")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(1);
+
+                    b.Property<string>("Mensaje")
+                        .IsRequired()
+                        .HasMaxLength(4096)
+                        .HasColumnType("character varying(4096)");
+
+                    b.Property<string>("MessageId")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("MetadataJson")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("NumeroDestino")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("NumeroOrigen")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("character varying(20)");
+
+                    b.Property<string>("TemplateUsado")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("TipoMensaje")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)")
+                        .HasDefaultValue("text");
+
+                    b.Property<string>("UsuarioEnvio")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId")
+                        .HasDatabaseName("IX_MensajesWhatsApp_ClienteId");
+
+                    b.HasIndex("EsEntrante")
+                        .HasDatabaseName("IX_MensajesWhatsApp_EsEntrante");
+
+                    b.HasIndex("Estado")
+                        .HasDatabaseName("IX_MensajesWhatsApp_Estado");
+
+                    b.HasIndex("FechaEnvio")
+                        .HasDatabaseName("IX_MensajesWhatsApp_FechaEnvio");
+
+                    b.HasIndex("MessageId")
+                        .HasDatabaseName("IX_MensajesWhatsApp_MessageId");
+
+                    b.HasIndex("ClienteId", "FechaEnvio")
+                        .HasDatabaseName("IX_MensajesWhatsApp_Cliente_Fecha");
+
+                    b.HasIndex("Estado", "IntentoEnvio", "FechaProximoIntento")
+                        .HasDatabaseName("IX_MensajesWhatsApp_Reintentos");
+
+                    b.ToTable("MensajesWhatsApp", (string)null);
+                });
+
             modelBuilder.Entity("MercadoLibreManualReport", b =>
                 {
                     b.Property<int>("Id")
@@ -808,59 +923,6 @@ namespace Notizap.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MercadoLibreManualReports");
-                });
-
-            modelBuilder.Entity("PlantillaWhatsApp", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Activa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("boolean")
-                        .HasDefaultValue(true);
-
-                    b.Property<string>("Categoria")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasDefaultValue("General");
-
-                    b.Property<string>("CreadoPor")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<string>("Descripcion")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Mensaje")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Activa");
-
-                    b.HasIndex("Categoria");
-
-                    b.HasIndex("Activa", "Categoria");
-
-                    b.ToTable("PlantillasWhatsApp", (string)null);
                 });
 
             modelBuilder.Entity("ReportePublicidadML", b =>
@@ -931,6 +993,74 @@ namespace Notizap.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ReportesPublicidadML", (string)null);
+                });
+
+            modelBuilder.Entity("TemplateWhatsApp", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Categoria")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Componentes")
+                        .HasMaxLength(2000)
+                        .HasColumnType("character varying(2000)");
+
+                    b.Property<bool>("EsActivo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<DateTime?>("FechaAprobacion")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Idioma")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(10)
+                        .HasColumnType("character varying(10)")
+                        .HasDefaultValue("es");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("TemplateId")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EsActivo")
+                        .HasDatabaseName("IX_TemplatesWhatsApp_EsActivo");
+
+                    b.HasIndex("Estado")
+                        .HasDatabaseName("IX_TemplatesWhatsApp_Estado");
+
+                    b.HasIndex("TemplateId")
+                        .IsUnique()
+                        .HasDatabaseName("IX_TemplatesWhatsApp_TemplateId");
+
+                    b.HasIndex("Categoria", "Estado")
+                        .HasDatabaseName("IX_TemplatesWhatsApp_Categoria_Estado");
+
+                    b.ToTable("TemplatesWhatsApp", (string)null);
                 });
 
             modelBuilder.Entity("User", b =>
@@ -1068,6 +1198,17 @@ namespace Notizap.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Compra");
+                });
+
+            modelBuilder.Entity("MensajeWhatsApp", b =>
+                {
+                    b.HasOne("Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("WooDailySale", b =>

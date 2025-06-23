@@ -122,4 +122,11 @@ public class ClienteController : ControllerBase
         var categorias = await _clienteService.GetCategoriasDisponiblesAsync();
         return Ok(categorias);
     }
+    [HttpPatch("{id}/telefono")]
+    [SwaggerOperation(Summary = "Actualizar teléfono del cliente")]
+    public async Task<IActionResult> ActualizarTelefono(int id, [FromBody] ActualizarTelefonoDto dto)
+    {
+        await _clienteService.ActualizarTelefonoAsync(id, dto.Telefono);
+        return NoContent();
+    }
 }

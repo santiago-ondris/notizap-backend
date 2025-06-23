@@ -25,6 +25,7 @@ public class NotizapDbContext : DbContext
         public DbSet<Compra> Compras { get; set; }
         public DbSet<CompraDetalle> CompraDetalles { get; set; }
         public DbSet<HistorialImportacionClientes> HistorialImportacionClientes { get; set; }
+        public DbSet<PlantillaWhatsApp> PlantillasWhatsApp { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -43,6 +44,7 @@ public class NotizapDbContext : DbContext
             modelBuilder.ApplyConfiguration(new CompraConfiguration());
             modelBuilder.ApplyConfiguration(new CompraDetalleConfiguration());
             modelBuilder.ApplyConfiguration(new HistorialImportacionClientesConfiguration());
+            modelBuilder.ApplyConfiguration(new PlantillaWhatsAppConfiguration());
 
             // Relación WooCommerce Report -> DailySales
             modelBuilder.Entity<WooCommerceMonthlyReport>()

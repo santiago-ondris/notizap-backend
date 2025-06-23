@@ -22,7 +22,8 @@ public class ClienteService : IClienteService
                 FechaUltimaCompra = c.FechaUltimaCompra,
                 Canales = c.Canales,
                 Sucursales = c.Sucursales,
-                Observaciones = c.Observaciones
+                Observaciones = c.Observaciones,
+                Telefono = c.Telefono
             })
             .OrderByDescending(x => x.MontoTotalGastado);
 
@@ -213,7 +214,8 @@ public class ClienteService : IClienteService
                 FechaUltimaCompra = c.FechaUltimaCompra,
                 Canales = c.Canales,
                 Sucursales = c.Sucursales,
-                Observaciones = c.Observaciones
+                Observaciones = c.Observaciones,
+                Telefono = c.Telefono
             })
             .ToListAsync();
     }
@@ -233,7 +235,8 @@ public class ClienteService : IClienteService
                 FechaUltimaCompra = c.FechaUltimaCompra,
                 Canales = c.Canales,
                 Sucursales = c.Sucursales,
-                Observaciones = c.Observaciones
+                Observaciones = c.Observaciones,
+                Telefono = c.Telefono
             })
             .ToListAsync();
     }
@@ -321,7 +324,8 @@ public class ClienteService : IClienteService
             FechaUltimaCompra = c.FechaUltimaCompra,
             Canales = c.Canales,
             Sucursales = c.Sucursales,
-            Observaciones = c.Observaciones
+            Observaciones = c.Observaciones,
+            Telefono = c.Telefono
         }).OrderByDescending(x => x.MontoTotalGastado);
 
         return await pagedQuery.ToPagedResultAsync(pageNumber, pageSize);
@@ -398,5 +402,17 @@ public class ClienteService : IClienteService
             .ToListAsync();
 
         return categorias!;
+    }
+    public async Task ActualizarTelefonoAsync(int clienteId, string telefono)
+    {
+        var cliente = await _context.Clientes.FindAsync(clienteId);
+        
+        if (cliente == null)
+        {
+            throw new ArgumentException($"Cliente con ID {clienteId} no encontrado", nameof(clienteId));
+        }
+        
+        cliente.Telefono = telefono;
+        await _context.SaveChangesAsync();
     }
 }

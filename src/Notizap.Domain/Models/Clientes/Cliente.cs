@@ -10,4 +10,5 @@ public class Cliente
     public string? Canales { get; set; } 
     public string? Sucursales { get; set; } 
     public string? Observaciones { get; set; } 
+    public string? Telefono { get; set; }
 }

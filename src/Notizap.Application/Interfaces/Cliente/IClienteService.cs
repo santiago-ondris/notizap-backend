@@ -19,4 +19,5 @@ public interface IClienteService
     Task<List<string>> GetSucursalesDisponiblesAsync();
     Task<List<string>> GetMarcasDisponiblesAsync();
     Task<List<string>> GetCategoriasDisponiblesAsync();
+    Task ActualizarTelefonoAsync(int clienteId, string telefono);
 }
