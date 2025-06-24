@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Notizap.Api.Migrations
 {
     [DbContext(typeof(NotizapDbContext))]
-    partial class NotizapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250624122136_DevolucionML")]
+    partial class DevolucionML
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -465,12 +468,6 @@ namespace Notizap.Api.Migrations
                         .HasColumnType("boolean")
                         .HasDefaultValue(false);
 
-                    b.Property<string>("Pedido")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .IsUnicode(true)
-                        .HasColumnType("character varying(100)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Cliente")
@@ -484,9 +481,6 @@ namespace Notizap.Api.Migrations
 
                     b.HasIndex("NotaCreditoEmitida")
                         .HasDatabaseName("IX_DevolucionesMercadoLibre_NotaCredito");
-
-                    b.HasIndex("Pedido")
-                        .HasDatabaseName("IX_DevolucionesMercadoLibre_Pedido");
 
                     b.HasIndex("Fecha", "NotaCreditoEmitida")
                         .HasDatabaseName("IX_DevolucionesMercadoLibre_FechaNotaCredito");
