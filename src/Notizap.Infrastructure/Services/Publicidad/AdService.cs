@@ -188,7 +188,7 @@ public class AdService : IAdService
                 if (camp.Impressions    != ins.Impressions)  { camp.Impressions    = ins.Impressions;  hasChanged = true; }
                 if (camp.Ctr            != ins.Ctr)          { camp.Ctr            = ins.Ctr;          hasChanged = true; }
                 if (camp.Reach          != ins.Reach)        { camp.Reach          = ins.Reach;        hasChanged = true; }
-                if (camp.ValorResultado != ins.ValorResultado) { camp.ValorResultado = ins.ValorResultado; hasChanged = true; }
+                if (camp.ValorResultado != ins.ValorResultado.ToString()) { camp.ValorResultado = ins.ValorResultado.ToString(); hasChanged = true; }
                 if (camp.FechaInicio    != ins.Start)        { camp.FechaInicio    = ins.Start;        hasChanged = true; }
                 if (camp.FechaFin       != ins.End)          { camp.FechaFin       = ins.End;          hasChanged = true; }
 
@@ -217,5 +217,172 @@ public class AdService : IAdService
             UpdatedCampaigns = updated,
             UnchangedCampaigns = unchanged
         };
+    }
+
+    public async Task<PublicidadDashboardDto> GetDashboardDataAsync(PublicidadDashboardParamsDto parametros)
+    {
+        // Determinar fechas si no se proporcionan
+        var fechaFin = parametros.FechaFin ?? DateTime.UtcNow;
+        var fechaInicio = parametros.FechaInicio ?? new DateTime(fechaFin.Year, fechaFin.Month, 1);
+        
+        // Mes anterior para comparativas
+        var fechaInicioAnterior = fechaInicio.AddMonths(-1);
+        var fechaFinAnterior = fechaInicio.AddDays(-1);
+
+        // Obtener TODOS los reportes del período actual (manuales + sincronizados)
+        var reportesActuales = await _context.AdReports
+            .Include(r => r.Campañas)
+            .Where(r => r.Year == fechaFin.Year && r.Month == fechaFin.Month)
+            .Where(r => !parametros.UnidadesNegocio.Any() || parametros.UnidadesNegocio.Contains(r.UnidadNegocio))
+            .Where(r => !parametros.Plataformas.Any() || parametros.Plataformas.Contains(r.Plataforma))
+            .ToListAsync();
+
+        // Obtener TODOS los reportes del mes anterior (manuales + sincronizados)
+        var reportesAnteriores = await _context.AdReports
+            .Include(r => r.Campañas)
+            .Where(r => r.Year == fechaInicioAnterior.Year && r.Month == fechaInicioAnterior.Month)
+            .Where(r => !parametros.UnidadesNegocio.Any() || parametros.UnidadesNegocio.Contains(r.UnidadNegocio))
+            .Where(r => !parametros.Plataformas.Any() || parametros.Plataformas.Contains(r.Plataforma))
+            .ToListAsync();
+
+        var dashboard = new PublicidadDashboardDto
+        {
+            ResumenGeneral = CalcularResumenGeneral(reportesActuales, reportesAnteriores),
+            ResumenPorUnidad = PublicidadDashboardHelper.CalcularResumenPorUnidad(reportesActuales, reportesAnteriores),
+            ResumenPorPlataforma = PublicidadDashboardHelper.CalcularResumenPorPlataforma(reportesActuales),
+            Comparativa = PublicidadDashboardHelper.CalcularComparativa(reportesActuales, reportesAnteriores, fechaFin),
+            TopCampañas = PublicidadDashboardHelper.ObtenerTopCampañas(reportesActuales, parametros.TopCampañasLimit),
+            TendenciaMensual = await ObtenerTendenciaMensual(fechaFin, parametros.MesesHaciaAtras ?? 6, parametros.UnidadesNegocio, parametros.Plataformas)
+        };
+
+        return dashboard;
+    }
+
+    private PublicidadResumenGeneralDto CalcularResumenGeneral(
+        List<AdReport> reportesActuales, 
+        List<AdReport> reportesAnteriores)
+    {
+        // Totales actuales (todos los datos ya están en AdReports)
+        var gastoTotalActual = reportesActuales.SelectMany(r => r.Campañas).Sum(c => c.MontoInvertido);
+        var gastoTotalAnterior = reportesAnteriores.SelectMany(r => r.Campañas).Sum(c => c.MontoInvertido);
+
+        // Métricas solo de campañas que tienen datos (las sincronizadas de Meta)
+        var campañasConMetricas = reportesActuales.SelectMany(r => r.Campañas)
+            .Where(c => c.Clicks > 0 || c.Impressions > 0); // Solo las que tienen métricas de Meta
+
+        var totalClicks = campañasConMetricas.Sum(c => c.Clicks);
+        var totalImpressions = campañasConMetricas.Sum(c => c.Impressions);
+        var totalReach = campañasConMetricas.Sum(c => c.Reach);
+        var ctrPromedio = totalImpressions > 0 ? (decimal)totalClicks / totalImpressions * 100 : 0;
+        var costoPromedioPorClick = totalClicks > 0 ? gastoTotalActual / totalClicks : 0;
+
+        var porcentajeCambio = gastoTotalAnterior > 0 ? 
+            ((gastoTotalActual - gastoTotalAnterior) / gastoTotalAnterior) * 100 : 0;
+
+        return new PublicidadResumenGeneralDto
+        {
+            GastoTotalActual = gastoTotalActual,
+            GastoTotalAnterior = gastoTotalAnterior,
+            PorcentajeCambio = Math.Round(porcentajeCambio, 2),
+            TotalCampañasActivas = reportesActuales.SelectMany(r => r.Campañas).Count(),
+            TotalClicks = totalClicks,
+            TotalImpressions = totalImpressions,
+            TotalReach = totalReach,
+            CtrPromedio = Math.Round(ctrPromedio, 2),
+            CostoPromedioPorClick = Math.Round(costoPromedioPorClick, 2)
+        };
+    }
+
+  private async Task<List<TendenciaMensualDto>> ObtenerTendenciaMensual(
+    DateTime fechaActual, 
+    int mesesHaciaAtras,
+    List<string> unidadesNegocio,
+    List<string> plataformas)
+    {
+        var resultado = new List<TendenciaMensualDto>();
+        var mesesNombres = new[] { "", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
+                                "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+
+        // Generar lista de meses hacia atrás
+        for (int i = mesesHaciaAtras - 1; i >= 0; i--)
+        {
+            var fechaMes = fechaActual.AddMonths(-i);
+            var año = fechaMes.Year;
+            var mes = fechaMes.Month;
+
+            // Obtener reportes del mes específico
+            var reportesMes = await _context.AdReports
+                .Include(r => r.Campañas)
+                .Where(r => r.Year == año && r.Month == mes)
+                .Where(r => !unidadesNegocio.Any() || unidadesNegocio.Contains(r.UnidadNegocio))
+                .Where(r => !plataformas.Any() || plataformas.Contains(r.Plataforma))
+                .ToListAsync();
+
+            if (!reportesMes.Any())
+            {
+                // Agregar mes con datos en 0 si no hay reportes
+                resultado.Add(new TendenciaMensualDto
+                {
+                    Mes = mes,
+                    Año = año,
+                    MesNombre = mesesNombres[mes],
+                    GastoTotal = 0,
+                    GastoMontella = 0,
+                    GastoAlenka = 0,
+                    GastoKids = 0,
+                    GastoMeta = 0,
+                    GastoGoogle = 0,
+                    TotalCampañas = 0
+                });
+                continue;
+            }
+
+            // Calcular totales del mes
+            var gastoTotal = reportesMes.SelectMany(r => r.Campañas).Sum(c => c.MontoInvertido);
+            var totalCampañas = reportesMes.SelectMany(r => r.Campañas).Count();
+
+            // Gastos por unidad
+            var gastoMontella = reportesMes
+                .Where(r => r.UnidadNegocio.Equals("montella", StringComparison.OrdinalIgnoreCase))
+                .SelectMany(r => r.Campañas)
+                .Sum(c => c.MontoInvertido);
+
+            var gastoAlenka = reportesMes
+                .Where(r => r.UnidadNegocio.Equals("alenka", StringComparison.OrdinalIgnoreCase))
+                .SelectMany(r => r.Campañas)
+                .Sum(c => c.MontoInvertido);
+
+            var gastoKids = reportesMes
+                .Where(r => r.UnidadNegocio.Equals("kids", StringComparison.OrdinalIgnoreCase))
+                .SelectMany(r => r.Campañas)
+                .Sum(c => c.MontoInvertido);
+
+            // Gastos por plataforma
+            var gastoMeta = reportesMes
+                .Where(r => r.Plataforma.Equals("Meta", StringComparison.OrdinalIgnoreCase))
+                .SelectMany(r => r.Campañas)
+                .Sum(c => c.MontoInvertido);
+
+            var gastoGoogle = reportesMes
+                .Where(r => r.Plataforma.Equals("Google", StringComparison.OrdinalIgnoreCase))
+                .SelectMany(r => r.Campañas)
+                .Sum(c => c.MontoInvertido);
+
+            resultado.Add(new TendenciaMensualDto
+            {
+                Mes = mes,
+                Año = año,
+                MesNombre = mesesNombres[mes],
+                GastoTotal = gastoTotal,
+                GastoMontella = gastoMontella,
+                GastoAlenka = gastoAlenka,
+                GastoKids = gastoKids,
+                GastoMeta = gastoMeta,
+                GastoGoogle = gastoGoogle,
+                TotalCampañas = totalCampañas
+            });
+        }
+
+        return resultado.OrderBy(r => r.Año).ThenBy(r => r.Mes).ToList();
     }
 }

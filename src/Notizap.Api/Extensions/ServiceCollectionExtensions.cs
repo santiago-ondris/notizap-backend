@@ -34,6 +34,7 @@ namespace Notizap.API.Extensions
             services.AddScoped<IPostsService, PostsService>();
             services.AddScoped<IEnvioService, EnvioService>();
             services.AddScoped<IAdService, AdService>();
+            services.AddScoped<IUpdateAdService, UpdateAdService>();
             services.AddScoped<IMetaAdsService, MetaAdsService>();
             services.AddScoped<IMixedAdsService, MixedAdsService>();
             services.AddScoped<IMercadoLibrePublicidadService, MercadoLibrePublicidadService>();

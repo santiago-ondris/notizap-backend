@@ -129,4 +129,28 @@ public class ClienteController : ControllerBase
         await _clienteService.ActualizarTelefonoAsync(id, dto.Telefono);
         return NoContent();
     }
+    [HttpGet("export/excel")]
+    [SwaggerOperation(Summary = "Exportar clientes filtrados a Excel")]
+    public async Task<IActionResult> ExportToExcel(
+        [FromQuery] DateTime? desde = null,
+        [FromQuery] DateTime? hasta = null,
+        [FromQuery] string? canal = null,
+        [FromQuery] string? sucursal = null,
+        [FromQuery] string? marca = null,
+        [FromQuery] string? categoria = null)
+    {
+        try 
+        {
+            var excelBytes = await _clienteService.ExportToExcelAsync(desde, hasta, canal, sucursal, marca, categoria);
+            
+            var fileName = $"clientes_export_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+            
+            return File(excelBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error en export excel: {ex.Message}");
+            return BadRequest($"Error al exportar: {ex.Message}");
+        }
+    }
 }

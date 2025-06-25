@@ -20,7 +20,7 @@ public class AdCampaign
     public decimal Ctr { get; set; }
     public int Reach { get; set; }
 
-    public int ValorResultado { get; set; }
+    public string ValorResultado { get; set; } = string.Empty;
 
     public int FollowersCount { get; set; }
     public DateTime FechaInicio { get; set; }

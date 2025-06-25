@@ -1,3 +1,4 @@
+using ClosedXML.Excel;
 using Microsoft.EntityFrameworkCore;
 
 public class ClienteService : IClienteService
@@ -414,5 +415,119 @@ public class ClienteService : IClienteService
         
         cliente.Telefono = telefono;
         await _context.SaveChangesAsync();
+    }
+    public async Task<byte[]> ExportToExcelAsync(DateTime? desde, DateTime? hasta, string? canal, string? sucursal, string? marca, string? categoria)
+    {
+        // Reutilizar la misma lógica de filtrado que ya tenemos
+        var query = _context.Clientes
+            .Include(c => c.Compras)
+            .ThenInclude(c => c.Detalles)
+            .AsQueryable();
+
+        // Aplicar los mismos filtros que en FiltrarAsync
+        if (!string.IsNullOrWhiteSpace(canal))
+        {
+            var canalesArray = canal.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(c => c.Trim())
+                                .Where(c => !string.IsNullOrEmpty(c))
+                                .ToArray();
+            
+            if (canalesArray.Any())
+            {
+                query = query.Where(c => canalesArray.Any(canal => c.Canales != null && c.Canales.Contains(canal)));
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(sucursal))
+        {
+            var sucursalesArray = sucursal.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                        .Select(s => s.Trim())
+                                        .Where(s => !string.IsNullOrEmpty(s))
+                                        .ToArray();
+            
+            if (sucursalesArray.Any())
+            {
+                query = query.Where(c => sucursalesArray.Any(sucursal => c.Sucursales != null && c.Sucursales.Contains(sucursal)));
+            }
+        }
+
+        if (desde.HasValue)
+        {
+            desde = DateTime.SpecifyKind(desde.Value, DateTimeKind.Utc);
+            query = query.Where(c => c.FechaPrimeraCompra >= desde.Value);
+        }
+
+        if (hasta.HasValue)
+        {
+            hasta = DateTime.SpecifyKind(hasta.Value, DateTimeKind.Utc);
+            query = query.Where(c => c.FechaUltimaCompra <= hasta.Value);
+        }
+
+        if (!string.IsNullOrWhiteSpace(marca) || !string.IsNullOrWhiteSpace(categoria))
+        {
+            var marcasArray = string.IsNullOrWhiteSpace(marca) ? Array.Empty<string>() :
+                            marca.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(m => m.Trim())
+                                .Where(m => !string.IsNullOrEmpty(m))
+                                .ToArray();
+
+            var categoriasArray = string.IsNullOrWhiteSpace(categoria) ? Array.Empty<string>() :
+                                categoria.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                        .Select(cat => cat.Trim())
+                                        .Where(cat => !string.IsNullOrEmpty(cat))
+                                        .ToArray();
+
+            if (categoriasArray.Any() || marcasArray.Any())
+            {
+                query = query.Where(cliente =>
+                    cliente.Compras.Any(compra =>
+                        compra.Detalles!.Any(det =>
+                            (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
+                            (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                        )
+                    )
+                );
+            }
+        }
+
+    var clientesParaExport = await query
+        .OrderByDescending(c => c.MontoTotalGastado)
+        .Take(100)
+        .Select(c => new { 
+            Nombre = c.Nombre, 
+            TelefonoOriginal = c.Telefono 
+        })
+        .ToListAsync();
+
+        var clientesConTelefonoFormateado = clientesParaExport.Select(c => new {
+            Nombre = c.Nombre,
+            Telefono = ExcelFinder.FormatearTelefono(c.TelefonoOriginal)
+        }).ToList();
+
+        using var workbook = new XLWorkbook();
+        var worksheet = workbook.Worksheets.Add("Clientes");
+        
+        worksheet.Cell(1, 1).Value = "Nombre";
+        worksheet.Cell(1, 2).Value = "Teléfono";
+        
+        worksheet.Range(1, 1, 1, 2).Style.Font.Bold = true;
+        worksheet.Range(1, 1, 1, 2).Style.Fill.BackgroundColor = XLColor.LightGray;
+        
+        for (int i = 0; i < clientesConTelefonoFormateado.Count; i++)
+        {
+            worksheet.Cell(i + 2, 1).Value = clientesConTelefonoFormateado[i].Nombre;
+            worksheet.Cell(i + 2, 2).Value = clientesConTelefonoFormateado[i].Telefono;
+            
+            if (!string.IsNullOrEmpty(clientesConTelefonoFormateado[i].Telefono))
+            {
+                worksheet.Cell(i + 2, 2).Style.NumberFormat.Format = "@"; // Formato texto
+            }
+        }
+        
+        worksheet.Columns().AdjustToContents();
+        
+        using var stream = new MemoryStream();
+        workbook.SaveAs(stream);
+        return stream.ToArray();
     }
 }

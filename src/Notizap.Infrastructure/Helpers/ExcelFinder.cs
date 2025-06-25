@@ -28,4 +28,30 @@ public class ExcelFinder
         var limpio = valor.Replace("$", "").Replace(" ", "").Replace(",", "");
         return decimal.TryParse(limpio, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var result) ? result : 0;
     }
+    public static string? FormatearTelefono(string? telefonoOriginal)
+    {
+        if (string.IsNullOrWhiteSpace(telefonoOriginal))
+            return null;
+
+        // Limpiar el teléfono: quitar espacios, guiones, paréntesis, etc.
+        var telefonoLimpio = new string(telefonoOriginal.Where(char.IsDigit).ToArray());
+        
+        if (string.IsNullOrEmpty(telefonoLimpio))
+            return null;
+
+        // Si ya empieza con 549, devolverlo tal como está
+        if (telefonoLimpio.StartsWith("549"))
+            return telefonoLimpio;
+        
+        // Si empieza con 54, agregar solo el 9
+        if (telefonoLimpio.StartsWith("54"))
+            return "549" + telefonoLimpio.Substring(2);
+        
+        // Si empieza con 9 (código de celular argentino), agregar 54
+        if (telefonoLimpio.StartsWith("9"))
+            return "54" + telefonoLimpio;
+        
+        // Si no empieza con 9, asumir que es un celular sin código y agregar 549
+        return "549" + telefonoLimpio;
+    }
 } 

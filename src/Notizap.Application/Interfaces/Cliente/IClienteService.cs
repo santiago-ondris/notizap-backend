@@ -20,4 +20,5 @@ public interface IClienteService
     Task<List<string>> GetMarcasDisponiblesAsync();
     Task<List<string>> GetCategoriasDisponiblesAsync();
     Task ActualizarTelefonoAsync(int clienteId, string telefono);
+    Task<byte[]> ExportToExcelAsync(DateTime? desde, DateTime? hasta, string? canal, string? sucursal, string? marca, string? categoria);
 }

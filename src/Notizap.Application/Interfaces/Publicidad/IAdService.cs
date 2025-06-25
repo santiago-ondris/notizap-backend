@@ -7,4 +7,6 @@ public interface IAdService
     Task<bool> DeleteAsync(int id);
     Task<List<PublicidadResumenMensualDto>> GetResumenMensualAsync(int year, int month, string unidadNegocio = null!);
     Task<SyncResultDto> SyncReportFromApiAsync(string unidadNegocio, DateTime from, DateTime to);
+    Task<PublicidadDashboardDto> GetDashboardDataAsync(PublicidadDashboardParamsDto parametros);
+
 }
