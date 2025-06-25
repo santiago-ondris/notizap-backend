@@ -117,21 +117,24 @@ public class ClienteService : IClienteService
     }
 
     public async Task<List<ClienteResumenDto>> GetRankingAsync(
-        string ordenarPor = "monto", 
+        string ordenarPor = "montoTotal", 
         int top = 10,
         DateTime? desde = null,
         DateTime? hasta = null,
         string? canal = null,
         string? sucursal = null,
         string? marca = null,
-        string? categoria = null)
+        string? categoria = null,
+        bool modoExclusivoCanal = false,     
+        bool modoExclusivoSucursal = false,  
+        bool modoExclusivoMarca = false,    
+        bool modoExclusivoCategoria = false)
     {
         var query = _context.Clientes
             .Include(c => c.Compras)
             .ThenInclude(c => c.Detalles)
             .AsQueryable();
 
-        // Aplicar los mismos filtros que en FiltrarAsync
         if (!string.IsNullOrWhiteSpace(canal))
         {
             var canalesArray = canal.Split(',', StringSplitOptions.RemoveEmptyEntries)
@@ -141,7 +144,33 @@ public class ClienteService : IClienteService
             
             if (canalesArray.Any())
             {
-                query = query.Where(c => canalesArray.Any(canal => c.Canales != null && c.Canales.Contains(canal)));
+                if (modoExclusivoCanal)
+                {
+                    var clientesConCanales = await query
+                        .Where(c => c.Canales != null)
+                        .Select(c => new { c.Id, c.Canales })
+                        .ToListAsync();
+                    
+                    var idsExclusivos = clientesConCanales
+                        .Where(c => 
+                        {
+                            var canalesCliente = c.Canales!.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(canal => canal.Trim())
+                                .Where(canal => !string.IsNullOrEmpty(canal))
+                                .ToArray();
+                            
+                            return canalesArray.All(req => canalesCliente.Contains(req)) &&
+                                canalesCliente.All(cliente => canalesArray.Contains(cliente));
+                        })
+                        .Select(c => c.Id)
+                        .ToList();
+                    
+                    query = query.Where(c => idsExclusivos.Contains(c.Id));
+                }
+                else
+                {
+                    query = query.Where(c => canalesArray.Any(canal => c.Canales != null && c.Canales.Contains(canal)));
+                }
             }
         }
 
@@ -154,20 +183,34 @@ public class ClienteService : IClienteService
             
             if (sucursalesArray.Any())
             {
-                query = query.Where(c => sucursalesArray.Any(sucursal => c.Sucursales != null && c.Sucursales.Contains(sucursal)));
+                if (modoExclusivoSucursal)
+                {
+                    var clientesConSucursales = await query
+                        .Where(c => c.Sucursales != null)
+                        .Select(c => new { c.Id, c.Sucursales })
+                        .ToListAsync();
+                    
+                    var idsExclusivos = clientesConSucursales
+                        .Where(c => 
+                        {
+                            var sucursalesCliente = c.Sucursales!.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(sucursal => sucursal.Trim())
+                                .Where(sucursal => !string.IsNullOrEmpty(sucursal))
+                                .ToArray();
+                            
+                            return sucursalesArray.All(req => sucursalesCliente.Contains(req)) &&
+                                sucursalesCliente.All(cliente => sucursalesArray.Contains(cliente));
+                        })
+                        .Select(c => c.Id)
+                        .ToList();
+                    
+                    query = query.Where(c => idsExclusivos.Contains(c.Id));
+                }
+                else
+                {
+                    query = query.Where(c => sucursalesArray.Any(sucursal => c.Sucursales != null && c.Sucursales.Contains(sucursal)));
+                }
             }
-        }
-
-        if (desde.HasValue)
-        {
-            desde = DateTime.SpecifyKind(desde.Value, DateTimeKind.Utc);
-            query = query.Where(c => c.FechaPrimeraCompra >= desde.Value);
-        }
-
-        if (hasta.HasValue)
-        {
-            hasta = DateTime.SpecifyKind(hasta.Value, DateTimeKind.Utc);
-            query = query.Where(c => c.FechaUltimaCompra <= hasta.Value);
         }
 
         if (!string.IsNullOrWhiteSpace(marca) || !string.IsNullOrWhiteSpace(categoria))
@@ -186,25 +229,49 @@ public class ClienteService : IClienteService
 
             if (marcasArray.Any() || categoriasArray.Any())
             {
-                query = query.Where(cliente =>
-                    cliente.Compras.Any(compra =>
-                        compra.Detalles!.Any(det =>
-                            (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
-                            (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                if (modoExclusivoMarca || modoExclusivoCategoria)
+                {
+                    query = query.Where(cliente =>
+                        cliente.Compras.Any() && // Tiene compras
+                        cliente.Compras.SelectMany(c => c.Detalles!).Any() && // Tiene detalles
+                        
+                        (marcasArray.Length == 0 || !modoExclusivoMarca || 
+                        cliente.Compras.SelectMany(c => c.Detalles!)
+                            .Select(d => d.Marca)
+                            .Distinct()
+                            .All(marcaComprada => marcasArray.Contains(marcaComprada))) &&
+                        
+                        (categoriasArray.Length == 0 || !modoExclusivoCategoria || 
+                        cliente.Compras.SelectMany(c => c.Detalles!)
+                            .Select(d => d.Categoria)
+                            .Distinct()
+                            .All(categoriaComprada => categoriasArray.Contains(categoriaComprada))) &&
+                        
+                        cliente.Compras.Any(compra =>
+                            compra.Detalles!.Any(det =>
+                                (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
+                                (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                            )
                         )
-                    )
-                );
+                    );
+                }
+                else
+                {
+                    query = query.Where(cliente =>
+                        cliente.Compras.Any(compra =>
+                            compra.Detalles!.Any(det =>
+                                (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
+                                (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                            )
+                        )
+                    );
+                }
             }
         }
 
-        // Aplicar ordenamiento después de filtrar
-        if (ordenarPor == "cantidad")
-            query = query.OrderByDescending(c => c.CantidadCompras);
-        else
-            query = query.OrderByDescending(c => c.MontoTotalGastado);
+        var orderedQuery = ExcelFinder.ApplyOrdering(query, ordenarPor, marca, categoria);
 
-        // Aplicar el top y mapear a DTO
-        return await query.Take(top)
+        return await orderedQuery.Take(top)
             .Select(c => new ClienteResumenDto
             {
                 Id = c.Id,
@@ -243,12 +310,27 @@ public class ClienteService : IClienteService
     }
 
     public async Task<PagedResult<ClienteResumenDto>> FiltrarAsync(
-        DateTime? desde, DateTime? hasta, string? canal, string? sucursal, string? marca, string? categoria, int pageNumber = 1, int pageSize = 12)
+        DateTime? desde, DateTime? hasta, string? canal, string? sucursal, string? marca, string? categoria, 
+        bool modoExclusivoCanal, bool modoExclusivoSucursal, bool modoExclusivoMarca, bool modoExclusivoCategoria,
+        string ordenarPor = "montoTotal",
+        int pageNumber = 1, int pageSize = 12)
     {
         var query = _context.Clientes
             .Include(c => c.Compras)
             .ThenInclude(c => c.Detalles)
             .AsQueryable();
+
+        if (desde.HasValue)
+        {
+            desde = DateTime.SpecifyKind(desde.Value, DateTimeKind.Utc);
+            query = query.Where(c => c.FechaPrimeraCompra >= desde.Value);
+        }
+
+        if (hasta.HasValue)
+        {
+            hasta = DateTime.SpecifyKind(hasta.Value, DateTimeKind.Utc);
+            query = query.Where(c => c.FechaUltimaCompra <= hasta.Value);
+        }
 
         if (!string.IsNullOrWhiteSpace(canal))
         {
@@ -259,7 +341,33 @@ public class ClienteService : IClienteService
             
             if (canalesArray.Any())
             {
-                query = query.Where(c => canalesArray.Any(canal => c.Canales != null && c.Canales.Contains(canal)));
+                if (modoExclusivoCanal)
+                {
+                    var clientesConCanales = await query
+                        .Where(c => c.Canales != null)
+                        .Select(c => new { c.Id, c.Canales })
+                        .ToListAsync();
+                    
+                    var idsExclusivos = clientesConCanales
+                        .Where(c => 
+                        {
+                            var canalesCliente = c.Canales!.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(canal => canal.Trim())
+                                .Where(canal => !string.IsNullOrEmpty(canal))
+                                .ToArray();
+                            
+                            return canalesArray.All(req => canalesCliente.Contains(req)) &&
+                                canalesCliente.All(cliente => canalesArray.Contains(cliente));
+                        })
+                        .Select(c => c.Id)
+                        .ToList();
+                    
+                    query = query.Where(c => idsExclusivos.Contains(c.Id));
+                }
+                else
+                {
+                    query = query.Where(c => canalesArray.Any(canal => c.Canales != null && c.Canales.Contains(canal)));
+                }
             }
         }
 
@@ -272,20 +380,34 @@ public class ClienteService : IClienteService
             
             if (sucursalesArray.Any())
             {
-                query = query.Where(c => sucursalesArray.Any(sucursal => c.Sucursales != null && c.Sucursales.Contains(sucursal)));
+                if (modoExclusivoSucursal)
+                {
+                    var clientesConSucursales = await query
+                        .Where(c => c.Sucursales != null)
+                        .Select(c => new { c.Id, c.Sucursales })
+                        .ToListAsync();
+                    
+                    var idsExclusivos = clientesConSucursales
+                        .Where(c => 
+                        {
+                            var sucursalesCliente = c.Sucursales!.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(sucursal => sucursal.Trim())
+                                .Where(sucursal => !string.IsNullOrEmpty(sucursal))
+                                .ToArray();
+                            
+                            return sucursalesArray.All(req => sucursalesCliente.Contains(req)) &&
+                                sucursalesCliente.All(cliente => sucursalesArray.Contains(cliente));
+                        })
+                        .Select(c => c.Id)
+                        .ToList();
+                    
+                    query = query.Where(c => idsExclusivos.Contains(c.Id));
+                }
+                else
+                {
+                    query = query.Where(c => sucursalesArray.Any(sucursal => c.Sucursales != null && c.Sucursales.Contains(sucursal)));
+                }
             }
-        }
-
-        if (desde.HasValue)
-        {
-            desde = DateTime.SpecifyKind(desde.Value, DateTimeKind.Utc);
-            query = query.Where(c => c.FechaPrimeraCompra >= desde.Value);
-        }
-
-        if (hasta.HasValue)
-        {
-            hasta = DateTime.SpecifyKind(hasta.Value, DateTimeKind.Utc);
-            query = query.Where(c => c.FechaUltimaCompra <= hasta.Value);
         }
 
         if (!string.IsNullOrWhiteSpace(marca) || !string.IsNullOrWhiteSpace(categoria))
@@ -304,18 +426,49 @@ public class ClienteService : IClienteService
 
             if (marcasArray.Any() || categoriasArray.Any())
             {
-                query = query.Where(cliente =>
-                    cliente.Compras.Any(compra =>
-                        compra.Detalles!.Any(det =>
-                            (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
-                            (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                if (modoExclusivoMarca || modoExclusivoCategoria)
+                {
+                    query = query.Where(cliente =>
+                        cliente.Compras.Any() && // Tiene compras
+                        cliente.Compras.SelectMany(c => c.Detalles!).Any() && // Tiene detalles
+                        
+                        (marcasArray.Length == 0 || !modoExclusivoMarca || 
+                        cliente.Compras.SelectMany(c => c.Detalles!)
+                            .Select(d => d.Marca)
+                            .Distinct()
+                            .All(marcaComprada => marcasArray.Contains(marcaComprada))) &&
+                        
+                        (categoriasArray.Length == 0 || !modoExclusivoCategoria || 
+                        cliente.Compras.SelectMany(c => c.Detalles!)
+                            .Select(d => d.Categoria)
+                            .Distinct()
+                            .All(categoriaComprada => categoriasArray.Contains(categoriaComprada))) &&
+                        
+                        cliente.Compras.Any(compra =>
+                            compra.Detalles!.Any(det =>
+                                (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
+                                (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                            )
                         )
-                    )
-                );
+                    );
+                }
+                else
+                {
+                    query = query.Where(cliente =>
+                        cliente.Compras.Any(compra =>
+                            compra.Detalles!.Any(det =>
+                                (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
+                                (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                            )
+                        )
+                    );
+                }
             }
         }
 
-        var pagedQuery = query.Select(c => new ClienteResumenDto
+        var orderedQuery = ExcelFinder.ApplyOrdering(query, ordenarPor, marca, categoria);
+
+        var pagedQuery = orderedQuery.Select(c => new ClienteResumenDto
         {
             Id = c.Id,
             Nombre = c.Nombre,
@@ -327,7 +480,7 @@ public class ClienteService : IClienteService
             Sucursales = c.Sucursales,
             Observaciones = c.Observaciones,
             Telefono = c.Telefono
-        }).OrderByDescending(x => x.MontoTotalGastado);
+        });
 
         return await pagedQuery.ToPagedResultAsync(pageNumber, pageSize);
     }
@@ -416,15 +569,27 @@ public class ClienteService : IClienteService
         cliente.Telefono = telefono;
         await _context.SaveChangesAsync();
     }
-    public async Task<byte[]> ExportToExcelAsync(DateTime? desde, DateTime? hasta, string? canal, string? sucursal, string? marca, string? categoria)
+    public async Task<byte[]> ExportToExcelAsync(
+        DateTime? desde, DateTime? hasta, string? canal, string? sucursal, string? marca, string? categoria,
+        bool modoExclusivoCanal, bool modoExclusivoSucursal, bool modoExclusivoMarca, bool modoExclusivoCategoria, string ordenarPor = "montoTotal")
     {
-        // Reutilizar la misma lógica de filtrado que ya tenemos
         var query = _context.Clientes
             .Include(c => c.Compras)
             .ThenInclude(c => c.Detalles)
             .AsQueryable();
 
-        // Aplicar los mismos filtros que en FiltrarAsync
+        if (desde.HasValue)
+        {
+            desde = DateTime.SpecifyKind(desde.Value, DateTimeKind.Utc);
+            query = query.Where(c => c.FechaPrimeraCompra >= desde.Value);
+        }
+
+        if (hasta.HasValue)
+        {
+            hasta = DateTime.SpecifyKind(hasta.Value, DateTimeKind.Utc);
+            query = query.Where(c => c.FechaUltimaCompra <= hasta.Value);
+        }
+
         if (!string.IsNullOrWhiteSpace(canal))
         {
             var canalesArray = canal.Split(',', StringSplitOptions.RemoveEmptyEntries)
@@ -434,7 +599,33 @@ public class ClienteService : IClienteService
             
             if (canalesArray.Any())
             {
-                query = query.Where(c => canalesArray.Any(canal => c.Canales != null && c.Canales.Contains(canal)));
+                if (modoExclusivoCanal)
+                {
+                    var clientesConCanales = await query
+                        .Where(c => c.Canales != null)
+                        .Select(c => new { c.Id, c.Canales })
+                        .ToListAsync();
+                    
+                    var idsExclusivos = clientesConCanales
+                        .Where(c => 
+                        {
+                            var canalesCliente = c.Canales!.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(canal => canal.Trim())
+                                .Where(canal => !string.IsNullOrEmpty(canal))
+                                .ToArray();
+                            
+                            return canalesArray.All(req => canalesCliente.Contains(req)) &&
+                                canalesCliente.All(cliente => canalesArray.Contains(cliente));
+                        })
+                        .Select(c => c.Id)
+                        .ToList();
+                    
+                    query = query.Where(c => idsExclusivos.Contains(c.Id));
+                }
+                else
+                {
+                    query = query.Where(c => canalesArray.Any(canal => c.Canales != null && c.Canales.Contains(canal)));
+                }
             }
         }
 
@@ -447,20 +638,34 @@ public class ClienteService : IClienteService
             
             if (sucursalesArray.Any())
             {
-                query = query.Where(c => sucursalesArray.Any(sucursal => c.Sucursales != null && c.Sucursales.Contains(sucursal)));
+                if (modoExclusivoSucursal)
+                {
+                    var clientesConSucursales = await query
+                        .Where(c => c.Sucursales != null)
+                        .Select(c => new { c.Id, c.Sucursales })
+                        .ToListAsync();
+                    
+                    var idsExclusivos = clientesConSucursales
+                        .Where(c => 
+                        {
+                            var sucursalesCliente = c.Sucursales!.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                .Select(sucursal => sucursal.Trim())
+                                .Where(sucursal => !string.IsNullOrEmpty(sucursal))
+                                .ToArray();
+                            
+                            return sucursalesArray.All(req => sucursalesCliente.Contains(req)) &&
+                                sucursalesCliente.All(cliente => sucursalesArray.Contains(cliente));
+                        })
+                        .Select(c => c.Id)
+                        .ToList();
+                    
+                    query = query.Where(c => idsExclusivos.Contains(c.Id));
+                }
+                else
+                {
+                    query = query.Where(c => sucursalesArray.Any(sucursal => c.Sucursales != null && c.Sucursales.Contains(sucursal)));
+                }
             }
-        }
-
-        if (desde.HasValue)
-        {
-            desde = DateTime.SpecifyKind(desde.Value, DateTimeKind.Utc);
-            query = query.Where(c => c.FechaPrimeraCompra >= desde.Value);
-        }
-
-        if (hasta.HasValue)
-        {
-            hasta = DateTime.SpecifyKind(hasta.Value, DateTimeKind.Utc);
-            query = query.Where(c => c.FechaUltimaCompra <= hasta.Value);
         }
 
         if (!string.IsNullOrWhiteSpace(marca) || !string.IsNullOrWhiteSpace(categoria))
@@ -477,27 +682,57 @@ public class ClienteService : IClienteService
                                         .Where(cat => !string.IsNullOrEmpty(cat))
                                         .ToArray();
 
-            if (categoriasArray.Any() || marcasArray.Any())
+            if (marcasArray.Any() || categoriasArray.Any())
             {
-                query = query.Where(cliente =>
-                    cliente.Compras.Any(compra =>
-                        compra.Detalles!.Any(det =>
-                            (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
-                            (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                if (modoExclusivoMarca || modoExclusivoCategoria)
+                {
+                    query = query.Where(cliente =>
+                        cliente.Compras.Any() && // Tiene compras
+                        cliente.Compras.SelectMany(c => c.Detalles!).Any() && // Tiene detalles
+                        
+                        (marcasArray.Length == 0 || !modoExclusivoMarca || 
+                        cliente.Compras.SelectMany(c => c.Detalles!)
+                            .Select(d => d.Marca)
+                            .Distinct()
+                            .All(marcaComprada => marcasArray.Contains(marcaComprada))) &&
+                        
+                        (categoriasArray.Length == 0 || !modoExclusivoCategoria || 
+                        cliente.Compras.SelectMany(c => c.Detalles!)
+                            .Select(d => d.Categoria)
+                            .Distinct()
+                            .All(categoriaComprada => categoriasArray.Contains(categoriaComprada))) &&
+                        
+                        cliente.Compras.Any(compra =>
+                            compra.Detalles!.Any(det =>
+                                (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
+                                (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                            )
                         )
-                    )
-                );
+                    );
+                }
+                else
+                {
+                    query = query.Where(cliente =>
+                        cliente.Compras.Any(compra =>
+                            compra.Detalles!.Any(det =>
+                                (marcasArray.Length == 0 || marcasArray.Contains(det.Marca)) &&
+                                (categoriasArray.Length == 0 || categoriasArray.Contains(det.Categoria))
+                            )
+                        )
+                    );
+                }
             }
         }
 
-    var clientesParaExport = await query
-        .OrderByDescending(c => c.MontoTotalGastado)
-        .Take(100)
-        .Select(c => new { 
-            Nombre = c.Nombre, 
-            TelefonoOriginal = c.Telefono 
-        })
-        .ToListAsync();
+        var orderedQuery = ExcelFinder.ApplyOrdering(query, ordenarPor, marca, categoria);
+
+        var clientesParaExport = await orderedQuery
+            .Take(100)
+            .Select(c => new { 
+                Nombre = c.Nombre, 
+                TelefonoOriginal = c.Telefono 
+            })
+            .ToListAsync();
 
         var clientesConTelefonoFormateado = clientesParaExport.Select(c => new {
             Nombre = c.Nombre,
@@ -520,7 +755,7 @@ public class ClienteService : IClienteService
             
             if (!string.IsNullOrEmpty(clientesConTelefonoFormateado[i].Telefono))
             {
-                worksheet.Cell(i + 2, 2).Style.NumberFormat.Format = "@"; // Formato texto
+                worksheet.Cell(i + 2, 2).Style.NumberFormat.Format = "@"; 
             }
         }
         

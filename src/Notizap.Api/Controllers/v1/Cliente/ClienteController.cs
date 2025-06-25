@@ -34,18 +34,24 @@ public class ClienteController : ControllerBase
     [HttpGet("ranking")]
     [SwaggerOperation(Summary = "Obtener clientes por monto consumido")]
     public async Task<ActionResult<List<ClienteResumenDto>>> GetRanking(
-        [FromQuery] string ordenarPor = "monto", 
+        [FromQuery] string ordenarPor = "montoTotal",
         [FromQuery] int top = 10,
         [FromQuery] DateTime? desde = null,
         [FromQuery] DateTime? hasta = null,
         [FromQuery] string? canal = null,
         [FromQuery] string? sucursal = null,
         [FromQuery] string? marca = null,
-        [FromQuery] string? categoria = null)
+        [FromQuery] string? categoria = null,
+        [FromQuery] bool modoExclusivoCanal = false,
+        [FromQuery] bool modoExclusivoSucursal = false,
+        [FromQuery] bool modoExclusivoMarca = false,
+        [FromQuery] bool modoExclusivoCategoria = false)
     {
         try 
         {
-            var ranking = await _clienteService.GetRankingAsync(ordenarPor, top, desde, hasta, canal, sucursal, marca, categoria);
+            var ranking = await _clienteService.GetRankingAsync(
+                ordenarPor, top, desde, hasta, canal, sucursal, marca, categoria,
+                modoExclusivoCanal, modoExclusivoSucursal, modoExclusivoMarca, modoExclusivoCategoria);
             return Ok(ranking);
         }
         catch (Exception ex)
@@ -72,17 +78,25 @@ public class ClienteController : ControllerBase
         [FromQuery] string? sucursal = null,
         [FromQuery] string? marca = null,
         [FromQuery] string? categoria = null,
+        [FromQuery] bool modoExclusivoCanal = false,
+        [FromQuery] bool modoExclusivoSucursal = false,
+        [FromQuery] bool modoExclusivoMarca = false,
+        [FromQuery] bool modoExclusivoCategoria = false,
+        [FromQuery] string ordenarPor = "montoTotal", 
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 12)
     {
         try 
         {
-            var clientes = await _clienteService.FiltrarAsync(desde, hasta, canal, sucursal, marca, categoria, pageNumber, pageSize);
+            var clientes = await _clienteService.FiltrarAsync(
+                desde, hasta, canal, sucursal, marca, categoria, 
+                modoExclusivoCanal, modoExclusivoSucursal, modoExclusivoMarca, modoExclusivoCategoria,
+                ordenarPor,
+                pageNumber, pageSize);
             return Ok(clientes);
         }
         catch (Exception ex)
         {
-            // Log del error para debugging
             Console.WriteLine($"Error en filtrar: {ex.Message}");
             return BadRequest($"Error al filtrar clientes: {ex.Message}");
         }
@@ -129,6 +143,7 @@ public class ClienteController : ControllerBase
         await _clienteService.ActualizarTelefonoAsync(id, dto.Telefono);
         return NoContent();
     }
+    
     [HttpGet("export/excel")]
     [SwaggerOperation(Summary = "Exportar clientes filtrados a Excel")]
     public async Task<IActionResult> ExportToExcel(
@@ -137,11 +152,19 @@ public class ClienteController : ControllerBase
         [FromQuery] string? canal = null,
         [FromQuery] string? sucursal = null,
         [FromQuery] string? marca = null,
-        [FromQuery] string? categoria = null)
+        [FromQuery] string? categoria = null,
+        [FromQuery] bool modoExclusivoCanal = false,
+        [FromQuery] bool modoExclusivoSucursal = false,
+        [FromQuery] bool modoExclusivoMarca = false,
+        [FromQuery] bool modoExclusivoCategoria = false,
+        [FromQuery] string ordenarPor = "montoTotal")
     {
         try 
         {
-            var excelBytes = await _clienteService.ExportToExcelAsync(desde, hasta, canal, sucursal, marca, categoria);
+            var excelBytes = await _clienteService.ExportToExcelAsync(
+                desde, hasta, canal, sucursal, marca, categoria,
+                modoExclusivoCanal, modoExclusivoSucursal, modoExclusivoMarca, modoExclusivoCategoria,
+                ordenarPor);
             
             var fileName = $"clientes_export_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
             
