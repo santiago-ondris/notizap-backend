@@ -64,6 +64,8 @@ namespace Notizap.API.Extensions
             services.AddScoped<IClienteService, ClienteService>();
             services.AddScoped<IPlantillaWhatsAppService, PlantillaWhatsAppService>();
 
+            services.AddScoped<IVentaVendedoraService, VentaVendedoraService>();
+
             services.AddScoped<IEmailService, EmailService>();
 
             return services;

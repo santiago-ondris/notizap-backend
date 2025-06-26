@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Notizap.Api.Migrations
 {
     [DbContext(typeof(NotizapDbContext))]
-    partial class NotizapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250626132958_AddVendedora")]
+    partial class AddVendedora
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1035,14 +1038,14 @@ namespace Notizap.Api.Migrations
                         {
                             Id = 1,
                             AbreSabadoTarde = false,
-                            FechaCreacion = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            FechaCreacion = new DateTime(2025, 6, 26, 13, 29, 57, 82, DateTimeKind.Utc).AddTicks(4198),
                             Nombre = "25 de mayo"
                         },
                         new
                         {
                             Id = 2,
                             AbreSabadoTarde = false,
-                            FechaCreacion = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            FechaCreacion = new DateTime(2025, 6, 26, 13, 29, 57, 82, DateTimeKind.Utc).AddTicks(4516),
                             Nombre = "DEAN FUNES"
                         });
                 });
