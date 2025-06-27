@@ -76,7 +76,7 @@ public class VentaVendedora
 
     public static bool EsProductoEspecial(string producto)
     {
-        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA" };
+        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA", "REDONDEO", "AJUSTE" };
         return palabrasEspeciales.Any(palabra => 
             producto.ToUpper().Contains(palabra.ToUpper()));
     }
