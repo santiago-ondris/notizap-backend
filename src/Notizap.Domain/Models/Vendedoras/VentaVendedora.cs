@@ -55,23 +55,28 @@ public class VentaVendedora
 
     public static TurnoVenta DeterminarTurno(DateTime fecha)
     {
-        var hora = fecha.TimeOfDay;
-        
-        // Mañana: 8:00 - 14:30
-        if (hora >= new TimeSpan(8, 0, 0) && hora <= new TimeSpan(14, 30, 0))
+        var tz = TimeZoneInfo.FindSystemTimeZoneById("America/Argentina/Buenos_Aires");
+        var fechaAr = TimeZoneInfo.ConvertTime(fecha, tz);
+        var h = fechaAr.TimeOfDay;
+
+        var inicioM = TimeSpan.FromHours(8);
+        var finM    = TimeSpan.FromHours(14).Add(TimeSpan.FromMinutes(30));  // 14:30
+        var finT    = TimeSpan.FromHours(22);                              // 22:00
+
+        if (h >= inicioM && h <= finM)
             return TurnoVenta.Mañana;
-        
-        // Tarde: 15:00 - 22:00
-        if (hora >= new TimeSpan(15, 0, 0) && hora <= new TimeSpan(22, 0, 0))
+
+        if (h >  finM && h <= finT)  
             return TurnoVenta.Tarde;
 
-        // Por defecto mañana (casos edge)
-        return TurnoVenta.Mañana;
+        return h < inicioM
+            ? TurnoVenta.Mañana
+            : TurnoVenta.Tarde;
     }
 
     public static bool EsProductoEspecial(string producto)
     {
-        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT" };
+        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA" };
         return palabrasEspeciales.Any(palabra => 
             producto.ToUpper().Contains(palabra.ToUpper()));
     }

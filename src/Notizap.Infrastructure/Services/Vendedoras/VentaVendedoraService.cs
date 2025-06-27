@@ -596,7 +596,7 @@ public class VentaVendedoraService : IVentaVendedoraService
             .GroupBy(v => v.Fecha.Date)
             .CountAsync();
 
-        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT" };
+        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA" };
 
         var todasVendedoras = await query
             .GroupBy(v => v.Vendedor.Nombre)

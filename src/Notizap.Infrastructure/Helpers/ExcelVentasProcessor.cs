@@ -185,84 +185,53 @@ public class ExcelVentasProcessor
                 esSubTotal;
     }
 
-    private VentaVendedoraCreateDto? ProcesarFilaConValoresActuales(IXLRow fila, string sucursalActual, string vendedorActual, 
+    private VentaVendedoraCreateDto? ProcesarFilaConValoresActuales(
+        IXLRow fila, string sucursalActual, string vendedorActual, 
         int colProducto, int colFecha, int colCantidad, int colTotal)
     {
         var filaNum = fila.RowNumber();
-        
-        // Usar los valores actuales de sucursal y vendedor
         var producto = fila.Cell(colProducto).GetString().Trim();
-        Console.WriteLine($"📝 [PROCESARFILA] Fila {filaNum} - SUCURSAL=[{sucursalActual}] VENDEDOR=[{vendedorActual}] PRODUCTO=[{producto}]");
-
-        if (string.IsNullOrWhiteSpace(sucursalActual) || 
-            string.IsNullOrWhiteSpace(vendedorActual) || 
+        if (string.IsNullOrWhiteSpace(sucursalActual) ||
+            string.IsNullOrWhiteSpace(vendedorActual) ||
             string.IsNullOrWhiteSpace(producto))
-        {
-            Console.WriteLine($"❌ [PROCESARFILA] Fila {filaNum} - Datos incompletos");
             return null;
-        }
 
-        // Procesar fecha
         var celdaFecha = fila.Cell(colFecha);
-        DateTime fecha;
-        
+        DateTime rawFecha;
         if (celdaFecha.DataType == XLDataType.DateTime)
         {
-            fecha = celdaFecha.GetDateTime();
+            rawFecha = celdaFecha.GetDateTime(); // p.ej. 2025-06-05 14:52:20
         }
         else
         {
-            var fechaTexto = celdaFecha.GetString().Trim();
-            if (!DateTime.TryParse(fechaTexto, out fecha))
-            {
-                throw new Exception($"Fecha inválida: {fechaTexto}");
-            }
+            var txt = celdaFecha.GetString().Trim();
+            if (!DateTime.TryParse(txt, out rawFecha))
+                throw new Exception($"Fecha inválida en fila {filaNum}: «{txt}»");
         }
 
-        // Normalizar fecha para PostgreSQL (convertir a UTC)
-        if (fecha.Kind == DateTimeKind.Unspecified)
-        {
-            fecha = DateTime.SpecifyKind(fecha, DateTimeKind.Utc);
-        }
-        else if (fecha.Kind == DateTimeKind.Local)
-        {
-            fecha = fecha.ToUniversalTime();
-        }
+        var offsetArg = TimeSpan.FromHours(-3);
+        var fechaOffset = new DateTimeOffset(rawFecha, offsetArg);
 
-        // Normalizar fecha para PostgreSQL (convertir a UTC)
-        if (fecha.Kind == DateTimeKind.Unspecified)
-        {
-            fecha = DateTime.SpecifyKind(fecha, DateTimeKind.Utc);
-        }
-        else if (fecha.Kind == DateTimeKind.Local)
-        {
-            fecha = fecha.ToUniversalTime();
-        }
+        var fechaUtc = fechaOffset.UtcDateTime;
 
-        var cantidadTexto = fila.Cell(colCantidad).GetString().Trim();
-        if (!int.TryParse(cantidadTexto, out var cantidad))
-        {
-            throw new Exception($"Cantidad inválida: {cantidadTexto}");
-        }
+        var cantidadTxt = fila.Cell(colCantidad).GetString().Trim();
+        if (!int.TryParse(cantidadTxt, out var cantidad))
+            throw new Exception($"Cantidad inválida en fila {filaNum}: «{cantidadTxt}»");
 
-        var totalTexto = fila.Cell(colTotal).GetString().Trim();
-        var total = ExcelFinder.ParsearMoneda(totalTexto);
-
-        if (cantidad < 0) 
-        {
-            total = -total;
-        }
+        var totalTxt = fila.Cell(colTotal).GetString().Trim();
+        var total = ExcelFinder.ParsearMoneda(totalTxt);
+        if (cantidad < 0) total = -total; // descuenta correctamente promociones
 
         return new VentaVendedoraCreateDto
         {
-            SucursalId      = 0, // Se asignará en el servicio principal
-            VendedorId      = 0, // Se asignará en el servicio principal
-            SucursalNombre  = sucursalActual,
-            VendedorNombre  = vendedorActual,
-            Producto        = producto,
-            Fecha           = fecha,
-            Cantidad        = cantidad,
-            Total           = total
+            SucursalId     = 0,  // se asigna después
+            VendedorId     = 0,
+            SucursalNombre = sucursalActual,
+            VendedorNombre = vendedorActual,
+            Producto       = producto,
+            Fecha          = fechaUtc,    // <<— UTC corregido
+            Cantidad       = cantidad,
+            Total          = total
         };
     }
 
