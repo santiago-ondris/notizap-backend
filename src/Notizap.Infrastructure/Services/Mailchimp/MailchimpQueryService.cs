@@ -66,4 +66,18 @@ public class MailchimpQueryService : IMailchimpQueryService
             BestConversions = bestConv.Conversions
         };
     }
+
+    public async Task<bool> UpdateCampaignTitleAsync(int campaignId, string newTitle)
+    {
+        var campaign = await _context.CampaignMailchimps
+            .FirstOrDefaultAsync(c => c.Id == campaignId);
+
+        if (campaign is null)
+            return false;
+
+        campaign.Title = newTitle.Trim();
+        await _context.SaveChangesAsync();
+        
+        return true;
+    }
 }

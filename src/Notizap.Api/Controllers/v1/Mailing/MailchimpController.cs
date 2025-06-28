@@ -46,15 +46,29 @@ public class MailchimpController : ControllerBase
     }
 
     [HttpPost("sync")]
-    [SwaggerOperation(Summary = "Sincroniza campaña desde la API de Mailchimp")]
+    [SwaggerOperation(Summary = "Sincroniza campañas desde la API de Mailchimp")]
     [Authorize(Roles = "admin,superadmin")]
     public async Task<IActionResult> Sync([FromQuery] string cuenta)
     {
-        var nuevas = await _syncService.SyncAsync(cuenta);
+        var resultado = await _syncService.SyncAsync(cuenta);
+        return Ok(resultado);
+    }
 
-        if (nuevas == 0)
-            return Ok("No se añadieron campañas nuevas, todas se encontraban ya en la base de datos.");
-        else
-            return Ok($"{nuevas} campaña(s) nueva(s) añadida(s) a la base de datos.");
+    [HttpPatch("{campaignId}/title")]
+    [SwaggerOperation(Summary = "Actualiza el título de una campaña")]
+    [Authorize(Roles = "admin,superadmin")]
+    public async Task<IActionResult> UpdateTitle(
+        [FromRoute] int campaignId, 
+        [FromBody] UpdateCampaignTitleDto request)
+    {
+        if (!ModelState.IsValid)
+            return BadRequest(ModelState);
+
+        var updated = await _queryService.UpdateCampaignTitleAsync(campaignId, request.Title);
+
+        if (!updated)
+            return NotFound($"No se encontró la campaña con ID {campaignId}");
+
+        return Ok(new { message = "Título actualizado exitosamente", title = request.Title });
     }
 }
