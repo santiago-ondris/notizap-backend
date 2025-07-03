@@ -3,7 +3,6 @@ using Notizap.Infrastructure.Ads;
 using Notizap.Infrastructure.Services;
 using Notizap.Infrastructure.Services.Publicidad;
 using Notizap.Services.Analisis;
-using NotiZap.Dashboard.API.Services;
 
 namespace Notizap.API.Extensions
 {
@@ -23,7 +22,6 @@ namespace Notizap.API.Extensions
             services.AddScoped<IMailchimpServiceFactory, MailchimpServiceFactory>();
             services.AddScoped<IMailchimpSyncService, MailchimpSyncService>();
             services.AddScoped<IMailchimpQueryService, MailchimpQueryService>();
-            services.AddScoped<IWooCommerceService, WooCommerceService>();
             services.AddScoped<IMercadoLibreService, MercadoLibreService>();
             services.AddScoped<IReelsService, ReelsService>();
             services.AddScoped<IImageUploadService, ImageUploadService>();
@@ -44,7 +42,6 @@ namespace Notizap.API.Extensions
             services.AddScoped<IDevolucionMercadoLibreService, DevolucionMercadoLibreService>();
 
             // Servicios para el informe mensual
-            services.AddScoped<WooResumenBuilder>();
             services.AddScoped<MercadoLibreResumenBuilder>();
             services.AddScoped<InstagramResumenBuilder>();
             services.AddScoped<PublicidadResumenBuilder>();
@@ -68,6 +65,8 @@ namespace Notizap.API.Extensions
             services.AddScoped<IRendimientoLocalesService, RendimientoLocalesService>();
 
             services.AddScoped<IEmailService, EmailService>();
+
+            services.AddScoped<IVentaWooCommerceService, VentaWooCommerceService>();
 
             return services;
         }

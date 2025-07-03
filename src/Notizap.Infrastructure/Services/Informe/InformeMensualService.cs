@@ -2,7 +2,6 @@ using QuestPDF.Fluent;
 
 public class InformeMensualService : IInformeMensualService
 {
-    private readonly WooResumenBuilder _wooBuilder;
     private readonly MercadoLibreResumenBuilder _mlBuilder;
     private readonly MailingResumenBuilder _mailingBuilder;
     private readonly GastosResumenBuilder _gastosBuilder;
@@ -12,7 +11,6 @@ public class InformeMensualService : IInformeMensualService
     private readonly InstagramResumenBuilder _instagramBuilder;
 
     public InformeMensualService(
-        WooResumenBuilder wooBuilder,
         MercadoLibreResumenBuilder mlBuilder,
         MailingResumenBuilder mailingBuilder,
         GastosResumenBuilder gastosBuilder,
@@ -22,7 +20,6 @@ public class InformeMensualService : IInformeMensualService
         InstagramResumenBuilder instagramBuilder
         )
     {
-        _wooBuilder = wooBuilder;
         _mlBuilder = mlBuilder;
         _mailingBuilder = mailingBuilder;
         _gastosBuilder = gastosBuilder;
@@ -39,7 +36,6 @@ public class InformeMensualService : IInformeMensualService
         {
             Year = year,
             Month = month,
-            WooCommerce = await ObtenerWooResumen(year, month),
             MercadoLibre = await ObtenerMlResumen(year, month),
             Instagram = await ObtenerInstagramResumen(year, month),
             Publicidad = await ObtenerPublicidadResumen(year, month),
@@ -61,9 +57,6 @@ public class InformeMensualService : IInformeMensualService
     private Task<GastosResumenDto> ObtenerGastosResumen(int year, int month)
     => _gastosBuilder.ConstruirAsync(year, month);
 
-    private Task<WooResumenDto> ObtenerWooResumen(int year, int month)
-    => _wooBuilder.ConstruirAsync(year, month);
-
     private Task<MercadoLibreResumenDto> ObtenerMlResumen(int year, int month)
     => _mlBuilder.ConstruirAsync(year, month);
     private Task<EnviosResumenDto> ObtenerEnviosResumen(int year, int month)
@@ -79,7 +72,6 @@ public class InformeMensualService : IInformeMensualService
         {
             Year = year,
             Month = month,
-            WooCommerce = await ObtenerWooResumen(year, month),
             MercadoLibre = await ObtenerMlResumen(year, month),
             Instagram = await ObtenerInstagramResumen(year, month),
             Publicidad = await ObtenerPublicidadResumen(year, month),

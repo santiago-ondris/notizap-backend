@@ -6,8 +6,6 @@ public class NotizapDbContext : DbContext
 
     public DbSet<Gasto> Gastos { get; set; }
     public DbSet<MercadoLibreManualReport> MercadoLibreManualReports { get; set; }
-    public DbSet<WooCommerceMonthlyReport> WooCommerceMonthlyReports { get; set; }
-    public DbSet<WooDailySale> WooDailySales { get; set; }
     public DbSet<InstagramReel> InstagramReels => Set<InstagramReel>();
     public DbSet<InstagramStory> InstagramStories => Set<InstagramStory>();
     public DbSet<InstagramPost> InstagramPosts => Set<InstagramPost>();
@@ -31,6 +29,7 @@ public class NotizapDbContext : DbContext
     public DbSet<SucursalVenta> SucursalesVentas { get; set; }
     public DbSet<VendedorVenta> VendedoresVentas { get; set; }
     public DbSet<VentaVendedora> VentasVendedoras { get; set; }
+    public DbSet<VentaWooCommerce> VentasWooCommerce { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,11 +56,6 @@ public class NotizapDbContext : DbContext
         modelBuilder.ApplyConfiguration(new VendedorVentaConfiguration());
         modelBuilder.ApplyConfiguration(new VentaVendedoraConfiguration());
 
-        // Relación WooCommerce Report -> DailySales
-        modelBuilder.Entity<WooCommerceMonthlyReport>()
-            .HasMany(r => r.DailySales)
-            .WithOne(s => s.MonthlyReport)
-            .HasForeignKey(s => s.MonthlyReportId)
-            .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.ApplyConfiguration(new VentaWooCommerceConfiguration());
     }
 }

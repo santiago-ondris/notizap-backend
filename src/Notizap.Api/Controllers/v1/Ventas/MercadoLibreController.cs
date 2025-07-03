@@ -66,15 +66,6 @@ public class MercadoLibreController : ControllerBase
         return NoContent();
     }
 
-    [Authorize(Roles = "viewer,admin,superadmin")]
-    [HttpGet("daily")]
-    [SwaggerOperation(Summary = "Obtener ventas diarias simuladas")]
-    public async Task<ActionResult<List<DailySalesDto>>> GetDailyStats([FromQuery] int year, [FromQuery] int month)
-    {
-        var result = await _service.GetSimulatedDailyStatsAsync(year, month);
-        return Ok(result);
-    }
-
     #region Publicidad MercadoLibre
 
     [Authorize(Roles = "admin,superadmin")]

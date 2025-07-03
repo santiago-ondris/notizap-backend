@@ -71,32 +71,4 @@ public class MercadoLibreService : IMercadoLibreService
         await _context.SaveChangesAsync();
         return true;
     }
-    public async Task<List<DailySalesDto>> GetSimulatedDailyStatsAsync(int year, int month)
-    {
-        var report = await _context.MercadoLibreManualReports
-            .FirstOrDefaultAsync(r => r.Year == year && r.Month == month);
-
-        if (report == null)
-            return new List<DailySalesDto>();
-
-        int days = DateTime.DaysInMonth(year, month);
-        decimal dailyRevenue = report.Revenue / days;
-        int dailyUnits = report.UnitsSold / days;
-        int remainder = report.UnitsSold % days;
-
-        var dailyStats = new List<DailySalesDto>();
-
-        for (int i = 1; i <= days; i++)
-        {
-            int units = dailyUnits + (i <= remainder ? 1 : 0); // repartir sobrantes
-            dailyStats.Add(new DailySalesDto
-            {
-                Date = new DateTime(year, month, i),
-                UnitsSold = units,
-                Revenue = dailyRevenue
-            });
-        }
-
-        return dailyStats;
-    }
 }
