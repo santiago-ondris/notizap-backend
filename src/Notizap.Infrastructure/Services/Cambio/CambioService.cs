@@ -73,7 +73,7 @@ public class CambioService : ICambioService
         return true;
     }
 
-    public async Task<bool> ActualizarEstadosAsync(int id, bool llegoAlDeposito, bool yaEnviado, bool cambioRegistradoSistema)
+    public async Task<bool> ActualizarEstadosAsync(int id, bool llegoAlDeposito, bool yaEnviado, bool cambioRegistradoSistema, bool parPedido)
     {
         var existente = await _context.Cambios.FindAsync(id);
         if (existente == null) return false;
@@ -82,6 +82,7 @@ public class CambioService : ICambioService
         existente.LlegoAlDeposito = llegoAlDeposito;
         existente.YaEnviado = yaEnviado;
         existente.CambioRegistradoSistema = cambioRegistradoSistema;
+        existente.ParPedido = parPedido;
 
         await _context.SaveChangesAsync();
         return true;

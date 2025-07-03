@@ -15,6 +15,10 @@ public class DevolucionService : IDevolucionService
     public async Task<int> CrearDevolucionAsync(CreateDevolucionDto dto)
     {
         var devolucion = _mapper.Map<Devolucion>(dto);
+        
+        devolucion.Fecha = DateTime.SpecifyKind(devolucion.Fecha, DateTimeKind.Utc);
+        
+        // Setear estados iniciales
         devolucion.LlegoAlDeposito = false;
         devolucion.DineroDevuelto = false;
         devolucion.NotaCreditoEmitida = false;
@@ -44,7 +48,21 @@ public class DevolucionService : IDevolucionService
         var existente = await _context.Devoluciones.FindAsync(id);
         if (existente == null) return false;
 
-        _mapper.Map(dto, existente);
+        // Mapear datos del DTO manualmente para controlar la fecha
+        existente.Fecha = DateTime.SpecifyKind(dto.Fecha, DateTimeKind.Utc);
+        existente.Pedido = dto.Pedido;
+        existente.Celular = dto.Celular;
+        existente.Modelo = dto.Modelo;
+        existente.Motivo = dto.Motivo;
+        existente.Monto = dto.Monto;
+        existente.PagoEnvio = dto.PagoEnvio;
+        existente.Responsable = dto.Responsable;
+        
+        // Mantener los estados del DTO
+        existente.LlegoAlDeposito = dto.LlegoAlDeposito;
+        existente.DineroDevuelto = dto.DineroDevuelto;
+        existente.NotaCreditoEmitida = dto.NotaCreditoEmitida;
+
         await _context.SaveChangesAsync();
         return true;
     }

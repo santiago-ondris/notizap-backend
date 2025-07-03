@@ -59,7 +59,7 @@ public class CambioController : ControllerBase
     [SwaggerOperation(Summary = "Actualiza solo los estados de un cambio (para checkboxes inline)")]
     public async Task<IActionResult> ActualizarEstados(int id, [FromBody] ActualizarEstadosDto dto)
     {
-        var actualizado = await _cambioService.ActualizarEstadosAsync(id, dto.LlegoAlDeposito, dto.YaEnviado, dto.CambioRegistradoSistema);
+        var actualizado = await _cambioService.ActualizarEstadosAsync(id, dto.LlegoAlDeposito, dto.YaEnviado, dto.CambioRegistradoSistema, dto.ParPedido);
         return actualizado ? NoContent() : NotFound();
     }
 
@@ -79,4 +79,5 @@ public class ActualizarEstadosDto
     public bool LlegoAlDeposito { get; set; }
     public bool YaEnviado { get; set; }
     public bool CambioRegistradoSistema { get; set; }
+    public bool ParPedido { get; set; }
 }
