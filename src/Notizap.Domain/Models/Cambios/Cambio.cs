@@ -16,7 +16,6 @@ public class Cambio
     public decimal? DiferenciaAFavor { get; set; }
     public string? Envio { get; set; }
     public bool CambioRegistradoSistema { get; set; }
-    public string Responsable { get; set; } = default!;
     public string? Observaciones { get; set; }
     public string? Email { get; set; }
 }

@@ -84,7 +84,12 @@ namespace Notizap.Application.Mapping
             CreateMap<CreateDevolucionDto, Devolucion>();
             CreateMap<Devolucion, DevolucionDto>();
             CreateMap<DevolucionDto, Devolucion>();
-            CreateMap<CreateCambioSimpleDto, Cambio>();
+            CreateMap<CreateCambioSimpleDto, Cambio>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.LlegoAlDeposito, opt => opt.Ignore())
+                .ForMember(dest => dest.YaEnviado, opt => opt.Ignore())
+                .ForMember(dest => dest.CambioRegistradoSistema, opt => opt.Ignore());
+                
             CreateMap<Cambio, CambioSimpleDto>();
         }
                     

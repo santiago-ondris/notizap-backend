@@ -11,6 +11,7 @@ public class NotizapDbContext : DbContext
     public DbSet<InstagramReel> InstagramReels => Set<InstagramReel>();
     public DbSet<InstagramStory> InstagramStories => Set<InstagramStory>();
     public DbSet<InstagramPost> InstagramPosts => Set<InstagramPost>();
+    public DbSet<InstagramSeguidores> InstagramSeguidores { get; set; }
     public DbSet<CampaignMailchimp> CampaignMailchimps => Set<CampaignMailchimp>();
     public DbSet<EnvioDiario> EnviosDiarios { get; set; }
     public DbSet<AdReport> AdReports { get; set; }
@@ -36,6 +37,7 @@ public class NotizapDbContext : DbContext
         modelBuilder.ApplyConfiguration(new InstagramReelConfiguration());
         modelBuilder.ApplyConfiguration(new InstagramStoryConfiguration());
         modelBuilder.ApplyConfiguration(new InstagramPostConfiguration());
+        modelBuilder.ApplyConfiguration(new InstagramSeguidoresConfiguration());
 
         modelBuilder.ApplyConfiguration(new AdReportConfiguration());
         modelBuilder.ApplyConfiguration(new AdCampaignConfiguration());

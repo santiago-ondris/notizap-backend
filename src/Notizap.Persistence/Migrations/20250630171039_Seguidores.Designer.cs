@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Notizap.Api.Migrations
 {
     [DbContext(typeof(NotizapDbContext))]
-    partial class NotizapDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250630171039_Seguidores")]
+    partial class Seguidores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,6 +212,10 @@ namespace Notizap.Api.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Pedido")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Responsable")
                         .IsRequired()
                         .HasColumnType("text");
 

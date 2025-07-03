@@ -70,16 +70,16 @@ public class VentasVendedorasController : ControllerBase
     /// Validar archivo sin procesarlo completamente
     /// </summary>
     [HttpPost("validate")]
-    public async Task<ActionResult> ValidarArchivo([FromForm] IFormFile archivo)
+    public async Task<ActionResult> ValidarArchivo([FromForm] ArchivoDto dto)
     {
         try
         {
-            if (archivo == null || archivo.Length == 0)
+            if (dto.Archivo == null || dto.Archivo.Length == 0)
             {
                 return BadRequest(new { message = "Debe seleccionar un archivo válido." });
             }
 
-            using var stream = archivo.OpenReadStream();
+            using var stream = dto.Archivo.OpenReadStream();
             var errores = await _ventaVendedoraService.ValidarArchivoSinProcesarAsync(stream);
 
             return Ok(new { errores, esValido = !errores.Any() });
