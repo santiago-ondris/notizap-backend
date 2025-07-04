@@ -30,6 +30,7 @@ public class NotizapDbContext : DbContext
     public DbSet<VendedorVenta> VendedoresVentas { get; set; }
     public DbSet<VentaVendedora> VentasVendedoras { get; set; }
     public DbSet<VentaWooCommerce> VentasWooCommerce { get; set; }
+    public DbSet<ComisionOnline> ComisionesOnline { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,5 +58,6 @@ public class NotizapDbContext : DbContext
         modelBuilder.ApplyConfiguration(new VentaVendedoraConfiguration());
 
         modelBuilder.ApplyConfiguration(new VentaWooCommerceConfiguration());
+        modelBuilder.ApplyConfiguration(new ComisionOnlineConfiguration());
     }
 }
