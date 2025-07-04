@@ -82,4 +82,71 @@ public class EnvioService : IEnvioService
             TotalMercadoLibre = envios.Sum(e => e.MercadoLibre),
         };
     }
+    public async Task<ResultadoLoteDto> CrearOActualizarLoteAsync(List<CreateEnvioDiarioDto> envios)
+    {
+        var resultado = new ResultadoLoteDto();
+        
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        
+        try
+        {
+            foreach (var dto in envios)
+            {
+                try
+                {
+                    // Validar DTO individualmente
+                    if (dto.Fecha == default)
+                    {
+                        resultado.Fallidos++;
+                        resultado.Errores.Add($"Fecha inválida en uno de los registros");
+                        continue;
+                    }
+
+                    // Buscar registro existente por fecha
+                    var existente = await _context.EnviosDiarios
+                        .FirstOrDefaultAsync(e => e.Fecha.Date == dto.Fecha.Date);
+
+                    if (existente != null)
+                    {
+                        // Actualizar registro existente
+                        _mapper.Map(dto, existente);
+                    }
+                    else
+                    {
+                        // Crear nuevo registro
+                        var nuevo = _mapper.Map<EnvioDiario>(dto);
+                        _context.EnviosDiarios.Add(nuevo);
+                    }
+                    
+                    resultado.Exitosos++;
+                }
+                catch (Exception ex)
+                {
+                    resultado.Fallidos++;
+                    resultado.Errores.Add($"Error en fecha {dto.Fecha:dd/MM/yyyy}: {ex.Message}");
+                }
+            }
+
+            // Solo hacer commit si NO hay errores
+            if (resultado.Fallidos == 0)
+            {
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+                resultado.Mensaje = $"✅ Todos los registros guardados correctamente ({resultado.Exitosos} envíos)";
+            }
+            else
+            {
+                await transaction.RollbackAsync();
+                resultado.Mensaje = $"❌ Error: {resultado.Fallidos} registros fallaron. Intenta guardando celda por celda para encontrar el error específico.";
+                resultado.Exitosos = 0; // Reset porque hicimos rollback
+            }
+            
+            return resultado;
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            throw new Exception($"Error crítico al procesar lote: {ex.Message}");
+        }
+    }
 }

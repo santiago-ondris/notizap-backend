@@ -12,3 +12,17 @@ public class CreateEnvioDiarioDto
 
     public int MercadoLibre { get; set; }
 }
+
+public class GuardarEnviosLoteDto
+{
+    public List<CreateEnvioDiarioDto> Envios { get; set; } = new();
+}
+
+public class ResultadoLoteDto
+{
+    public int Exitosos { get; set; }
+    public int Fallidos { get; set; }
+    public List<string> Errores { get; set; } = new();
+    public string Mensaje { get; set; } = string.Empty;
+    public bool TodosExitosos => Fallidos == 0;
+}

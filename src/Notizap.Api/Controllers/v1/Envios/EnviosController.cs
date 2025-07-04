@@ -68,4 +68,35 @@ public class EnviosController : ControllerBase
         var resumen = await _envioService.ObtenerResumenMensualAsync(year, month);
         return Ok(resumen);
     }
+
+    [HttpPost("lote")]
+    [Authorize(Roles = "admin,superadmin")]
+    public async Task<ActionResult<ResultadoLoteDto>> GuardarLote([FromBody] GuardarEnviosLoteDto request)
+    {
+        if (!request.Envios.Any())
+            return BadRequest("No se enviaron envíos para guardar");
+
+        try
+        {
+            var resultado = await _envioService.CrearOActualizarLoteAsync(request.Envios);
+            
+            if (resultado.TodosExitosos)
+            {
+                return Ok(resultado);
+            }
+            else
+            {
+                return BadRequest(resultado);
+            }
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new ResultadoLoteDto 
+            { 
+                Fallidos = request.Envios.Count,
+                Mensaje = $"Error crítico del servidor: {ex.Message}. Intenta guardando celda por celda para encontrar el error específico.",
+                Errores = new List<string> { ex.Message }
+            });
+        }
+    }
 }

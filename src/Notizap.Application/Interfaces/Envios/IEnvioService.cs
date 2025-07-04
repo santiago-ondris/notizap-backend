@@ -6,4 +6,5 @@ public interface IEnvioService
     Task EditarAsync(int id, CreateEnvioDiarioDto dto);
     Task EliminarAsync(int id);
     Task<EnvioResumenMensualDto> ObtenerResumenMensualAsync(int year, int month);
+    Task<ResultadoLoteDto> CrearOActualizarLoteAsync(List<CreateEnvioDiarioDto> envios);
 }

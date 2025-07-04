@@ -46,8 +46,6 @@ public class MailchimpSyncService : IMailchimpSyncService
             }
             else
             {
-                // Campaña existente - actualizar métricas
-                existingCampaign.Title = stats.CampaignTitle;
                 existingCampaign.SendTime = stats.SendTime.ToUniversalTime();
                 existingCampaign.EmailsSent = stats.EmailsSent;
                 existingCampaign.OpenRate = stats.OpenRate;
