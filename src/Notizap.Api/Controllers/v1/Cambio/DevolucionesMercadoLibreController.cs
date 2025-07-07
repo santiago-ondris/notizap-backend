@@ -143,11 +143,11 @@ namespace Notizap.Api.Controllers.Cambios
         [Authorize(Roles = "admin,superadmin")]
         public async Task<ActionResult> UpdateNotaCredito(
             int id, 
-            [FromBody] bool notaCreditoEmitida)
+            [FromBody] UpdateNotaCreditoDto dto) 
         {
             try
             {
-                var resultado = await _service.UpdateNotaCreditoAsync(id, notaCreditoEmitida);
+                var resultado = await _service.UpdateNotaCreditoAsync(id, dto.NotaCreditoEmitida);  
                 
                 if (!resultado)
                     return NotFound($"No se encontró la devolución con ID {id}");
@@ -155,12 +155,12 @@ namespace Notizap.Api.Controllers.Cambios
                 return Ok(new { 
                     message = "Estado de nota de crédito actualizado correctamente",
                     id = id,
-                    notaCreditoEmitida = notaCreditoEmitida
+                    notaCreditoEmitida = dto.NotaCreditoEmitida  
                 });
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error al actualizar nota de crédito para devolución {Id}", id);
+                _logger.LogError(ex, "Error al actualizar nota de crédito {Id}", id);
                 return StatusCode(500, "Error interno del servidor");
             }
         }

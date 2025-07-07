@@ -59,3 +59,8 @@ public class EstadisticasMensualDto
     public int NotasCreditoEmitidas { get; set; }
     public int NotasCreditoPendientes { get; set; }
 }
+
+public class UpdateNotaCreditoDto
+{
+    public bool NotaCreditoEmitida { get; set; }
+}
