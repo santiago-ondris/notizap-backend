@@ -76,7 +76,7 @@ public class PostsService : IPostsService
         return nuevos.Count;
     }
 
-    public async Task<List<InstagramPost>> GetTopPostsAsync(string accountName, DateTime from, DateTime to, string ordenarPor, int limit = 5)
+    public async Task<List<InstagramPost>> GetTopPostsAsync(string accountName, DateTime from, DateTime to, string ordenarPor, int limit = 50)
     {
         from = DateTime.SpecifyKind(from, DateTimeKind.Utc);
         to = DateTime.SpecifyKind(to, DateTimeKind.Utc);

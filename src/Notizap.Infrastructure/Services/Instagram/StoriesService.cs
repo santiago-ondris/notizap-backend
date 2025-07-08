@@ -78,13 +78,13 @@ public class StoriesService : IStoriesService
         return nuevas.Count;
     }
 
-    public async Task<List<InstagramStory>> GetTopStoriesAsync(string accountName, DateTime from, DateTime to, string criterio, int limit = 10)
+    public async Task<List<InstagramStory>> GetTopStoriesAsync(string accountName, DateTime from, DateTime to, string criterio, int limit = 1000)
     {
         from = DateTime.SpecifyKind(from, DateTimeKind.Utc);
-        to = DateTime.SpecifyKind(to, DateTimeKind.Utc);
+        var toEndOfDay = to.Date.AddDays(1);
 
         var query = _context.InstagramStories
-            .Where(s => s.Cuenta == accountName.ToLower() && s.FechaPublicacion >= from && s.FechaPublicacion <= to);
+            .Where(s => s.Cuenta == accountName.ToLower() && s.FechaPublicacion >= from && s.FechaPublicacion < toEndOfDay);
 
         return criterio.ToLower() switch
         {

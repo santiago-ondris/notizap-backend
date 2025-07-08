@@ -23,11 +23,12 @@ public class StoriesController : ControllerBase
         string account,
         [FromQuery] DateTime from,
         [FromQuery] DateTime to,
-        [FromQuery(Name = "ordenarPor")] string ordenarPor = "impressions")
+        [FromQuery(Name = "ordenarPor")] string ordenarPor = "impressions",
+        [FromQuery] int limit = 50)
     {
         try
         {
-            var result = await _storiesService.GetTopStoriesAsync(account, from, to, ordenarPor);
+            var result = await _storiesService.GetTopStoriesAsync(account, from, to, ordenarPor, limit);
             return Ok(result);
         }
         catch (ArgumentException ex)
