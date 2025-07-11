@@ -18,4 +18,6 @@ public class Cambio
     public bool CambioRegistradoSistema { get; set; }
     public string? Observaciones { get; set; }
     public string? Email { get; set; }
+    public string? Etiqueta { get; set; }
+    public bool EtiquetaDespachada { get; set; } = false;
 }

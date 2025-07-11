@@ -12,9 +12,9 @@ public class CreateCambioSimpleDto
     public bool ParPedido { get; set; }
     public decimal? DiferenciaAbonada { get; set; }
     public decimal? DiferenciaAFavor { get; set; }
-    // public string? Responsable { get; set; }
     public string? Observaciones { get; set; }
     public string? Envio { get; set; }
+    public string? Etiqueta { get; set; }
 }
 
 public class CambioSimpleDto : CreateCambioSimpleDto
@@ -23,4 +23,11 @@ public class CambioSimpleDto : CreateCambioSimpleDto
     public bool LlegoAlDeposito { get; set; }
     public bool YaEnviado { get; set; }
     public bool CambioRegistradoSistema { get; set; }
+    public bool EtiquetaDespachada { get; set; }
+}
+
+public class ActualizarEtiquetaDto
+{
+    public string? Etiqueta { get; set; }
+    public bool EtiquetaDespachada { get; set; }
 }

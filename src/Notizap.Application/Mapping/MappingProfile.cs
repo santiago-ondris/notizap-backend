@@ -88,9 +88,12 @@ namespace Notizap.Application.Mapping
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.LlegoAlDeposito, opt => opt.Ignore())
                 .ForMember(dest => dest.YaEnviado, opt => opt.Ignore())
-                .ForMember(dest => dest.CambioRegistradoSistema, opt => opt.Ignore());
+                .ForMember(dest => dest.CambioRegistradoSistema, opt => opt.Ignore())
+                .ForMember(dest => dest.EtiquetaDespachada, opt => opt.Ignore());
                 
-            CreateMap<Cambio, CambioSimpleDto>();
+            CreateMap<Cambio, CambioSimpleDto>()
+                .ForMember(dest => dest.Etiqueta, opt => opt.MapFrom(src => src.Etiqueta))
+                .ForMember(dest => dest.EtiquetaDespachada, opt => opt.MapFrom(src => src.EtiquetaDespachada));
         }
                     
     }

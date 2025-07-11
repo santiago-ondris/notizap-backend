@@ -71,6 +71,15 @@ public class CambioController : ControllerBase
         var eliminado = await _cambioService.EliminarCambioAsync(id);
         return eliminado ? NoContent() : NotFound();
     }
+
+    [HttpPut("{id}/etiqueta")]
+    [Authorize(Roles = "admin,superadmin")]
+    [SwaggerOperation(Summary = "Actualiza etiqueta y estado de despacho")]
+    public async Task<IActionResult> ActualizarEtiqueta(int id, [FromBody] ActualizarEtiquetaDto dto)
+    {
+        var actualizado = await _cambioService.ActualizarEtiquetaAsync(id, dto.Etiqueta, dto.EtiquetaDespachada);
+        return actualizado ? NoContent() : NotFound();
+    }
 }
 
 // DTO específico para actualizar estados

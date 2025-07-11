@@ -97,4 +97,15 @@ public class CambioService : ICambioService
         await _context.SaveChangesAsync();
         return true;
     }
+    public async Task<bool> ActualizarEtiquetaAsync(int id, string? etiqueta, bool etiquetaDespachada)
+    {
+        var existente = await _context.Cambios.FindAsync(id);
+        if (existente == null) return false;
+
+        existente.Etiqueta = etiqueta?.Trim(); // Limpiar espacios si no es null
+        existente.EtiquetaDespachada = etiquetaDespachada;
+
+        await _context.SaveChangesAsync();
+        return true;
+    }
 }

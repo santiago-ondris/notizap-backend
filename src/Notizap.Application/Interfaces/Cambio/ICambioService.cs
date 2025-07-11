@@ -6,4 +6,5 @@ public interface ICambioService
     Task<bool> ActualizarCambioAsync(int id, CambioSimpleDto dto);
     Task<bool> ActualizarEstadosAsync(int id, bool llegoAlDeposito, bool yaEnviado, bool cambioRegistradoSistema, bool parPedido);
     Task<bool> EliminarCambioAsync(int id);
+    Task<bool> ActualizarEtiquetaAsync(int id, string? etiqueta, bool etiquetaDespachada);
 }
