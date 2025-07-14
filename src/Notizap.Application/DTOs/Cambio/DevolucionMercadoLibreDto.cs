@@ -5,6 +5,7 @@ public class DevolucionMercadoLibreDto
     public string Cliente { get; set; } = string.Empty;
     public string Modelo { get; set; } = string.Empty;
     public bool NotaCreditoEmitida { get; set; }
+    public bool Trasladado { get; set; }
     public DateTime FechaCreacion { get; set; }
     public DateTime? FechaActualizacion { get; set; }
     public string Pedido { get; set; } = string.Empty;
@@ -16,6 +17,7 @@ public class CreateDevolucionMercadoLibreDto
     public string Cliente { get; set; } = string.Empty;
     public string Modelo { get; set; } = string.Empty;
     public bool NotaCreditoEmitida { get; set; } = false;
+    public bool Trasladado { get; set; } = false;
     public string Pedido { get; set; } = string.Empty;
 }
 
@@ -25,6 +27,7 @@ public class UpdateDevolucionMercadoLibreDto
     public string Cliente { get; set; } = string.Empty;
     public string Modelo { get; set; } = string.Empty;
     public bool NotaCreditoEmitida { get; set; }
+    public bool Trasladado { get; set; }
     public string Pedido { get; set; } = string.Empty;
 }
 
@@ -63,4 +66,9 @@ public class EstadisticasMensualDto
 public class UpdateNotaCreditoDto
 {
     public bool NotaCreditoEmitida { get; set; }
+}
+
+public class UpdateTrasladoDto
+{
+    public bool Trasladado { get; set; }
 }

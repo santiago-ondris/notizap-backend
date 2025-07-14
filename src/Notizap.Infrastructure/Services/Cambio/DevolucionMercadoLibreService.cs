@@ -34,6 +34,7 @@ public class DevolucionMercadoLibreService : IDevolucionMercadoLibreService
             Cliente = dto.Cliente.Trim(),
             Modelo = dto.Modelo.Trim(),
             NotaCreditoEmitida = dto.NotaCreditoEmitida,
+            Trasladado = dto.Trasladado,
             Pedido = dto.Pedido.Trim(),
             FechaCreacion = DateTime.UtcNow
         };
@@ -56,6 +57,7 @@ public class DevolucionMercadoLibreService : IDevolucionMercadoLibreService
         devolucion.Cliente = dto.Cliente.Trim();
         devolucion.Modelo = dto.Modelo.Trim();
         devolucion.NotaCreditoEmitida = dto.NotaCreditoEmitida;
+        devolucion.Trasladado = dto.Trasladado;
         devolucion.FechaActualizacion = DateTime.UtcNow;
         devolucion.Pedido = dto.Pedido.Trim();
 
@@ -140,6 +142,21 @@ public class DevolucionMercadoLibreService : IDevolucionMercadoLibreService
         return true;
     }
 
+    public async Task<bool> UpdateTrasladoAsync(int id, bool trasladado)
+    {
+        var devolucion = await _context.DevolucionesMercadoLibre
+            .FirstOrDefaultAsync(d => d.Id == id);
+
+        if(devolucion == null) return false;
+
+        devolucion.Trasladado = trasladado;
+        devolucion.FechaActualizacion = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
+
+        return true;    
+    }
+
     public async Task<DevolucionMercadoLibreEstadisticasDto> GetEstadisticasAsync()
     {
         var todasLasDevoluciones = await _context.DevolucionesMercadoLibre.ToListAsync();
@@ -197,6 +214,7 @@ public class DevolucionMercadoLibreService : IDevolucionMercadoLibreService
             Cliente = entity.Cliente,
             Modelo = entity.Modelo,
             NotaCreditoEmitida = entity.NotaCreditoEmitida,
+            Trasladado = entity.Trasladado,  
             FechaCreacion = entity.FechaCreacion,
             FechaActualizacion = entity.FechaActualizacion,
             Pedido = entity.Pedido

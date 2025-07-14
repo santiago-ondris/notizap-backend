@@ -165,6 +165,35 @@ namespace Notizap.Api.Controllers.Cambios
             }
         }
 
+        [HttpPatch("{id}/traslado")]
+        [Authorize(Roles = "admin,superadmin")]
+        public async Task<ActionResult> UpdateTraslado(
+            int id,
+            [FromBody] UpdateTrasladoDto dto)
+        {
+            try
+            {
+                var resultado = await _service.UpdateTrasladoAsync(id, dto.Trasladado);
+
+                if(!resultado)
+                {
+                    return NotFound($"No se encontró la devolución con ID {id}");
+                }
+
+                return Ok(new {
+                    message = "Estado de traslado actualizado correctamente",
+                    id = id,
+                    trasladado = dto.Trasladado
+                });
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error al actualizar traslado {Id}", id);
+                return StatusCode(500, "Error interno del servidor");
+            }
+        }
+
+
         /// <summary>
         /// Elimina una devolución
         /// </summary>

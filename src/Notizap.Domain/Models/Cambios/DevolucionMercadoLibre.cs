@@ -21,6 +21,7 @@ public class DevolucionMercadoLibre
     public string Modelo { get; set; } = string.Empty;
 
     public bool NotaCreditoEmitida { get; set; } = false;
+    public bool Trasladado { get; set; } = false;
 
     public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
     public DateTime? FechaActualizacion { get; set; }

@@ -12,6 +12,7 @@ public interface IDevolucionMercadoLibreService
     
     // Actualización específica de nota de crédito
     Task<bool> UpdateNotaCreditoAsync(int id, bool notaCreditoEmitida);
+    Task<bool> UpdateTrasladoAsync(int id, bool trasladado);
 
     // Estadísticas
     Task<DevolucionMercadoLibreEstadisticasDto> GetEstadisticasAsync();
