@@ -21,12 +21,13 @@ namespace Notizap.Application.Mapping
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.FechaCreacion, opt => opt.Ignore());
 
-            // === ENVIOS MAPPING ===
+            // === ENVIOS MAPPING  ===
             CreateMap<EnvioDiario, EnvioDiarioDto>()
                 .ForMember(dest => dest.TotalCordobaCapital, opt => opt.MapFrom(src => src.TotalCordobaCapital))
-                .ForMember(dest => dest.TotalEnvios,          opt => opt.MapFrom(src => src.TotalEnvios));
+                .ForMember(dest => dest.TotalEnvios, opt => opt.MapFrom(src => src.TotalEnvios));
 
-            CreateMap<CreateEnvioDiarioDto, EnvioDiario>();
+            CreateMap<CreateEnvioDiarioDto, EnvioDiario>()
+                .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
             // === PUBLICIDAD MAPPING ===
             // Reportes de publicidad

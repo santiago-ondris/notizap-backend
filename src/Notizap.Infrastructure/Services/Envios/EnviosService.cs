@@ -73,13 +73,13 @@ public class EnvioService : IEnvioService
 
         return new EnvioResumenMensualDto
         {
-            TotalOca = envios.Sum(e => e.Oca),
-            TotalAndreani = envios.Sum(e => e.Andreani),
-            TotalRetirosSucursal = envios.Sum(e => e.RetirosSucursal),
-            TotalRoberto = envios.Sum(e => e.Roberto),
-            TotalTino = envios.Sum(e => e.Tino),
-            TotalCaddy = envios.Sum(e => e.Caddy),
-            TotalMercadoLibre = envios.Sum(e => e.MercadoLibre),
+            TotalOca = envios.Sum(e => e.Oca ?? 0),
+            TotalAndreani = envios.Sum(e => e.Andreani ?? 0),
+            TotalRetirosSucursal = envios.Sum(e => e.RetirosSucursal ?? 0),
+            TotalRoberto = envios.Sum(e => e.Roberto ?? 0),
+            TotalTino = envios.Sum(e => e.Tino ?? 0),
+            TotalCaddy = envios.Sum(e => e.Caddy ?? 0),
+            TotalMercadoLibre = envios.Sum(e => e.MercadoLibre ?? 0),
         };
     }
     public async Task<ResultadoLoteDto> CrearOActualizarLoteAsync(List<CreateEnvioDiarioDto> envios)
@@ -108,22 +108,56 @@ public class EnvioService : IEnvioService
 
                     if (existente != null)
                     {
-                        // Actualizar registro existente
-                        _mapper.Map(dto, existente);
+                        Console.WriteLine($"🔍 REGISTRO EXISTENTE encontrado:");
+                        Console.WriteLine($"   Oca ANTES: {existente.Oca}");
+                        Console.WriteLine($"   Andreani ANTES: {existente.Andreani}");
+                        Console.WriteLine($"   Roberto ANTES: {existente.Roberto}");
+
+                        if (dto.Oca.HasValue) existente.Oca = dto.Oca.Value;
+                        if (dto.Andreani.HasValue) existente.Andreani = dto.Andreani.Value;
+                        if (dto.RetirosSucursal.HasValue) existente.RetirosSucursal = dto.RetirosSucursal.Value;
+                        if (dto.Roberto.HasValue) existente.Roberto = dto.Roberto.Value;
+                        if (dto.Tino.HasValue) existente.Tino = dto.Tino.Value;
+                        if (dto.Caddy.HasValue) existente.Caddy = dto.Caddy.Value;
+                        if (dto.MercadoLibre.HasValue) existente.MercadoLibre = dto.MercadoLibre.Value;
+
+                        Console.WriteLine($"🔍 REGISTRO DESPUÉS del update:");
+                        Console.WriteLine($"   Oca DESPUÉS: {existente.Oca}");
+                        Console.WriteLine($"   Andreani DESPUÉS: {existente.Andreani}");
+                        Console.WriteLine($"   Roberto DESPUÉS: {existente.Roberto}");
                     }
                     else
                     {
-                        // Crear nuevo registro
-                        var nuevo = _mapper.Map<EnvioDiario>(dto);
+                        Console.WriteLine($"🔍 CREANDO NUEVO REGISTRO");
+                        
+                        var nuevo = new EnvioDiario
+                        {
+                            Fecha = dto.Fecha,
+                            Oca = dto.Oca.HasValue ? dto.Oca.Value : (int?)null,
+                            Andreani = dto.Andreani.HasValue ? dto.Andreani.Value : (int?)null,
+                            RetirosSucursal = dto.RetirosSucursal.HasValue ? dto.RetirosSucursal.Value : (int?)null,
+                            Roberto = dto.Roberto.HasValue ? dto.Roberto.Value : (int?)null,
+                            Tino = dto.Tino.HasValue ? dto.Tino.Value : (int?)null,
+                            Caddy = dto.Caddy.HasValue ? dto.Caddy.Value : (int?)null,
+                            MercadoLibre = dto.MercadoLibre.HasValue ? dto.MercadoLibre.Value : (int?)null
+                        };
+                        
                         _context.EnviosDiarios.Add(nuevo);
+                        
+                        Console.WriteLine($"🔍 NUEVO REGISTRO creado:");
+                        Console.WriteLine($"   Oca: {nuevo.Oca} ({(nuevo.Oca.HasValue ? "valor asignado" : "null = no disponible")})");
+                        Console.WriteLine($"   Andreani: {nuevo.Andreani} ({(nuevo.Andreani.HasValue ? "valor asignado" : "null = no disponible")})");
+                        Console.WriteLine($"   Roberto: {nuevo.Roberto} ({(nuevo.Roberto.HasValue ? "valor asignado" : "null = no disponible")})");
                     }
                     
+                    Console.WriteLine($"🔍 === FIN PROCESAMIENTO ===");
                     resultado.Exitosos++;
                 }
                 catch (Exception ex)
                 {
                     resultado.Fallidos++;
                     resultado.Errores.Add($"Error en fecha {dto.Fecha:dd/MM/yyyy}: {ex.Message}");
+                    Console.WriteLine($"🔍 ERROR: {ex.Message}");
                 }
             }
 
@@ -137,8 +171,8 @@ public class EnvioService : IEnvioService
             else
             {
                 await transaction.RollbackAsync();
-                resultado.Mensaje = $"❌ Error: {resultado.Fallidos} registros fallaron. Intenta guardando celda por celda para encontrar el error específico.";
-                resultado.Exitosos = 0; // Reset porque hicimos rollback
+                resultado.Mensaje = $"❌ Error: {resultado.Fallidos} registros fallaron.";
+                resultado.Exitosos = 0;
             }
             
             return resultado;
