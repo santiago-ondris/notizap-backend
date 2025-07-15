@@ -1,0 +1,15 @@
+15:00:43.948 INF Application is shutting down... 
+15:00:55.318 INF ✅ Notizap API iniciada correctamente 
+15:00:55.387 INF User profile is available. Using 'C:\Users\Administrador\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+15:00:55.489 INF Now listening on: http://localhost:5090 
+15:00:55.492 INF Application started. Press Ctrl+C to shut down. 
+15:00:55.493 INF Hosting environment: Development 
+15:00:55.494 INF Content root path: C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api 
+15:04:37.511 INF Application is shutting down... 
+15:04:47.897 INF ✅ Notizap API iniciada correctamente 
+15:04:47.980 INF User profile is available. Using 'C:\Users\Administrador\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+15:04:48.105 INF Now listening on: http://localhost:5090 
+15:04:48.108 INF Application started. Press Ctrl+C to shut down. 
+15:04:48.109 INF Hosting environment: Development 
+15:04:48.110 INF Content root path: C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api 
+15:04:50.379 INF Application is shutting down... 

@@ -76,7 +76,6 @@ public class ClienteImportService : IClienteImportService
 
             // Buscar o crear cliente
             Cliente? cliente;
-            bool esClienteNuevo = false;
             
             // Primero buscar en los ya procesados
             if (!clientesProcesados.TryGetValue(nombreKey, out cliente))
@@ -103,7 +102,6 @@ public class ClienteImportService : IClienteImportService
                     };
                     _context.Clientes.Add(cliente);
                     clientesNuevos++;
-                    esClienteNuevo = true;
                     _logger.LogInformation("Nuevo cliente creado: {Cliente}", nombreCliente);
                 }
                 

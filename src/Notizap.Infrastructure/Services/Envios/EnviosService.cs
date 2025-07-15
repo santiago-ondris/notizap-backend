@@ -1,15 +1,18 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 public class EnvioService : IEnvioService
 {
     private readonly NotizapDbContext _context;
     private readonly IMapper _mapper;
+    private readonly ILogger<EnvioService> _logger;
 
-    public EnvioService(NotizapDbContext context, IMapper mapper)
+    public EnvioService(NotizapDbContext context, IMapper mapper, ILogger<EnvioService> logger)
     {
         _context = context;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<List<EnvioDiarioDto>> ObtenerPorMesAsync(int year, int month)
@@ -32,15 +35,23 @@ public class EnvioService : IEnvioService
 
     public async Task CrearOActualizarAsync(CreateEnvioDiarioDto dto)
     {
+        if (dto == null)
+        {
+            _logger.LogWarning("Intento de crear/actualizar envío con DTO nulo");
+            throw new ArgumentNullException(nameof(dto));
+        }
+
         var existente = await _context.EnviosDiarios
             .FirstOrDefaultAsync(e => e.Fecha.Date == dto.Fecha.Date);
 
         if (existente != null)
         {
+            _logger.LogInformation("Actualizando envío existente para fecha {Fecha}", dto.Fecha);
             _mapper.Map(dto, existente);
         }
         else
         {
+            _logger.LogInformation("Creando nuevo envío para fecha {Fecha}", dto.Fecha);
             var nuevo = _mapper.Map<EnvioDiario>(dto);
             _context.EnviosDiarios.Add(nuevo);
         }
@@ -51,8 +62,13 @@ public class EnvioService : IEnvioService
     public async Task EditarAsync(int id, CreateEnvioDiarioDto dto)
     {
         var envio = await _context.EnviosDiarios.FindAsync(id);
-        if (envio == null) throw new Exception("Envío no encontrado");
+        if (envio == null)
+        {
+            _logger.LogWarning("No se encontró envío con Id {Id} para editar", id);
+            throw new Exception("Envío no encontrado");
+        }
 
+        _logger.LogInformation("Editando envío Id {Id} para fecha {Fecha}", id, dto.Fecha);
         _mapper.Map(dto, envio);
         await _context.SaveChangesAsync();
     }
@@ -60,11 +76,17 @@ public class EnvioService : IEnvioService
     public async Task EliminarAsync(int id)
     {
         var envio = await _context.EnviosDiarios.FindAsync(id);
-        if (envio == null) throw new Exception("Envío no encontrado");
+        if (envio == null)
+        {
+            _logger.LogWarning("No se encontró envío con Id {Id} para eliminar", id);
+            throw new Exception("Envío no encontrado");
+        }
 
+        _logger.LogInformation("Eliminando envío Id {Id} para fecha {Fecha}", id, envio.Fecha);
         _context.EnviosDiarios.Remove(envio);
         await _context.SaveChangesAsync();
     }
+
     public async Task<EnvioResumenMensualDto> ObtenerResumenMensualAsync(int year, int month)
     {
         var envios = await _context.EnviosDiarios
@@ -82,36 +104,33 @@ public class EnvioService : IEnvioService
             TotalMercadoLibre = envios.Sum(e => e.MercadoLibre ?? 0),
         };
     }
+
     public async Task<ResultadoLoteDto> CrearOActualizarLoteAsync(List<CreateEnvioDiarioDto> envios)
     {
         var resultado = new ResultadoLoteDto();
-        
+
         using var transaction = await _context.Database.BeginTransactionAsync();
-        
+
         try
         {
             foreach (var dto in envios)
             {
                 try
                 {
-                    // Validar DTO individualmente
                     if (dto.Fecha == default)
                     {
                         resultado.Fallidos++;
                         resultado.Errores.Add($"Fecha inválida en uno de los registros");
+                        _logger.LogWarning("Registro de lote con fecha inválida: {Dto}", dto);
                         continue;
                     }
 
-                    // Buscar registro existente por fecha
                     var existente = await _context.EnviosDiarios
                         .FirstOrDefaultAsync(e => e.Fecha.Date == dto.Fecha.Date);
 
                     if (existente != null)
                     {
-                        Console.WriteLine($"🔍 REGISTRO EXISTENTE encontrado:");
-                        Console.WriteLine($"   Oca ANTES: {existente.Oca}");
-                        Console.WriteLine($"   Andreani ANTES: {existente.Andreani}");
-                        Console.WriteLine($"   Roberto ANTES: {existente.Roberto}");
+                        _logger.LogInformation("Actualizando registro existente en lote para fecha {Fecha}", dto.Fecha);
 
                         if (dto.Oca.HasValue) existente.Oca = dto.Oca.Value;
                         if (dto.Andreani.HasValue) existente.Andreani = dto.Andreani.Value;
@@ -120,48 +139,37 @@ public class EnvioService : IEnvioService
                         if (dto.Tino.HasValue) existente.Tino = dto.Tino.Value;
                         if (dto.Caddy.HasValue) existente.Caddy = dto.Caddy.Value;
                         if (dto.MercadoLibre.HasValue) existente.MercadoLibre = dto.MercadoLibre.Value;
-
-                        Console.WriteLine($"🔍 REGISTRO DESPUÉS del update:");
-                        Console.WriteLine($"   Oca DESPUÉS: {existente.Oca}");
-                        Console.WriteLine($"   Andreani DESPUÉS: {existente.Andreani}");
-                        Console.WriteLine($"   Roberto DESPUÉS: {existente.Roberto}");
                     }
                     else
                     {
-                        Console.WriteLine($"🔍 CREANDO NUEVO REGISTRO");
-                        
+                        _logger.LogInformation("Creando nuevo registro en lote para fecha {Fecha}", dto.Fecha);
+
                         var nuevo = new EnvioDiario
                         {
                             Fecha = dto.Fecha,
-                            Oca = dto.Oca.HasValue ? dto.Oca.Value : (int?)null,
-                            Andreani = dto.Andreani.HasValue ? dto.Andreani.Value : (int?)null,
-                            RetirosSucursal = dto.RetirosSucursal.HasValue ? dto.RetirosSucursal.Value : (int?)null,
-                            Roberto = dto.Roberto.HasValue ? dto.Roberto.Value : (int?)null,
-                            Tino = dto.Tino.HasValue ? dto.Tino.Value : (int?)null,
-                            Caddy = dto.Caddy.HasValue ? dto.Caddy.Value : (int?)null,
-                            MercadoLibre = dto.MercadoLibre.HasValue ? dto.MercadoLibre.Value : (int?)null
+                            Oca = dto.Oca,
+                            Andreani = dto.Andreani,
+                            RetirosSucursal = dto.RetirosSucursal,
+                            Roberto = dto.Roberto,
+                            Tino = dto.Tino,
+                            Caddy = dto.Caddy,
+                            MercadoLibre = dto.MercadoLibre
                         };
-                        
+
                         _context.EnviosDiarios.Add(nuevo);
-                        
-                        Console.WriteLine($"🔍 NUEVO REGISTRO creado:");
-                        Console.WriteLine($"   Oca: {nuevo.Oca} ({(nuevo.Oca.HasValue ? "valor asignado" : "null = no disponible")})");
-                        Console.WriteLine($"   Andreani: {nuevo.Andreani} ({(nuevo.Andreani.HasValue ? "valor asignado" : "null = no disponible")})");
-                        Console.WriteLine($"   Roberto: {nuevo.Roberto} ({(nuevo.Roberto.HasValue ? "valor asignado" : "null = no disponible")})");
                     }
-                    
-                    Console.WriteLine($"🔍 === FIN PROCESAMIENTO ===");
+
                     resultado.Exitosos++;
                 }
                 catch (Exception ex)
                 {
                     resultado.Fallidos++;
                     resultado.Errores.Add($"Error en fecha {dto.Fecha:dd/MM/yyyy}: {ex.Message}");
-                    Console.WriteLine($"🔍 ERROR: {ex.Message}");
+                    _logger.LogError(ex, "Error procesando registro de lote para fecha {Fecha}", dto.Fecha);
                 }
             }
 
-            // Solo hacer commit si NO hay errores
+            // Solo commit si NO hay errores
             if (resultado.Fallidos == 0)
             {
                 await _context.SaveChangesAsync();
@@ -173,13 +181,15 @@ public class EnvioService : IEnvioService
                 await transaction.RollbackAsync();
                 resultado.Mensaje = $"❌ Error: {resultado.Fallidos} registros fallaron.";
                 resultado.Exitosos = 0;
+                _logger.LogWarning("Rollback de lote por {Fallidos} fallidos", resultado.Fallidos);
             }
-            
+
             return resultado;
         }
         catch (Exception ex)
         {
             await transaction.RollbackAsync();
+            _logger.LogError(ex, "Error crítico al procesar lote de envíos");
             throw new Exception($"Error crítico al procesar lote: {ex.Message}");
         }
     }

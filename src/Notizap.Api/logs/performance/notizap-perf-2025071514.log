@@ -1,0 +1,6 @@
+14:54:27.015 INF ✅ Notizap API iniciada correctamente 
+14:54:27.111 INF User profile is available. Using 'C:\Users\Administrador\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+14:54:27.353 INF Now listening on: http://localhost:5090 
+14:54:27.356 INF Application started. Press Ctrl+C to shut down. 
+14:54:27.357 INF Hosting environment: Development 
+14:54:27.358 INF Content root path: C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api 

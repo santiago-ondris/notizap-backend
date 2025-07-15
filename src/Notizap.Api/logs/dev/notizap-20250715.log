@@ -1,0 +1,21 @@
+2025-07-15 14:54:27.015 [INF] [] ✅ Notizap API iniciada correctamente 
+2025-07-15 14:54:27.111 [INF] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] User profile is available. Using 'C:\Users\Administrador\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2025-07-15 14:54:27.353 [INF] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5090 
+2025-07-15 14:54:27.356 [INF] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down. 
+2025-07-15 14:54:27.357 [INF] [Microsoft.Hosting.Lifetime] Hosting environment: Development 
+2025-07-15 14:54:27.358 [INF] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api 
+2025-07-15 15:00:43.948 [INF] [Microsoft.Hosting.Lifetime] Application is shutting down... 
+2025-07-15 15:00:55.318 [INF] [] ✅ Notizap API iniciada correctamente 
+2025-07-15 15:00:55.387 [INF] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] User profile is available. Using 'C:\Users\Administrador\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2025-07-15 15:00:55.489 [INF] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5090 
+2025-07-15 15:00:55.492 [INF] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down. 
+2025-07-15 15:00:55.493 [INF] [Microsoft.Hosting.Lifetime] Hosting environment: Development 
+2025-07-15 15:00:55.494 [INF] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api 
+2025-07-15 15:04:37.511 [INF] [Microsoft.Hosting.Lifetime] Application is shutting down... 
+2025-07-15 15:04:47.897 [INF] [] ✅ Notizap API iniciada correctamente 
+2025-07-15 15:04:47.980 [INF] [Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager] User profile is available. Using 'C:\Users\Administrador\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2025-07-15 15:04:48.105 [INF] [Microsoft.Hosting.Lifetime] Now listening on: http://localhost:5090 
+2025-07-15 15:04:48.108 [INF] [Microsoft.Hosting.Lifetime] Application started. Press Ctrl+C to shut down. 
+2025-07-15 15:04:48.109 [INF] [Microsoft.Hosting.Lifetime] Hosting environment: Development 
+2025-07-15 15:04:48.110 [INF] [Microsoft.Hosting.Lifetime] Content root path: C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api 
+2025-07-15 15:04:50.379 [INF] [Microsoft.Hosting.Lifetime] Application is shutting down... 

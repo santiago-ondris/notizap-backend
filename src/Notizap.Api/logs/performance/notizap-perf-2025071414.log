@@ -1,0 +1,43 @@
+14:24:52.597 INF ✅ Notizap API iniciada correctamente 
+14:24:52.678 INF User profile is available. Using 'C:\Users\Administrador\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+14:24:52.825 INF Now listening on: http://localhost:5090 
+14:24:52.828 INF Application started. Press Ctrl+C to shut down. 
+14:24:52.829 INF Hosting environment: Development 
+14:24:52.830 INF Content root path: C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api 
+14:24:58.903 INF Request starting HTTP/1.1 GET http://localhost:5090/swagger/index.html - null null 
+14:24:58.940 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+14:24:58.942 INF │ 🚀 NUEVA REQUEST: GET /swagger/index.html | ID: 0HNE2VDD | Mozilla/5.0 
+14:24:58.943 INF └─────────────────────────────────────────────────────────────────────────┘ 
+14:24:58.946 WRN Failed to determine the https port for redirect. 
+14:24:59.045 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+14:24:59.047 INF │ ✅ FIN REQUEST: GET /swagger/index.html | 200 | 101ms | ID: 0HNE2VDD 
+14:24:59.050 INF └─────────────────────────────────────────────────────────────────────────┘ 
+14:24:59.051 INF  
+14:24:59.053 INF HTTP GET /swagger/index.html responded 200 in 113.2329 ms 
+14:24:59.058 INF Request finished HTTP/1.1 GET http://localhost:5090/swagger/index.html - 200 null text/html;charset=utf-8 157.5308ms 
+14:24:59.191 INF Request starting HTTP/1.1 GET http://localhost:5090/swagger/v1/swagger.json - null null 
+14:24:59.193 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+14:24:59.194 INF │ 🚀 NUEVA REQUEST: GET /swagger/v1/swagger.json | ID: 0HNE2VDD | Mozilla/5.0 
+14:24:59.196 INF └─────────────────────────────────────────────────────────────────────────┘ 
+14:24:59.489 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+14:24:59.492 INF │ ✅ FIN REQUEST: GET /swagger/v1/swagger.json | 200 | 292ms | ID: 0HNE2VDD 
+14:24:59.495 INF └─────────────────────────────────────────────────────────────────────────┘ 
+14:24:59.496 INF  
+14:24:59.497 INF HTTP GET /swagger/v1/swagger.json responded 200 in 304.2360 ms 
+14:24:59.499 INF Request finished HTTP/1.1 GET http://localhost:5090/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 308.5817ms 
+14:27:44.436 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/auth/health - null null 
+14:27:44.447 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+14:27:44.449 INF │ 🚀 NUEVA REQUEST: GET /api/v1/auth/health | ID: 0HNE2VDD | Mozilla/5.0 
+14:27:44.453 INF └─────────────────────────────────────────────────────────────────────────┘ 
+14:27:44.590 INF Executing endpoint 'Notizap.API.Controllers.v1.AuthController.HealthCheck (Notizap.Api)' 
+14:27:44.605 INF Route matched with {action = "HealthCheck", controller = "Auth"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult HealthCheck() on controller Notizap.API.Controllers.v1.AuthController (Notizap.Api). 
+14:27:44.814 INF 🔍 Health check ejecutado por: unknown 
+14:27:44.820 INF Executing OkObjectResult, writing value of type '<>f__AnonymousType16`4[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+14:27:44.846 INF Executed action Notizap.API.Controllers.v1.AuthController.HealthCheck (Notizap.Api) in 236.2304ms 
+14:27:44.849 INF Executed endpoint 'Notizap.API.Controllers.v1.AuthController.HealthCheck (Notizap.Api)' 
+14:27:44.850 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+14:27:44.851 INF │ ✅ FIN REQUEST: GET /api/v1/auth/health | 200 | 393ms | ID: 0HNE2VDD 
+14:27:44.852 INF └─────────────────────────────────────────────────────────────────────────┘ 
+14:27:44.853 INF  
+14:27:44.854 INF HTTP GET /api/v1/auth/health responded 200 in 406.5688 ms 
+14:27:44.857 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/auth/health - 200 null application/json; charset=utf-8 420.0431ms 

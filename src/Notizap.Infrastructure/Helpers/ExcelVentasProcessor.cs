@@ -16,141 +16,144 @@ public class ExcelVentasProcessor
 
     public async Task<ProcessResult> ProcesarArchivoAsync(Stream archivoStream)
     {
-        var resultado = new ProcessResult();
-        var ventasTemp = new List<VentaVendedoraCreateDto>();
-        var errores = new List<string>();
-
-        try
+        return await Task.Run(() =>
         {
-            using var workbook = new XLWorkbook(archivoStream);
-            var worksheet = workbook.Worksheets.FirstOrDefault();
+            var resultado = new ProcessResult();
+            var ventasTemp = new List<VentaVendedoraCreateDto>();
+            var errores = new List<string>();
 
-            if (worksheet == null)
+            try
             {
-                resultado.Success = false;
-                resultado.Message = "El archivo no contiene hojas de trabajo válidas.";
-                return resultado;
-            }
+                using var workbook = new XLWorkbook(archivoStream);
+                var worksheet = workbook.Worksheets.FirstOrDefault();
 
-            // Buscar la fila del header usando ExcelFinder
-            var headerRow = ExcelFinder.EncontrarFilaHeader(worksheet, _columnasRequeridas);
-            if (headerRow == -1)
-            {
-                resultado.Success = false;
-                resultado.Message = $"No se encontraron las columnas requeridas: {string.Join(", ", _columnasRequeridas)}";
-                return resultado;
-            }
-
-            // Obtener índices de columnas
-            var colSucursal = ExcelFinder.EncontrarColumna(worksheet, headerRow, "SUCURSAL");
-            var colVendedor = ExcelFinder.EncontrarColumna(worksheet, headerRow, "VENDEDOR");
-            var colProducto = ExcelFinder.EncontrarColumna(worksheet, headerRow, "PRODUCTO");
-            var colFecha = ExcelFinder.EncontrarColumna(worksheet, headerRow, "FECHA");
-            var colCantidad = ExcelFinder.EncontrarColumna(worksheet, headerRow, "CANTIDAD");
-            var colTotal = ExcelFinder.EncontrarColumna(worksheet, headerRow, "TOTAL");
-
-            // Procesar filas de datos
-            var filaActual = headerRow + 1;
-            var totalFilas = worksheet.LastRowUsed()?.RowNumber() ?? 0;
-            Console.WriteLine($"🔄 [PROCESADOR] Procesando filas {filaActual} a {totalFilas}...");
-            var filasVacias = 0;
-            const int maxFilasVacias = 10;
-
-            // Variables para mantener la sucursal y vendedor actuales
-            string sucursalActual = "";
-            string vendedorActual = "";
-
-            while (filasVacias < maxFilasVacias && filaActual <= totalFilas)
-            {
-                var fila = worksheet.Row(filaActual);
-                
-                // Obtener valores de sucursal y vendedor de la fila actual
-                var sucursalFila = fila.Cell(colSucursal).GetString().Trim();
-                var vendedorFila = fila.Cell(colVendedor).GetString().Trim();
-                var producto = fila.Cell(colProducto).GetString().Trim();
-                
-                // Si hay nueva sucursal, actualizarla
-                if (!string.IsNullOrWhiteSpace(sucursalFila))
+                if (worksheet == null)
                 {
-                    sucursalActual = sucursalFila;
-                    Console.WriteLine($"🏢 [PROCESADOR] Nueva sucursal: {sucursalActual}");
+                    resultado.Success = false;
+                    resultado.Message = "El archivo no contiene hojas de trabajo válidas.";
+                    return resultado;
                 }
-                
-                // Si hay nuevo vendedor, actualizarlo
-                if (!string.IsNullOrWhiteSpace(vendedorFila))
+
+                // Buscar la fila del header usando ExcelFinder
+                var headerRow = ExcelFinder.EncontrarFilaHeader(worksheet, _columnasRequeridas);
+                if (headerRow == -1)
                 {
-                    vendedorActual = vendedorFila;
-                    Console.WriteLine($"👤 [PROCESADOR] Nuevo vendedor: {vendedorActual}");
+                    resultado.Success = false;
+                    resultado.Message = $"No se encontraron las columnas requeridas: {string.Join(", ", _columnasRequeridas)}";
+                    return resultado;
                 }
-                
-                // Log de las primeras 3 filas para debug
-                if (filaActual <= headerRow + 3)
+
+                // Obtener índices de columnas
+                var colSucursal = ExcelFinder.EncontrarColumna(worksheet, headerRow, "SUCURSAL");
+                var colVendedor = ExcelFinder.EncontrarColumna(worksheet, headerRow, "VENDEDOR");
+                var colProducto = ExcelFinder.EncontrarColumna(worksheet, headerRow, "PRODUCTO");
+                var colFecha = ExcelFinder.EncontrarColumna(worksheet, headerRow, "FECHA");
+                var colCantidad = ExcelFinder.EncontrarColumna(worksheet, headerRow, "CANTIDAD");
+                var colTotal = ExcelFinder.EncontrarColumna(worksheet, headerRow, "TOTAL");
+
+                // Procesar filas de datos
+                var filaActual = headerRow + 1;
+                var totalFilas = worksheet.LastRowUsed()?.RowNumber() ?? 0;
+                Console.WriteLine($"🔄 [PROCESADOR] Procesando filas {filaActual} a {totalFilas}...");
+                var filasVacias = 0;
+                const int maxFilasVacias = 10;
+
+                // Variables para mantener la sucursal y vendedor actuales
+                string sucursalActual = "";
+                string vendedorActual = "";
+
+                while (filasVacias < maxFilasVacias && filaActual <= totalFilas)
                 {
-                    Console.WriteLine($"📝 [PROCESADOR] Fila {filaActual}: SUC=[{sucursalFila}→{sucursalActual}] VEND=[{vendedorFila}→{vendedorActual}] PROD=[{producto}]");
-                }
-                
-                // Verificar si la fila está vacía (usando los valores actuales)
-                if (EsFilaVaciaConValoresActuales(fila, sucursalActual, vendedorActual, producto))
-                {
-                    Console.WriteLine($"⏭️ [PROCESADOR] Fila {filaActual} vacía, saltando...");
-                    filasVacias++;
+                    var fila = worksheet.Row(filaActual);
+                    
+                    // Obtener valores de sucursal y vendedor de la fila actual
+                    var sucursalFila = fila.Cell(colSucursal).GetString().Trim();
+                    var vendedorFila = fila.Cell(colVendedor).GetString().Trim();
+                    var producto = fila.Cell(colProducto).GetString().Trim();
+                    
+                    // Si hay nueva sucursal, actualizarla
+                    if (!string.IsNullOrWhiteSpace(sucursalFila))
+                    {
+                        sucursalActual = sucursalFila;
+                        Console.WriteLine($"🏢 [PROCESADOR] Nueva sucursal: {sucursalActual}");
+                    }
+                    
+                    // Si hay nuevo vendedor, actualizarlo
+                    if (!string.IsNullOrWhiteSpace(vendedorFila))
+                    {
+                        vendedorActual = vendedorFila;
+                        Console.WriteLine($"👤 [PROCESADOR] Nuevo vendedor: {vendedorActual}");
+                    }
+                    
+                    // Log de las primeras 3 filas para debug
+                    if (filaActual <= headerRow + 3)
+                    {
+                        Console.WriteLine($"📝 [PROCESADOR] Fila {filaActual}: SUC=[{sucursalFila}→{sucursalActual}] VEND=[{vendedorFila}→{vendedorActual}] PROD=[{producto}]");
+                    }
+                    
+                    // Verificar si la fila está vacía (usando los valores actuales)
+                    if (EsFilaVaciaConValoresActuales(fila, sucursalActual, vendedorActual, producto))
+                    {
+                        Console.WriteLine($"⏭️ [PROCESADOR] Fila {filaActual} vacía, saltando...");
+                        filasVacias++;
+                        filaActual++;
+                        continue;
+                    }
+
+                    filasVacias = 0; // Reset contador de filas vacías
+                    Console.WriteLine($"✅ [PROCESADOR] Procesando fila {filaActual} con SUC={sucursalActual}, VEND={vendedorActual}...");
+
+                    try
+                    {
+                        var venta = ProcesarFilaConValoresActuales(fila, sucursalActual, vendedorActual, colProducto, colFecha, colCantidad, colTotal);
+                        if (venta != null)
+                        {
+                            ventasTemp.Add(venta);
+                            Console.WriteLine($"✅ [PROCESADOR] Venta agregada: {venta.VendedorNombre} - {venta.SucursalNombre}");
+                            
+                            // Actualizar rangos de fecha
+                            if (resultado.FechaMinima == null || venta.Fecha < resultado.FechaMinima)
+                                resultado.FechaMinima = venta.Fecha;
+                            if (resultado.FechaMaxima == null || venta.Fecha > resultado.FechaMaxima)
+                                resultado.FechaMaxima = venta.Fecha;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"⚠️ [PROCESADOR] Fila {filaActual} retornó null");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var error = $"Error en fila {filaActual}: {ex.Message}";
+                        errores.Add(error);
+                        Console.WriteLine($"❌ [PROCESADOR] {error}");
+                    }
+
                     filaActual++;
-                    continue;
                 }
 
-                filasVacias = 0; // Reset contador de filas vacías
-                Console.WriteLine($"✅ [PROCESADOR] Procesando fila {filaActual} con SUC={sucursalActual}, VEND={vendedorActual}...");
+                resultado.TotalFilasProcesadas = filaActual - headerRow - 1;
+                resultado.Ventas = ventasTemp;
+                resultado.Errores = errores;
+                resultado.Success = ventasTemp.Count > 0;
+                resultado.Message = resultado.Success 
+                    ? $"Se procesaron {ventasTemp.Count} ventas correctamente."
+                    : "No se pudieron procesar ventas del archivo.";
 
-                try
+                if (errores.Count > 0)
                 {
-                    var venta = ProcesarFilaConValoresActuales(fila, sucursalActual, vendedorActual, colProducto, colFecha, colCantidad, colTotal);
-                    if (venta != null)
-                    {
-                        ventasTemp.Add(venta);
-                        Console.WriteLine($"✅ [PROCESADOR] Venta agregada: {venta.VendedorNombre} - {venta.SucursalNombre}");
-                        
-                        // Actualizar rangos de fecha
-                        if (resultado.FechaMinima == null || venta.Fecha < resultado.FechaMinima)
-                            resultado.FechaMinima = venta.Fecha;
-                        if (resultado.FechaMaxima == null || venta.Fecha > resultado.FechaMaxima)
-                            resultado.FechaMaxima = venta.Fecha;
-                    }
-                    else
-                    {
-                        Console.WriteLine($"⚠️ [PROCESADOR] Fila {filaActual} retornó null");
-                    }
+                    resultado.Message += $" Se encontraron {errores.Count} errores.";
                 }
-                catch (Exception ex)
-                {
-                    var error = $"Error en fila {filaActual}: {ex.Message}";
-                    errores.Add(error);
-                    Console.WriteLine($"❌ [PROCESADOR] {error}");
-                }
-
-                filaActual++;
             }
-
-            resultado.TotalFilasProcesadas = filaActual - headerRow - 1;
-            resultado.Ventas = ventasTemp;
-            resultado.Errores = errores;
-            resultado.Success = ventasTemp.Count > 0;
-            resultado.Message = resultado.Success 
-                ? $"Se procesaron {ventasTemp.Count} ventas correctamente."
-                : "No se pudieron procesar ventas del archivo.";
-
-            if (errores.Count > 0)
+            catch (Exception ex)
             {
-                resultado.Message += $" Se encontraron {errores.Count} errores.";
+                resultado.Success = false;
+                resultado.Message = $"Error al procesar el archivo: {ex.Message}";
+                resultado.Errores.Add(ex.Message);
             }
-        }
-        catch (Exception ex)
-        {
-            resultado.Success = false;
-            resultado.Message = $"Error al procesar el archivo: {ex.Message}";
-            resultado.Errores.Add(ex.Message);
-        }
 
-        return resultado;
+            return resultado;
+        });
     }
 
     private bool EsFilaVaciaConValoresActuales(IXLRow fila, string sucursalActual, string vendedorActual, string producto)
