@@ -53,23 +53,13 @@ namespace Notizap.Services.Analisis
 
                 var sucursalesDto = new List<EvolucionSucursalDto>();
 
-                // --- Por sucursal ---
-                var sucursalesConGlobal = new List<string>(sucursalesUnicas);
-                if (!sucursalesConGlobal.Contains("GLOBAL"))
-                    sucursalesConGlobal.Add("GLOBAL");
-
-                foreach (var sucursal in sucursalesConGlobal)
+                // --- Por sucursal (solo sucursales reales, NO GLOBAL) ---
+                foreach (var sucursal in sucursalesUnicas)
                 {
-                    // Filtrar ventas por sucursal o global
-                    List<VentaFlat> ventasSucursal;
-                    if (sucursal == "GLOBAL")
-                        ventasSucursal = productoVentas;
-                    else
-                        ventasSucursal = productoVentas.Where(v => v.Sucursal == sucursal).ToList();
-
+                    var ventasSucursal = productoVentas.Where(v => v.Sucursal == sucursal).ToList();
                     var serie = SerieAcumuladaPorDia(fechas, ventasSucursal);
 
-                    // Variantes por color en esa sucursal/global
+                    // Variantes por color en esa sucursal
                     var coloresUnicosSucursal = ventasSucursal
                         .Select(v => v.Color)
                         .Where(c => !string.IsNullOrWhiteSpace(c))
@@ -99,29 +89,24 @@ namespace Notizap.Services.Analisis
                     });
                 }
 
-                // --- Serie global (todas las sucursales) ---
+                // --- GLOBAL: Solo una vez y al final ---
                 var serieGlobal = SerieAcumuladaPorDia(fechas, productoVentas);
-                sucursalesDto.Add(new EvolucionSucursalDto
-                {
-                    Sucursal = "GLOBAL",
-                    Serie = serieGlobal
-                });
-
+                
+                // Variantes por color globales
                 var coloresUnicos = productoVentas
                     .Select(v => v.Color)
                     .Where(c => !string.IsNullOrWhiteSpace(c))
                     .Distinct()
                     .ToList();
 
-                var variantes = new List<EvolucionVarianteDto>();
-
+                var variantesGlobales = new List<EvolucionVarianteDto>();
                 if (coloresUnicos.Count > 1)
                 {
                     foreach (var color in coloresUnicos)
                     {
                         var ventasColor = productoVentas.Where(v => v.Color == color).ToList();
                         var serieColor = SerieAcumuladaPorDia(fechas, ventasColor);
-                        variantes.Add(new EvolucionVarianteDto
+                        variantesGlobales.Add(new EvolucionVarianteDto
                         {
                             Color = color,
                             Serie = serieColor
@@ -129,11 +114,19 @@ namespace Notizap.Services.Analisis
                     }
                 }
 
+                // Agregar GLOBAL una sola vez
+                sucursalesDto.Add(new EvolucionSucursalDto
+                {
+                    Sucursal = "GLOBAL",
+                    Serie = serieGlobal,
+                    VariantesPorColor = variantesGlobales
+                });
+
+                // Agregar producto con sus sucursales (ya sin duplicación de GLOBAL)
                 resultado.Productos.Add(new EvolucionProductoDto
                 {
                     Nombre = producto,
-                    Sucursales = sucursalesDto,
-                    VariantesPorColor = variantes
+                    Sucursales = sucursalesDto
                 });
             }
 

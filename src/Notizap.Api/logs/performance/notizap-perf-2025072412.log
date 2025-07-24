@@ -1,0 +1,28 @@
+12:14:20.216 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas/resumen - null null 
+12:14:20.277 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+12:14:20.280 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/analisis/rotacion/evolucion-ventas/resumen | ID: 0HNEAO5A | Mozilla/5.0 
+12:14:20.282 INF └─────────────────────────────────────────────────────────────────────────┘ 
+12:14:20.286 INF CORS policy execution successful. 
+12:14:20.294 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+12:14:20.297 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/analisis/rotacion/evolucion-ventas/resumen | 204 | 10ms | ID: 0HNEAO5A 
+12:14:20.299 INF └─────────────────────────────────────────────────────────────────────────┘ 
+12:14:20.300 INF  
+12:14:20.301 INF HTTP OPTIONS /api/v1/analisis/rotacion/evolucion-ventas/resumen responded 204 in 27.1157 ms 
+12:14:20.303 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas/resumen - 204 null null 88.8869ms 
+12:14:20.313 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas/resumen - multipart/form-data; boundary=----WebKitFormBoundaryCzX7E5Kypqfe0wjN 11195961 
+12:14:20.318 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+12:14:20.319 INF │ 🚀 NUEVA REQUEST: POST /api/v1/analisis/rotacion/evolucion-ventas/resumen | ID: 0HNEAO5A | Mozilla/5.0 
+12:14:20.320 INF └─────────────────────────────────────────────────────────────────────────┘ 
+12:14:20.321 INF CORS policy execution successful. 
+12:14:20.338 INF Executing endpoint 'AnalisisRotacionController.EvolucionVentasResumen (Notizap.Api)' 
+12:14:20.350 INF Route matched with {action = "EvolucionVentasResumen", controller = "AnalisisRotacion"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult EvolucionVentasResumen(EvolucionVentasRequest) on controller AnalisisRotacionController (Notizap.Api). 
+12:14:35.713 INF Executing OkObjectResult, writing value of type 'EvolucionVentasResumenResponse'. 
+12:14:35.732 INF Executed action AnalisisRotacionController.EvolucionVentasResumen (Notizap.Api) in 15378.7305ms 
+12:14:35.735 INF Executed endpoint 'AnalisisRotacionController.EvolucionVentasResumen (Notizap.Api)' 
+12:14:35.738 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+12:14:35.739 INF │ ✅ FIN REQUEST: POST /api/v1/analisis/rotacion/evolucion-ventas/resumen | 200 | 15416ms | ID: 0HNEAO5A 
+12:14:35.741 INF └─────────────────────────────────────────────────────────────────────────┘ 
+12:14:35.742 INF  
+12:14:35.742 INF HTTP POST /api/v1/analisis/rotacion/evolucion-ventas/resumen responded 200 in 15424.5228 ms 
+12:14:35.750 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas/resumen - 200 null application/json; charset=utf-8 15435.3893ms 
+12:20:10.590 INF Application is shutting down... 

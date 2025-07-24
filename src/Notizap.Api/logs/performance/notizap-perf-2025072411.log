@@ -1,0 +1,223 @@
+11:48:46.557 INF ✅ Notizap API iniciada correctamente 
+11:48:46.655 INF User profile is available. Using 'C:\Users\Administrador\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+11:48:46.917 INF Now listening on: http://localhost:5090 
+11:48:46.920 INF Application started. Press Ctrl+C to shut down. 
+11:48:46.921 INF Hosting environment: Development 
+11:48:46.922 INF Content root path: C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api 
+11:49:45.173 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas - null null 
+11:49:45.251 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:49:45.255 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/analisis/rotacion/evolucion-ventas | ID: 0HNEAO5A | Mozilla/5.0 
+11:49:45.256 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:49:45.270 INF CORS policy execution successful. 
+11:49:45.273 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:49:45.275 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/analisis/rotacion/evolucion-ventas | 204 | 15ms | ID: 0HNEAO5A 
+11:49:45.286 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:49:45.288 INF  
+11:49:45.290 INF HTTP OPTIONS /api/v1/analisis/rotacion/evolucion-ventas responded 204 in 39.3855 ms 
+11:49:45.351 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas - 204 null null 179.2268ms 
+11:49:45.362 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas - multipart/form-data; boundary=----WebKitFormBoundaryFfKMh6WdRw9nvkAi 11195961 
+11:49:45.373 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:49:45.374 INF │ 🚀 NUEVA REQUEST: POST /api/v1/analisis/rotacion/evolucion-ventas | ID: 0HNEAO5A | Mozilla/5.0 
+11:49:45.381 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:49:45.384 INF CORS policy execution successful. 
+11:49:45.386 WRN Failed to determine the https port for redirect. 
+11:49:45.800 INF Executing endpoint 'AnalisisRotacionController.EvolucionVentas (Notizap.Api)' 
+11:49:45.835 INF Route matched with {action = "EvolucionVentas", controller = "AnalisisRotacion"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult EvolucionVentas(EvolucionVentasRequest) on controller AnalisisRotacionController (Notizap.Api). 
+11:50:05.024 INF Executing OkObjectResult, writing value of type 'EvolucionVentasResponse'. 
+11:50:05.295 INF Executed action AnalisisRotacionController.EvolucionVentas (Notizap.Api) in 19451.8087ms 
+11:50:05.302 INF Executed endpoint 'AnalisisRotacionController.EvolucionVentas (Notizap.Api)' 
+11:50:05.310 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:05.314 INF │ ✅ FIN REQUEST: POST /api/v1/analisis/rotacion/evolucion-ventas | 200 | 19926ms | ID: 0HNEAO5A 
+11:50:05.316 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:05.317 INF  
+11:50:05.318 INF HTTP POST /api/v1/analisis/rotacion/evolucion-ventas responded 200 in 19945.6074 ms 
+11:50:05.333 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas - 200 null application/json; charset=utf-8 19972.0102ms 
+11:50:05.398 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - null null 
+11:50:05.403 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:05.405 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - null null 
+11:50:05.405 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - null null 
+11:50:05.405 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra | ID: 0HNEAO5A | Mozilla/5.0 
+11:50:05.417 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:05.421 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:05.424 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:05.427 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra | ID: 0HNEAO5A | Mozilla/5.0 
+11:50:05.429 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra | ID: 0HNEAO5A | Mozilla/5.0 
+11:50:05.436 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:05.439 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:05.442 INF CORS policy execution successful. 
+11:50:05.442 INF CORS policy execution successful. 
+11:50:05.443 INF CORS policy execution successful. 
+11:50:05.445 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:05.447 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:05.448 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:05.450 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra | 204 | 4ms | ID: 0HNEAO5A 
+11:50:05.451 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra | 204 | 14ms | ID: 0HNEAO5A 
+11:50:05.453 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra | 204 | 5ms | ID: 0HNEAO5A 
+11:50:05.462 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:05.465 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:05.468 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:05.469 INF  
+11:50:05.470 INF  
+11:50:05.471 INF  
+11:50:05.472 INF HTTP OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra responded 204 in 55.1472 ms 
+11:50:05.473 INF HTTP OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra responded 204 in 69.9334 ms 
+11:50:05.475 INF HTTP OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra responded 204 in 53.4788 ms 
+11:50:05.481 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - 204 null null 76.5575ms 
+11:50:05.484 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - 204 null null 86.4514ms 
+11:50:05.489 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - 204 null null 83.3334ms 
+11:50:05.503 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - multipart/form-data; boundary=----WebKitFormBoundaryzAOIryutPSZGyeJ7 582239 
+11:50:05.503 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - multipart/form-data; boundary=----WebKitFormBoundaryWqaJ7kXlIrsixNn3 582239 
+11:50:05.514 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - multipart/form-data; boundary=----WebKitFormBoundarygGPQpHmlAEXHuBcb 582239 
+11:50:05.521 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:05.521 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:05.524 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:05.525 INF │ 🚀 NUEVA REQUEST: POST /api/v1/analisis/rotacion/compras/fechas-compra | ID: 0HNEAO5A | Mozilla/5.0 
+11:50:05.529 INF │ 🚀 NUEVA REQUEST: POST /api/v1/analisis/rotacion/compras/fechas-compra | ID: 0HNEAO5A | Mozilla/5.0 
+11:50:05.531 INF │ 🚀 NUEVA REQUEST: POST /api/v1/analisis/rotacion/compras/fechas-compra | ID: 0HNEAO5A | Mozilla/5.0 
+11:50:05.534 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:05.536 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:05.538 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:05.539 INF CORS policy execution successful. 
+11:50:05.540 INF CORS policy execution successful. 
+11:50:05.543 INF CORS policy execution successful. 
+11:50:05.578 INF Executing endpoint 'AnalisisRotacionController.GetFechasCompra (Notizap.Api)' 
+11:50:05.578 INF Executing endpoint 'AnalisisRotacionController.GetFechasCompra (Notizap.Api)' 
+11:50:05.578 INF Executing endpoint 'AnalisisRotacionController.GetFechasCompra (Notizap.Api)' 
+11:50:05.607 INF Route matched with {action = "GetFechasCompra", controller = "AnalisisRotacion"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]] GetFechasCompra(FechasCompraRequest) on controller AnalisisRotacionController (Notizap.Api). 
+11:50:05.607 INF Route matched with {action = "GetFechasCompra", controller = "AnalisisRotacion"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]] GetFechasCompra(FechasCompraRequest) on controller AnalisisRotacionController (Notizap.Api). 
+11:50:05.607 INF Route matched with {action = "GetFechasCompra", controller = "AnalisisRotacion"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]] GetFechasCompra(FechasCompraRequest) on controller AnalisisRotacionController (Notizap.Api). 
+11:50:07.440 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+11:50:07.447 INF Executed action AnalisisRotacionController.GetFechasCompra (Notizap.Api) in 1834.7878ms 
+11:50:07.451 INF Executed endpoint 'AnalisisRotacionController.GetFechasCompra (Notizap.Api)' 
+11:50:07.454 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:07.455 INF │ ✅ FIN REQUEST: POST /api/v1/analisis/rotacion/compras/fechas-compra | 200 | 1913ms | ID: 0HNEAO5A 
+11:50:07.457 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+11:50:07.457 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+11:50:07.457 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:07.463 INF Executed action AnalisisRotacionController.GetFechasCompra (Notizap.Api) in 1845.6937ms 
+11:50:07.465 INF Executed action AnalisisRotacionController.GetFechasCompra (Notizap.Api) in 1850.8159ms 
+11:50:07.467 INF  
+11:50:07.468 INF Executed endpoint 'AnalisisRotacionController.GetFechasCompra (Notizap.Api)' 
+11:50:07.470 INF Executed endpoint 'AnalisisRotacionController.GetFechasCompra (Notizap.Api)' 
+11:50:07.471 INF HTTP POST /api/v1/analisis/rotacion/compras/fechas-compra responded 200 in 1949.7905 ms 
+11:50:07.472 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:07.473 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:07.480 INF │ ✅ FIN REQUEST: POST /api/v1/analisis/rotacion/compras/fechas-compra | 200 | 1932ms | ID: 0HNEAO5A 
+11:50:07.482 INF │ ✅ FIN REQUEST: POST /api/v1/analisis/rotacion/compras/fechas-compra | 200 | 1930ms | ID: 0HNEAO5A 
+11:50:07.485 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:07.489 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - 200 null application/json; charset=utf-8 1985.6511ms 
+11:50:07.490 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:07.491 INF  
+11:50:07.500 INF  
+11:50:07.501 INF HTTP POST /api/v1/analisis/rotacion/compras/fechas-compra responded 200 in 1979.6688 ms 
+11:50:07.501 INF HTTP POST /api/v1/analisis/rotacion/compras/fechas-compra responded 200 in 1977.5218 ms 
+11:50:07.509 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - 200 null application/json; charset=utf-8 2005.0382ms 
+11:50:07.515 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - 200 null application/json; charset=utf-8 2000.5556ms 
+11:50:12.242 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - null null 
+11:50:12.249 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:12.251 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra | ID: 0HNEAO5A | Mozilla/5.0 
+11:50:12.254 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:12.255 INF CORS policy execution successful. 
+11:50:12.256 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:12.259 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra | 204 | 1ms | ID: 0HNEAO5A 
+11:50:12.266 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:12.268 INF  
+11:50:12.270 INF HTTP OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra responded 204 in 21.2685 ms 
+11:50:12.273 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - 204 null null 30.5059ms 
+11:50:12.280 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - multipart/form-data; boundary=----WebKitFormBoundaryDdG5k30sUk89kj3S 582223 
+11:50:12.283 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:12.284 INF │ 🚀 NUEVA REQUEST: POST /api/v1/analisis/rotacion/compras/fechas-compra | ID: 0HNEAO5A | Mozilla/5.0 
+11:50:12.286 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:12.287 INF CORS policy execution successful. 
+11:50:12.300 INF Executing endpoint 'AnalisisRotacionController.GetFechasCompra (Notizap.Api)' 
+11:50:12.302 INF Route matched with {action = "GetFechasCompra", controller = "AnalisisRotacion"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]] GetFechasCompra(FechasCompraRequest) on controller AnalisisRotacionController (Notizap.Api). 
+11:50:13.205 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+11:50:13.208 INF Executed action AnalisisRotacionController.GetFechasCompra (Notizap.Api) in 903.6708ms 
+11:50:13.213 INF Executed endpoint 'AnalisisRotacionController.GetFechasCompra (Notizap.Api)' 
+11:50:13.216 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:13.218 INF │ ✅ FIN REQUEST: POST /api/v1/analisis/rotacion/compras/fechas-compra | 200 | 929ms | ID: 0HNEAO5A 
+11:50:13.220 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:13.221 INF  
+11:50:13.222 INF HTTP POST /api/v1/analisis/rotacion/compras/fechas-compra responded 200 in 938.7165 ms 
+11:50:13.235 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - 200 null application/json; charset=utf-8 954.9587ms 
+11:50:44.385 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - null null 
+11:50:44.389 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:44.390 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra | ID: 0HNEAO5A | Mozilla/5.0 
+11:50:44.395 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:44.399 INF CORS policy execution successful. 
+11:50:44.402 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:44.403 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra | 204 | 2ms | ID: 0HNEAO5A 
+11:50:44.405 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:44.406 INF  
+11:50:44.407 INF HTTP OPTIONS /api/v1/analisis/rotacion/compras/fechas-compra responded 204 in 18.5192 ms 
+11:50:44.410 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - 204 null null 24.9418ms 
+11:50:44.417 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - multipart/form-data; boundary=----WebKitFormBoundaryATklOcnKL6A68tgO 582239 
+11:50:44.421 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:44.423 INF │ 🚀 NUEVA REQUEST: POST /api/v1/analisis/rotacion/compras/fechas-compra | ID: 0HNEAO5A | Mozilla/5.0 
+11:50:44.425 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:44.427 INF CORS policy execution successful. 
+11:50:44.430 INF Executing endpoint 'AnalisisRotacionController.GetFechasCompra (Notizap.Api)' 
+11:50:44.434 INF Route matched with {action = "GetFechasCompra", controller = "AnalisisRotacion"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]] GetFechasCompra(FechasCompraRequest) on controller AnalisisRotacionController (Notizap.Api). 
+11:50:45.371 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+11:50:45.374 INF Executed action AnalisisRotacionController.GetFechasCompra (Notizap.Api) in 935.5197ms 
+11:50:45.379 INF Executed endpoint 'AnalisisRotacionController.GetFechasCompra (Notizap.Api)' 
+11:50:45.383 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:50:45.384 INF │ ✅ FIN REQUEST: POST /api/v1/analisis/rotacion/compras/fechas-compra | 200 | 955ms | ID: 0HNEAO5A 
+11:50:45.386 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:50:45.387 INF  
+11:50:45.388 INF HTTP POST /api/v1/analisis/rotacion/compras/fechas-compra responded 200 in 967.2390 ms 
+11:50:45.401 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/compras/fechas-compra - 200 null application/json; charset=utf-8 983.4723ms 
+11:51:17.171 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/evolucion-stock - null null 
+11:51:17.174 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:51:17.178 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/analisis/rotacion/evolucion-stock | ID: 0HNEAO5A | Mozilla/5.0 
+11:51:17.183 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:51:17.184 INF CORS policy execution successful. 
+11:51:17.186 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:51:17.187 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/analisis/rotacion/evolucion-stock | 204 | 1ms | ID: 0HNEAO5A 
+11:51:17.189 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:51:17.190 INF  
+11:51:17.193 INF HTTP OPTIONS /api/v1/analisis/rotacion/evolucion-stock responded 204 in 18.2646 ms 
+11:51:17.200 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/evolucion-stock - 204 null null 28.9544ms 
+11:51:17.207 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/evolucion-stock - multipart/form-data; boundary=----WebKitFormBoundaryWYN0xg2EslJ5hbKB 11778165 
+11:51:17.215 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:51:17.223 INF │ 🚀 NUEVA REQUEST: POST /api/v1/analisis/rotacion/evolucion-stock | ID: 0HNEAO5A | Mozilla/5.0 
+11:51:17.226 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:51:17.231 INF CORS policy execution successful. 
+11:51:17.234 INF Executing endpoint 'AnalisisRotacionController.EvolucionStock (Notizap.Api)' 
+11:51:17.239 INF Route matched with {action = "EvolucionStock", controller = "AnalisisRotacion"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult EvolucionStock(EvolucionStockRequest) on controller AnalisisRotacionController (Notizap.Api). 
+11:51:34.287 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[EvolucionStockPorPuntoDeVentaDto, Notizap.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+11:51:34.303 INF Executed action AnalisisRotacionController.EvolucionStock (Notizap.Api) in 17062.1554ms 
+11:51:34.306 INF Executed endpoint 'AnalisisRotacionController.EvolucionStock (Notizap.Api)' 
+11:51:34.307 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:51:34.310 INF │ ✅ FIN REQUEST: POST /api/v1/analisis/rotacion/evolucion-stock | 200 | 17076ms | ID: 0HNEAO5A 
+11:51:34.314 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:51:34.316 INF  
+11:51:34.317 INF HTTP POST /api/v1/analisis/rotacion/evolucion-stock responded 200 in 17101.9103 ms 
+11:51:34.324 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/evolucion-stock - 200 null application/json; charset=utf-8 17116.6177ms 
+11:52:07.289 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas/resumen - null null 
+11:52:07.299 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:52:07.300 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/analisis/rotacion/evolucion-ventas/resumen | ID: 0HNEAO5A | Mozilla/5.0 
+11:52:07.302 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:52:07.302 INF CORS policy execution successful. 
+11:52:07.303 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:52:07.305 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/analisis/rotacion/evolucion-ventas/resumen | 204 | 0ms | ID: 0HNEAO5A 
+11:52:07.306 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:52:07.307 INF  
+11:52:07.310 INF HTTP OPTIONS /api/v1/analisis/rotacion/evolucion-ventas/resumen responded 204 in 11.1776 ms 
+11:52:07.316 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas/resumen - 204 null null 26.5723ms 
+11:52:07.323 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas/resumen - multipart/form-data; boundary=----WebKitFormBoundarynlyEcs3NKPdvsFvD 11195961 
+11:52:07.333 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:52:07.335 INF │ 🚀 NUEVA REQUEST: POST /api/v1/analisis/rotacion/evolucion-ventas/resumen | ID: 0HNEAO5A | Mozilla/5.0 
+11:52:07.339 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:52:07.341 INF CORS policy execution successful. 
+11:52:07.350 INF Executing endpoint 'AnalisisRotacionController.EvolucionVentasResumen (Notizap.Api)' 
+11:52:07.362 INF Route matched with {action = "EvolucionVentasResumen", controller = "AnalisisRotacion"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult EvolucionVentasResumen(EvolucionVentasRequest) on controller AnalisisRotacionController (Notizap.Api). 
+11:52:17.747 INF Executing OkObjectResult, writing value of type 'EvolucionVentasResumenResponse'. 
+11:52:17.754 INF Executed action AnalisisRotacionController.EvolucionVentasResumen (Notizap.Api) in 10387.0764ms 
+11:52:17.757 INF Executed endpoint 'AnalisisRotacionController.EvolucionVentasResumen (Notizap.Api)' 
+11:52:17.759 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+11:52:17.760 INF │ ✅ FIN REQUEST: POST /api/v1/analisis/rotacion/evolucion-ventas/resumen | 200 | 10418ms | ID: 0HNEAO5A 
+11:52:17.762 INF └─────────────────────────────────────────────────────────────────────────┘ 
+11:52:17.763 INF  
+11:52:17.763 INF HTTP POST /api/v1/analisis/rotacion/evolucion-ventas/resumen responded 200 in 10430.8580 ms 
+11:52:17.767 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/analisis/rotacion/evolucion-ventas/resumen - 200 null application/json; charset=utf-8 10444.5275ms 
