@@ -76,9 +76,23 @@ public class VentaVendedora
 
     public static bool EsProductoEspecial(string producto)
     {
-        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA", "REDONDEO", "AJUSTE" };
+        if (string.IsNullOrWhiteSpace(producto)) return false;
+        
+        var productoLimpio = producto.Trim().ToUpper();
+        
+        // Caso especial: coincidencia exacta para "EDICION LIMITADA"
+        if (productoLimpio.Equals("EDICION LIMITADA", StringComparison.OrdinalIgnoreCase))
+        {
+            return true;
+        }
+        
+        var palabrasEspeciales = new[] { 
+            "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", 
+            "RESEÑA", "REDONDEO", "AJUSTE" 
+        };
+        
         return palabrasEspeciales.Any(palabra => 
-            producto.ToUpper().Contains(palabra.ToUpper()));
+            productoLimpio.Contains(palabra));
     }
 
     public static bool EsDomingo(DateTime fecha)

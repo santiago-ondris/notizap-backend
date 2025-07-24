@@ -90,7 +90,11 @@ public class RendimientoLocalesService : IRendimientoLocalesService
             query = query.Where(v => v.Fecha >= filtros.FechaInicio.Value);
 
         if (filtros.FechaFin.HasValue)
-            query = query.Where(v => v.Fecha <= filtros.FechaFin.Value);
+        {
+            // SOLUCION: Hacer que FechaFin sea inclusiva agregando 23:59:59
+            var fechaFinInclusiva = filtros.FechaFin.Value.Date.AddDays(1).AddMilliseconds(-1);
+            query = query.Where(v => v.Fecha <= fechaFinInclusiva);
+        }
 
         if (!string.IsNullOrWhiteSpace(filtros.SucursalNombre))
             query = query.Where(v => v.Sucursal.Nombre.Contains(filtros.SucursalNombre));
