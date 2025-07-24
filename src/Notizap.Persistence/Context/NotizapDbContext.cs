@@ -24,6 +24,7 @@ public class NotizapDbContext : DbContext
     public DbSet<VentaVendedora> VentasVendedoras { get; set; }
     public DbSet<VentaWooCommerce> VentasWooCommerce { get; set; }
     public DbSet<ComisionOnline> ComisionesOnline { get; set; }
+    public DbSet<ArchivoUsuario> ArchivosUsuario { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -44,5 +45,7 @@ public class NotizapDbContext : DbContext
 
         modelBuilder.ApplyConfiguration(new VentaWooCommerceConfiguration());
         modelBuilder.ApplyConfiguration(new ComisionOnlineConfiguration());
+
+        modelBuilder.ApplyConfiguration(new ArchivoUsuarioConfiguration());
     }
 }

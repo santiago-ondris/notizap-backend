@@ -45,6 +45,8 @@ namespace Notizap.API.Extensions
             services.AddScoped<IVentaWooCommerceService, VentaWooCommerceService>();
             services.AddScoped<IComisionOnlineService, ComisionOnlineService>();
 
+            services.AddScoped<IArchivoUsuarioService, ArchivoUsuarioService>();
+
             return services;
         }
     }

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-[Authorize(Roles = "superadmin")]
+[Authorize(Roles = "admin,superadmin")]
 [ApiController]
 [Route("api/v1/ventas-vendedoras")]
 public class VentasVendedorasController : ControllerBase

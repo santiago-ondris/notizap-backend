@@ -41,6 +41,30 @@ namespace Notizap.Application.Mapping
             CreateMap<Cambio, CambioSimpleDto>()
                 .ForMember(dest => dest.Etiqueta, opt => opt.MapFrom(src => src.Etiqueta))
                 .ForMember(dest => dest.EtiquetaDespachada, opt => opt.MapFrom(src => src.EtiquetaDespachada));
+
+            // === ARCHIVOS USUARIO MAPPING === 
+            CreateMap<ArchivoUsuario, ArchivoUsuarioDto>()
+                .ForMember(dest => dest.TipoArchivoTexto, opt => opt.Ignore()) // Se calcula en el servicio
+                .ForMember(dest => dest.TamañoFormateado, opt => opt.Ignore()) // Se calcula en el servicio
+                .ForMember(dest => dest.Tags, opt => opt.Ignore()) // Se procesa en el servicio
+                .ForMember(dest => dest.UsuarioNombre, opt => opt.Ignore()); // Se calcula en el servicio
+
+            CreateMap<CrearArchivoUsuarioDto, ArchivoUsuario>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.UsuarioId, opt => opt.Ignore())
+                .ForMember(dest => dest.NombreOriginal, opt => opt.Ignore())
+                .ForMember(dest => dest.RutaArchivo, opt => opt.Ignore())
+                .ForMember(dest => dest.FechaSubida, opt => opt.Ignore())
+                .ForMember(dest => dest.TamañoBytes, opt => opt.Ignore())
+                .ForMember(dest => dest.UltimoAcceso, opt => opt.Ignore())
+                .ForMember(dest => dest.VecesUtilizado, opt => opt.Ignore())
+                .ForMember(dest => dest.Activo, opt => opt.Ignore())
+                .ForMember(dest => dest.TagsMetadata, opt => opt.Ignore())
+                .ForMember(dest => dest.FechaCreacion, opt => opt.Ignore())
+                .ForMember(dest => dest.FechaModificacion, opt => opt.Ignore())
+                .ForMember(dest => dest.CreadoPor, opt => opt.Ignore())
+                .ForMember(dest => dest.ModificadoPor, opt => opt.Ignore())
+                .ForMember(dest => dest.Usuario, opt => opt.Ignore());    
         }
                     
     }

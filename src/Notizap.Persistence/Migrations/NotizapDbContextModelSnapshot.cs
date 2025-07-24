@@ -21,99 +21,6 @@ namespace Notizap.Api.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("AdCampaign", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AdReportId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("CampaignId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Clicks")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("Ctr")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTime>("FechaFin")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("FechaInicio")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("FollowersCount")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Impressions")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("MontoInvertido")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Objetivo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Reach")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Resultados")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Tipo")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ValorResultado")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdReportId");
-
-                    b.ToTable("AdCampaigns");
-                });
-
-            modelBuilder.Entity("AdReport", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Month")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Plataforma")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UnidadNegocio")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Year")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdReports");
-                });
-
             modelBuilder.Entity("AnuncioDisplayML", b =>
                 {
                     b.Property<int>("Id")
@@ -147,6 +54,110 @@ namespace Notizap.Api.Migrations
                     b.HasIndex("ReportePublicidadMLId");
 
                     b.ToTable("AnunciosDisplayML", (string)null);
+                });
+
+            modelBuilder.Entity("ArchivoUsuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("CreadoPor")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<bool>("EsFavorito")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("boolean")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                    b.Property<DateTime?>("FechaModificacion")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("FechaSubida")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModificadoPor")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("NombreArchivo")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<string>("NombreOriginal")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<string>("RutaArchivo")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("TagsMetadata")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<long>("TamañoBytes")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("TipoArchivo")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UltimoAcceso")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VecesUtilizado")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FechaSubida")
+                        .HasDatabaseName("IX_ArchivosUsuario_FechaSubida");
+
+                    b.HasIndex("UltimoAcceso")
+                        .HasDatabaseName("IX_ArchivosUsuario_UltimoAcceso");
+
+                    b.HasIndex("UsuarioId")
+                        .HasDatabaseName("IX_ArchivosUsuario_UsuarioId");
+
+                    b.HasIndex("VecesUtilizado")
+                        .HasDatabaseName("IX_ArchivosUsuario_VecesUtilizado");
+
+                    b.HasIndex("UsuarioId", "Activo")
+                        .HasDatabaseName("IX_ArchivosUsuario_Usuario_Activo");
+
+                    b.HasIndex("UsuarioId", "EsFavorito")
+                        .HasDatabaseName("IX_ArchivosUsuario_Usuario_Favorito");
+
+                    b.HasIndex("UsuarioId", "TipoArchivo")
+                        .HasDatabaseName("IX_ArchivosUsuario_Usuario_Tipo");
+
+                    b.ToTable("ArchivosUsuario", (string)null);
                 });
 
             modelBuilder.Entity("Cambio", b =>
@@ -624,54 +635,6 @@ namespace Notizap.Api.Migrations
                     b.ToTable("ExcelTopProductosML", (string)null);
                 });
 
-            modelBuilder.Entity("Gasto", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Categoria")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Descripcion")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("EsImportante")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("EsRecurrente")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("FechaCreacion")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("FrecuenciaRecurrencia")
-                        .HasColumnType("text");
-
-                    b.Property<string>("MetodoPago")
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("Monto")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Proveedor")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Gastos");
-                });
-
             modelBuilder.Entity("HistorialImportacionClientes", b =>
                 {
                     b.Property<int>("Id")
@@ -697,245 +660,6 @@ namespace Notizap.Api.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("HistorialImportacionClientes", (string)null);
-                });
-
-            modelBuilder.Entity("InstagramPost", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("BusinessId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<double>("Clicks")
-                        .HasColumnType("double precision");
-
-                    b.Property<int>("Comments")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Content")
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Cuenta")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<double>("Engagement")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime>("FechaPublicacion")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Impressions")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("Interactions")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("PostId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Reach")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Saved")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Shares")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("VideoViews")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId")
-                        .IsUnique();
-
-                    b.ToTable("InstagramPosts");
-                });
-
-            modelBuilder.Entity("InstagramReel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("BusinessId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Comentarios")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Compartidos")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Contenido")
-                        .IsRequired()
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Cuenta")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<double>("Engagement")
-                        .HasColumnType("double precision");
-
-                    b.Property<DateTime>("FechaPublicacion")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Guardados")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Interacciones")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Likes")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Reach")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ReelId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("VideoViews")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Views")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReelId")
-                        .IsUnique();
-
-                    b.ToTable("InstagramReels");
-                });
-
-            modelBuilder.Entity("InstagramSeguidores", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Cuenta")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Value")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Cuenta", "Date")
-                        .IsUnique();
-
-                    b.ToTable("InstagramSeguidores");
-                });
-
-            modelBuilder.Entity("InstagramStory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("BusinessId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Content")
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Cuenta")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Exits")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("FechaPublicacion")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Impressions")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("MediaUrl")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Permalink")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PostId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("Reach")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Replies")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TapsBack")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TapsForward")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ThumbnailUrl")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PostId")
-                        .IsUnique();
-
-                    b.ToTable("InstagramStories");
                 });
 
             modelBuilder.Entity("MercadoLibreManualReport", b =>
@@ -1343,17 +1067,6 @@ namespace Notizap.Api.Migrations
                     b.ToTable("VentasWooCommerce", (string)null);
                 });
 
-            modelBuilder.Entity("AdCampaign", b =>
-                {
-                    b.HasOne("AdReport", "Reporte")
-                        .WithMany("Campañas")
-                        .HasForeignKey("AdReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Reporte");
-                });
-
             modelBuilder.Entity("AnuncioDisplayML", b =>
                 {
                     b.HasOne("ReportePublicidadML", "Reporte")
@@ -1363,6 +1076,17 @@ namespace Notizap.Api.Migrations
                         .IsRequired();
 
                     b.Navigation("Reporte");
+                });
+
+            modelBuilder.Entity("ArchivoUsuario", b =>
+                {
+                    b.HasOne("User", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Compra", b =>
@@ -1404,11 +1128,6 @@ namespace Notizap.Api.Migrations
                     b.Navigation("Sucursal");
 
                     b.Navigation("Vendedor");
-                });
-
-            modelBuilder.Entity("AdReport", b =>
-                {
-                    b.Navigation("Campañas");
                 });
 
             modelBuilder.Entity("Cliente", b =>
