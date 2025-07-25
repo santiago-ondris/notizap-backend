@@ -1,0 +1,397 @@
+2025-07-25 09:32:45.189 [ERR] [VentasVendedorasController] Error al obtener todas las vendedoras 
+System.InvalidOperationException: The LINQ expression 'RelationalGroupByShaperExpression:
+KeySelector: v0.Nombre, 
+ElementSelector: new TransparentIdentifier<VentaVendedora, VendedorVenta>(
+    Outer = StructuralTypeShaperExpression(
+        StructuralType: VentaVendedora
+        ValueBufferExpression: ProjectionBindingExpression: Outer
+        IsNullable: False), 
+    Inner = StructuralTypeShaperExpression(
+        StructuralType: VendedorVenta
+        ValueBufferExpression: ProjectionBindingExpression: Inner
+        IsNullable: False)
+), 
+GroupingEnumerable:ShapedQueryExpression: 
+    QueryExpression: 
+        Projection Mapping:
+            Outer -> StructuralTypeProjectionExpression: VentaVendedora
+            Inner -> StructuralTypeProjectionExpression: VendedorVenta
+        SELECT 1
+        FROM VentasVendedoras AS v1
+        INNER JOIN VendedoresVentas AS v2 ON v1.VendedorId == v2.Id
+        WHERE ((((v1.Fecha >= @__filtros_FechaInicio_Value_0) && (v1.Fecha <= @__fechaFinInclusiva_1)) && (CAST(floor(date_part('dow', v1.Fecha AT TIME ZONE 'UTC')) AS integer) != 0)) && (CAST(floor(date_part('dow', v1.Fecha AT TIME ZONE 'UTC')) AS integer) != 0)) && (v0.Nombre == v2.Nombre)
+    ShaperExpression: new TransparentIdentifier<VentaVendedora, VendedorVenta>(
+            Outer = StructuralTypeShaperExpression(
+                StructuralType: VentaVendedora
+                ValueBufferExpression: ProjectionBindingExpression: Outer
+                IsNullable: False), 
+            Inner = StructuralTypeShaperExpression(
+                StructuralType: VendedorVenta
+                ValueBufferExpression: ProjectionBindingExpression: Inner
+                IsNullable: False)
+        )
+
+    .AsQueryable()
+    .Sum(e => e.Outer.GetCantidadReal())' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.TranslateSubquery(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.<VisitMethodCall>g__TranslateAsSubquery|33_0(Expression expression, <>c__DisplayClass33_0&)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal.NpgsqlSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateInternal(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateProjection(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberAssignment(MemberAssignment memberAssignment)
+   at System.Linq.Expressions.ExpressionVisitor.VisitMemberBinding(MemberBinding node)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberInit(MemberInitExpression memberInitExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Translate(SelectExpression selectExpression, Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.TranslateSelect(ShapedQueryExpression source, LambdaExpression selector)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VentaVendedoraService.ObtenerTodasLasVendedorasAsync(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\Notizap.Infrastructure\Services\Vendedoras\VentaVendedoraService.cs:line 605
+   at VentasVendedorasController.ObtenerTodasLasVendedoras(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api\Controllers\v1\Vendedoras\VentasVendedorasController.cs:line 327
+2025-07-25 09:32:45.307 [ERR] [VentasVendedorasController] Error al obtener todas las vendedoras 
+System.InvalidOperationException: The LINQ expression 'RelationalGroupByShaperExpression:
+KeySelector: v0.Nombre, 
+ElementSelector: new TransparentIdentifier<VentaVendedora, VendedorVenta>(
+    Outer = StructuralTypeShaperExpression(
+        StructuralType: VentaVendedora
+        ValueBufferExpression: ProjectionBindingExpression: Outer
+        IsNullable: False), 
+    Inner = StructuralTypeShaperExpression(
+        StructuralType: VendedorVenta
+        ValueBufferExpression: ProjectionBindingExpression: Inner
+        IsNullable: False)
+), 
+GroupingEnumerable:ShapedQueryExpression: 
+    QueryExpression: 
+        Projection Mapping:
+            Outer -> StructuralTypeProjectionExpression: VentaVendedora
+            Inner -> StructuralTypeProjectionExpression: VendedorVenta
+        SELECT 1
+        FROM VentasVendedoras AS v1
+        INNER JOIN VendedoresVentas AS v2 ON v1.VendedorId == v2.Id
+        WHERE ((((v1.Fecha >= @__filtros_FechaInicio_Value_0) && (v1.Fecha <= @__fechaFinInclusiva_1)) && (CAST(floor(date_part('dow', v1.Fecha AT TIME ZONE 'UTC')) AS integer) != 0)) && (CAST(floor(date_part('dow', v1.Fecha AT TIME ZONE 'UTC')) AS integer) != 0)) && (v0.Nombre == v2.Nombre)
+    ShaperExpression: new TransparentIdentifier<VentaVendedora, VendedorVenta>(
+            Outer = StructuralTypeShaperExpression(
+                StructuralType: VentaVendedora
+                ValueBufferExpression: ProjectionBindingExpression: Outer
+                IsNullable: False), 
+            Inner = StructuralTypeShaperExpression(
+                StructuralType: VendedorVenta
+                ValueBufferExpression: ProjectionBindingExpression: Inner
+                IsNullable: False)
+        )
+
+    .AsQueryable()
+    .Sum(e => e.Outer.GetCantidadReal())' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.TranslateSubquery(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.<VisitMethodCall>g__TranslateAsSubquery|33_0(Expression expression, <>c__DisplayClass33_0&)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal.NpgsqlSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateInternal(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateProjection(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberAssignment(MemberAssignment memberAssignment)
+   at System.Linq.Expressions.ExpressionVisitor.VisitMemberBinding(MemberBinding node)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberInit(MemberInitExpression memberInitExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Translate(SelectExpression selectExpression, Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.TranslateSelect(ShapedQueryExpression source, LambdaExpression selector)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VentaVendedoraService.ObtenerTodasLasVendedorasAsync(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\Notizap.Infrastructure\Services\Vendedoras\VentaVendedoraService.cs:line 605
+   at VentasVendedorasController.ObtenerTodasLasVendedoras(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api\Controllers\v1\Vendedoras\VentasVendedorasController.cs:line 327
+2025-07-25 09:32:45.679 [ERR] [VentasVendedorasController] Error al obtener estadísticas 
+System.InvalidOperationException: The LINQ expression 'RelationalGroupByShaperExpression:
+KeySelector: v.Turno, 
+ElementSelector: StructuralTypeShaperExpression(
+    StructuralType: VentaVendedora
+    ValueBufferExpression: ProjectionBindingExpression: EmptyProjectionMember
+    IsNullable: False), 
+GroupingEnumerable:ShapedQueryExpression: 
+    QueryExpression: 
+        Projection Mapping:
+            EmptyProjectionMember -> StructuralTypeProjectionExpression: VentaVendedora
+        SELECT 1
+        FROM VentasVendedoras AS v0
+        WHERE (((v0.Fecha >= @__filtros_FechaInicio_Value_0) && (v0.Fecha <= @__fechaFinInclusiva_1)) && (CAST(floor(date_part('dow', v0.Fecha AT TIME ZONE 'UTC')) AS integer) != 0)) && (v.Turno == v0.Turno)
+    ShaperExpression: StructuralTypeShaperExpression(
+            StructuralType: VentaVendedora
+            ValueBufferExpression: ProjectionBindingExpression: EmptyProjectionMember
+            IsNullable: False)
+
+    .AsQueryable()
+    .Sum(e => e.GetCantidadReal())' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.TranslateSubquery(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.<VisitMethodCall>g__TranslateAsSubquery|33_0(Expression expression, <>c__DisplayClass33_0&)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal.NpgsqlSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateInternal(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateProjection(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberAssignment(MemberAssignment memberAssignment)
+   at System.Linq.Expressions.ExpressionVisitor.VisitMemberBinding(MemberBinding node)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberInit(MemberInitExpression memberInitExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Translate(SelectExpression selectExpression, Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.TranslateSelect(ShapedQueryExpression source, LambdaExpression selector)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VentaVendedoraService.ObtenerVentasPorTurnoAsync(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\Notizap.Infrastructure\Services\Vendedoras\VentaVendedoraService.cs:line 460
+   at VentaVendedoraService.ObtenerEstadisticasAsync(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\Notizap.Infrastructure\Services\Vendedoras\VentaVendedoraService.cs:line 279
+   at VentasVendedorasController.ObtenerEstadisticas(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api\Controllers\v1\Vendedoras\VentasVendedorasController.cs:line 128
+2025-07-25 09:32:45.993 [ERR] [VentasVendedorasController] Error al obtener estadísticas 
+System.InvalidOperationException: The LINQ expression 'RelationalGroupByShaperExpression:
+KeySelector: v.Turno, 
+ElementSelector: StructuralTypeShaperExpression(
+    StructuralType: VentaVendedora
+    ValueBufferExpression: ProjectionBindingExpression: EmptyProjectionMember
+    IsNullable: False), 
+GroupingEnumerable:ShapedQueryExpression: 
+    QueryExpression: 
+        Projection Mapping:
+            EmptyProjectionMember -> StructuralTypeProjectionExpression: VentaVendedora
+        SELECT 1
+        FROM VentasVendedoras AS v0
+        WHERE (((v0.Fecha >= @__filtros_FechaInicio_Value_0) && (v0.Fecha <= @__fechaFinInclusiva_1)) && (CAST(floor(date_part('dow', v0.Fecha AT TIME ZONE 'UTC')) AS integer) != 0)) && (v.Turno == v0.Turno)
+    ShaperExpression: StructuralTypeShaperExpression(
+            StructuralType: VentaVendedora
+            ValueBufferExpression: ProjectionBindingExpression: EmptyProjectionMember
+            IsNullable: False)
+
+    .AsQueryable()
+    .Sum(e => e.GetCantidadReal())' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.TranslateSubquery(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.<VisitMethodCall>g__TranslateAsSubquery|33_0(Expression expression, <>c__DisplayClass33_0&)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal.NpgsqlSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateInternal(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateProjection(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberAssignment(MemberAssignment memberAssignment)
+   at System.Linq.Expressions.ExpressionVisitor.VisitMemberBinding(MemberBinding node)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberInit(MemberInitExpression memberInitExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Translate(SelectExpression selectExpression, Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.TranslateSelect(ShapedQueryExpression source, LambdaExpression selector)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VentaVendedoraService.ObtenerVentasPorTurnoAsync(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\Notizap.Infrastructure\Services\Vendedoras\VentaVendedoraService.cs:line 460
+   at VentaVendedoraService.ObtenerEstadisticasAsync(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\Notizap.Infrastructure\Services\Vendedoras\VentaVendedoraService.cs:line 279
+   at VentasVendedorasController.ObtenerEstadisticas(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api\Controllers\v1\Vendedoras\VentasVendedorasController.cs:line 128
+2025-07-25 09:33:15.142 [ERR] [VentasVendedorasController] Error al obtener todas las vendedoras 
+System.InvalidOperationException: The LINQ expression 'RelationalGroupByShaperExpression:
+KeySelector: v0.Nombre, 
+ElementSelector: new TransparentIdentifier<TransparentIdentifier<VentaVendedora, SucursalVenta>, VendedorVenta>(
+    Outer = new TransparentIdentifier<VentaVendedora, SucursalVenta>(
+        Outer = StructuralTypeShaperExpression(
+            StructuralType: VentaVendedora
+            ValueBufferExpression: ProjectionBindingExpression: Outer.Outer
+            IsNullable: False), 
+        Inner = StructuralTypeShaperExpression(
+            StructuralType: SucursalVenta
+            ValueBufferExpression: ProjectionBindingExpression: Outer.Inner
+            IsNullable: False)
+    ), 
+    Inner = StructuralTypeShaperExpression(
+        StructuralType: VendedorVenta
+        ValueBufferExpression: ProjectionBindingExpression: Inner
+        IsNullable: False)
+), 
+GroupingEnumerable:ShapedQueryExpression: 
+    QueryExpression: 
+        Projection Mapping:
+            Outer.Outer -> StructuralTypeProjectionExpression: VentaVendedora
+            Outer.Inner -> StructuralTypeProjectionExpression: SucursalVenta
+            Inner -> StructuralTypeProjectionExpression: VendedorVenta
+        SELECT 1
+        FROM VentasVendedoras AS v1
+        INNER JOIN SucursalesVentas AS s0 ON v1.SucursalId == s0.Id
+        INNER JOIN VendedoresVentas AS v2 ON v1.VendedorId == v2.Id
+        WHERE ((((((v1.Fecha >= @__filtros_FechaInicio_Value_0) && (v1.Fecha <= @__fechaFinInclusiva_1)) && (s0.Nombre LIKE @__filtros_SucursalNombre_2_contains)) && (v1.Turno == @__turno_3)) && (CAST(floor(date_part('dow', v1.Fecha AT TIME ZONE 'UTC')) AS integer) != 0)) && (CAST(floor(date_part('dow', v1.Fecha AT TIME ZONE 'UTC')) AS integer) != 0)) && (v0.Nombre == v2.Nombre)
+    ShaperExpression: new TransparentIdentifier<TransparentIdentifier<VentaVendedora, SucursalVenta>, VendedorVenta>(
+            Outer = new TransparentIdentifier<VentaVendedora, SucursalVenta>(
+                Outer = StructuralTypeShaperExpression(
+                    StructuralType: VentaVendedora
+                    ValueBufferExpression: ProjectionBindingExpression: Outer.Outer
+                    IsNullable: False), 
+                Inner = StructuralTypeShaperExpression(
+                    StructuralType: SucursalVenta
+                    ValueBufferExpression: ProjectionBindingExpression: Outer.Inner
+                    IsNullable: False)
+            ), 
+            Inner = StructuralTypeShaperExpression(
+                StructuralType: VendedorVenta
+                ValueBufferExpression: ProjectionBindingExpression: Inner
+                IsNullable: False)
+        )
+
+    .AsQueryable()
+    .Sum(e => e.Outer.Outer.GetCantidadReal())' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.TranslateSubquery(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.<VisitMethodCall>g__TranslateAsSubquery|33_0(Expression expression, <>c__DisplayClass33_0&)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal.NpgsqlSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateInternal(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateProjection(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberAssignment(MemberAssignment memberAssignment)
+   at System.Linq.Expressions.ExpressionVisitor.VisitMemberBinding(MemberBinding node)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberInit(MemberInitExpression memberInitExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Translate(SelectExpression selectExpression, Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.TranslateSelect(ShapedQueryExpression source, LambdaExpression selector)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VentaVendedoraService.ObtenerTodasLasVendedorasAsync(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\Notizap.Infrastructure\Services\Vendedoras\VentaVendedoraService.cs:line 605
+   at VentasVendedorasController.ObtenerTodasLasVendedoras(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api\Controllers\v1\Vendedoras\VentasVendedorasController.cs:line 327
+2025-07-25 09:33:15.196 [ERR] [VentasVendedorasController] Error al obtener estadísticas 
+System.InvalidOperationException: The LINQ expression 'RelationalGroupByShaperExpression:
+KeySelector: v.Turno, 
+ElementSelector: new TransparentIdentifier<VentaVendedora, SucursalVenta>(
+    Outer = StructuralTypeShaperExpression(
+        StructuralType: VentaVendedora
+        ValueBufferExpression: ProjectionBindingExpression: Outer
+        IsNullable: False), 
+    Inner = StructuralTypeShaperExpression(
+        StructuralType: SucursalVenta
+        ValueBufferExpression: ProjectionBindingExpression: Inner
+        IsNullable: False)
+), 
+GroupingEnumerable:ShapedQueryExpression: 
+    QueryExpression: 
+        Projection Mapping:
+            Outer -> StructuralTypeProjectionExpression: VentaVendedora
+            Inner -> StructuralTypeProjectionExpression: SucursalVenta
+        SELECT 1
+        FROM VentasVendedoras AS v0
+        INNER JOIN SucursalesVentas AS s0 ON v0.SucursalId == s0.Id
+        WHERE (((((v0.Fecha >= @__filtros_FechaInicio_Value_0) && (v0.Fecha <= @__fechaFinInclusiva_1)) && (s0.Nombre LIKE @__filtros_SucursalNombre_2_contains)) && (v0.Turno == @__turno_3)) && (CAST(floor(date_part('dow', v0.Fecha AT TIME ZONE 'UTC')) AS integer) != 0)) && (v.Turno == v0.Turno)
+    ShaperExpression: new TransparentIdentifier<VentaVendedora, SucursalVenta>(
+            Outer = StructuralTypeShaperExpression(
+                StructuralType: VentaVendedora
+                ValueBufferExpression: ProjectionBindingExpression: Outer
+                IsNullable: False), 
+            Inner = StructuralTypeShaperExpression(
+                StructuralType: SucursalVenta
+                ValueBufferExpression: ProjectionBindingExpression: Inner
+                IsNullable: False)
+        )
+
+    .AsQueryable()
+    .Sum(e => e.Outer.GetCantidadReal())' could not be translated. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.TranslateSubquery(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.<VisitMethodCall>g__TranslateAsSubquery|33_0(Expression expression, <>c__DisplayClass33_0&)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal.NpgsqlSqlTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateInternal(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.RelationalSqlTranslatingExpressionVisitor.TranslateProjection(Expression expression, Boolean applyDefaultTypeMapping)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberAssignment(MemberAssignment memberAssignment)
+   at System.Linq.Expressions.ExpressionVisitor.VisitMemberBinding(MemberBinding node)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.VisitMemberInit(MemberInitExpression memberInitExpression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Visit(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.Internal.RelationalProjectionBindingExpressionVisitor.Translate(SelectExpression selectExpression, Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.TranslateSelect(ShapedQueryExpression source, LambdaExpression selector)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.VisitMethodCall(MethodCallExpression methodCallExpression)
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutorExpression[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass11_0`1.<ExecuteCore>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteCore[TResult](Expression query, Boolean async, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VentaVendedoraService.ObtenerVentasPorTurnoAsync(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\Notizap.Infrastructure\Services\Vendedoras\VentaVendedoraService.cs:line 460
+   at VentaVendedoraService.ObtenerEstadisticasAsync(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\Notizap.Infrastructure\Services\Vendedoras\VentaVendedoraService.cs:line 279
+   at VentasVendedorasController.ObtenerEstadisticas(VentaVendedoraFilterDto filtros) in C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api\Controllers\v1\Vendedoras\VentasVendedorasController.cs:line 128

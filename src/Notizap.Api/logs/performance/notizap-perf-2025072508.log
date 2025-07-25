@@ -1,0 +1,629 @@
+08:54:52.767 INF ✅ Notizap API iniciada correctamente 
+08:54:52.847 INF User profile is available. Using 'C:\Users\Administrador\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+08:54:53.088 INF Now listening on: http://localhost:5090 
+08:54:53.091 INF Application started. Press Ctrl+C to shut down. 
+08:54:53.092 INF Hosting environment: Development 
+08:54:53.093 INF Content root path: C:\Users\Administrador\Documents\proyectos\Notizap\backend\src\notizap.api 
+08:55:39.545 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - null null 
+08:55:39.545 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/sucursales - null null 
+08:55:39.545 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/vendedores - null null 
+08:55:39.545 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/vendedores - null null 
+08:55:39.545 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - null null 
+08:55:39.545 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/sucursales - null null 
+08:55:39.598 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.598 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.598 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.598 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.598 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.598 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.602 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/vendedores | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:39.603 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/vendedores | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:39.603 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/sucursales | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:39.604 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/rango-fechas | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:39.607 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/rango-fechas | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:39.608 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/sucursales | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:39.613 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.616 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.618 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.620 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.622 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.624 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.633 INF CORS policy execution successful. 
+08:55:39.633 INF CORS policy execution successful. 
+08:55:39.633 INF CORS policy execution successful. 
+08:55:39.633 INF CORS policy execution successful. 
+08:55:39.633 INF CORS policy execution successful. 
+08:55:39.633 INF CORS policy execution successful. 
+08:55:39.638 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.638 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.638 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.640 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.641 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.642 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.644 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/sucursales | 204 | 10ms | ID: 0HNEBE8M 
+08:55:39.646 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/vendedores | 204 | 12ms | ID: 0HNEBE8M 
+08:55:39.647 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/rango-fechas | 204 | 6ms | ID: 0HNEBE8M 
+08:55:39.649 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/vendedores | 204 | 14ms | ID: 0HNEBE8M 
+08:55:39.650 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/rango-fechas | 204 | 10ms | ID: 0HNEBE8M 
+08:55:39.651 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/sucursales | 204 | 8ms | ID: 0HNEBE8M 
+08:55:39.658 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.659 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.662 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.665 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.669 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.671 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.673 INF  
+08:55:39.674 INF  
+08:55:39.675 INF  
+08:55:39.677 INF  
+08:55:39.685 INF  
+08:55:39.686 INF  
+08:55:39.690 INF HTTP OPTIONS /api/v1/ventas-vendedoras/rango-fechas responded 204 in 96.6565 ms 
+08:55:39.690 INF HTTP OPTIONS /api/v1/ventas-vendedoras/vendedores responded 204 in 95.4888 ms 
+08:55:39.690 INF HTTP OPTIONS /api/v1/ventas-vendedoras/sucursales responded 204 in 94.1408 ms 
+08:55:39.692 INF HTTP OPTIONS /api/v1/ventas-vendedoras/vendedores responded 204 in 97.9033 ms 
+08:55:39.693 INF HTTP OPTIONS /api/v1/ventas-vendedoras/rango-fechas responded 204 in 99.0977 ms 
+08:55:39.695 INF HTTP OPTIONS /api/v1/ventas-vendedoras/sucursales responded 204 in 101.1635 ms 
+08:55:39.748 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - 204 null null 205.1402ms 
+08:55:39.748 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/sucursales - 204 null null 205.0434ms 
+08:55:39.748 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/vendedores - 204 null null 205.0714ms 
+08:55:39.748 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/vendedores - 204 null null 204.9994ms 
+08:55:39.748 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - 204 null null 205.141ms 
+08:55:39.748 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/sucursales - 204 null null 205.1788ms 
+08:55:39.759 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/vendedores - null null 
+08:55:39.769 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - null null 
+08:55:39.772 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/sucursales - null null 
+08:55:39.789 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.789 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.789 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:39.790 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/rango-fechas | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:39.791 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/sucursales | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:39.792 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/vendedores | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:39.793 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.797 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.798 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:39.799 INF CORS policy execution successful. 
+08:55:39.800 INF CORS policy execution successful. 
+08:55:39.801 INF CORS policy execution successful. 
+08:55:39.803 WRN Failed to determine the https port for redirect. 
+08:55:40.094 INF Executing endpoint 'VentasVendedorasController.ObtenerRangoFechas (Notizap.Api)' 
+08:55:40.094 INF Executing endpoint 'VentasVendedorasController.ObtenerVendedores (Notizap.Api)' 
+08:55:40.094 INF Executing endpoint 'VentasVendedorasController.ObtenerSucursales (Notizap.Api)' 
+08:55:40.117 INF Route matched with {action = "ObtenerRangoFechas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] ObtenerRangoFechas() on controller VentasVendedorasController (Notizap.Api). 
+08:55:40.117 INF Route matched with {action = "ObtenerSucursales", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]]] ObtenerSucursales() on controller VentasVendedorasController (Notizap.Api). 
+08:55:40.117 INF Route matched with {action = "ObtenerVendedores", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]]] ObtenerVendedores() on controller VentasVendedorasController (Notizap.Api). 
+08:55:42.241 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:55:42.241 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:55:42.245 INF Executing OkObjectResult, writing value of type '<>f__AnonymousType21`3[[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType22`2[[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], Notizap.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+08:55:42.310 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/sucursales - null null 
+08:55:42.310 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/vendedores - null null 
+08:55:42.317 INF Executed action VentasVendedorasController.ObtenerVendedores (Notizap.Api) in 2185.6617ms 
+08:55:42.317 INF Executed action VentasVendedorasController.ObtenerSucursales (Notizap.Api) in 2187.4054ms 
+08:55:42.317 INF Executed action VentasVendedorasController.ObtenerRangoFechas (Notizap.Api) in 2196.0583ms 
+08:55:42.317 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:42.318 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - null null 
+08:55:42.320 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:42.321 INF Executed endpoint 'VentasVendedorasController.ObtenerVendedores (Notizap.Api)' 
+08:55:42.322 INF Executed endpoint 'VentasVendedorasController.ObtenerSucursales (Notizap.Api)' 
+08:55:42.323 INF Executed endpoint 'VentasVendedorasController.ObtenerRangoFechas (Notizap.Api)' 
+08:55:42.324 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/sucursales | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:42.326 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:42.327 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/vendedores | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:42.333 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:42.333 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:42.334 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:42.335 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:42.337 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/rango-fechas | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:42.338 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:42.339 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/vendedores | 200 | 2532ms | ID: 0HNEBE8M 
+08:55:42.340 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/sucursales | 200 | 2533ms | ID: 0HNEBE8M 
+08:55:42.341 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/rango-fechas | 200 | 2534ms | ID: 0HNEBE8M 
+08:55:42.342 INF CORS policy execution successful. 
+08:55:42.343 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:42.345 INF CORS policy execution successful. 
+08:55:42.349 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:42.350 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:42.352 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:42.354 INF CORS policy execution successful. 
+08:55:42.356 INF  
+08:55:42.357 INF  
+08:55:42.358 INF  
+08:55:42.360 INF HTTP GET /api/v1/ventas-vendedoras/vendedores responded 200 in 2570.9012 ms 
+08:55:42.361 INF Executing endpoint 'VentasVendedorasController.ObtenerRangoFechas (Notizap.Api)' 
+08:55:42.361 INF Executing endpoint 'VentasVendedorasController.ObtenerSucursales (Notizap.Api)' 
+08:55:42.361 INF Executing endpoint 'VentasVendedorasController.ObtenerVendedores (Notizap.Api)' 
+08:55:42.363 INF HTTP GET /api/v1/ventas-vendedoras/sucursales responded 200 in 2573.8365 ms 
+08:55:42.365 INF HTTP GET /api/v1/ventas-vendedoras/rango-fechas responded 200 in 2575.5182 ms 
+08:55:42.370 INF Route matched with {action = "ObtenerRangoFechas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] ObtenerRangoFechas() on controller VentasVendedorasController (Notizap.Api). 
+08:55:42.371 INF Route matched with {action = "ObtenerSucursales", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]]] ObtenerSucursales() on controller VentasVendedorasController (Notizap.Api). 
+08:55:42.372 INF Route matched with {action = "ObtenerVendedores", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]]] ObtenerVendedores() on controller VentasVendedorasController (Notizap.Api). 
+08:55:42.380 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/sucursales - 200 null application/json; charset=utf-8 2606.4221ms 
+08:55:42.380 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/vendedores - 200 null application/json; charset=utf-8 2619.6754ms 
+08:55:42.380 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - 200 null application/json; charset=utf-8 2610.8306ms 
+08:55:42.509 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:55:42.513 INF Executed action VentasVendedorasController.ObtenerSucursales (Notizap.Api) in 121.0344ms 
+08:55:42.517 INF Executed endpoint 'VentasVendedorasController.ObtenerSucursales (Notizap.Api)' 
+08:55:42.519 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:55:42.519 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:42.521 INF Executed action VentasVendedorasController.ObtenerVendedores (Notizap.Api) in 126.0345ms 
+08:55:42.522 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/sucursales | 200 | 177ms | ID: 0HNEBE8M 
+08:55:42.523 INF Executed endpoint 'VentasVendedorasController.ObtenerVendedores (Notizap.Api)' 
+08:55:42.525 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:42.526 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:42.529 INF  
+08:55:42.533 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/vendedores | 200 | 181ms | ID: 0HNEBE8M 
+08:55:42.534 INF HTTP GET /api/v1/ventas-vendedoras/sucursales responded 200 in 216.7945 ms 
+08:55:42.536 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:42.539 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/sucursales - 200 null application/json; charset=utf-8 228.4663ms 
+08:55:42.540 INF  
+08:55:42.550 INF HTTP GET /api/v1/ventas-vendedoras/vendedores responded 200 in 230.2698 ms 
+08:55:42.555 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/vendedores - 200 null application/json; charset=utf-8 243.9654ms 
+08:55:42.573 INF Executing OkObjectResult, writing value of type '<>f__AnonymousType21`3[[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType22`2[[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], Notizap.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+08:55:42.576 INF Executed action VentasVendedorasController.ObtenerRangoFechas (Notizap.Api) in 187.6721ms 
+08:55:42.581 INF Executed endpoint 'VentasVendedorasController.ObtenerRangoFechas (Notizap.Api)' 
+08:55:42.584 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:42.586 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/rango-fechas | 200 | 230ms | ID: 0HNEBE8M 
+08:55:42.588 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:42.589 INF  
+08:55:42.590 INF HTTP GET /api/v1/ventas-vendedoras/rango-fechas responded 200 in 263.5718 ms 
+08:55:42.593 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - 200 null application/json; charset=utf-8 274.8792ms 
+08:55:52.008 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/validate - null null 
+08:55:52.016 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:52.020 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/validate | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:52.022 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:52.024 INF CORS policy execution successful. 
+08:55:52.025 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:52.027 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/validate | 204 | 1ms | ID: 0HNEBE8M 
+08:55:52.039 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:52.041 INF  
+08:55:52.045 INF HTTP OPTIONS /api/v1/ventas-vendedoras/validate responded 204 in 27.8680 ms 
+08:55:52.050 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/validate - 204 null null 40.7434ms 
+08:55:52.063 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/ventas-vendedoras/validate - multipart/form-data; boundary=----WebKitFormBoundarywC1daHFNvxn5HW5y 961404 
+08:55:52.077 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:55:52.080 INF │ 🚀 NUEVA REQUEST: POST /api/v1/ventas-vendedoras/validate | ID: 0HNEBE8M | Mozilla/5.0 
+08:55:52.087 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:55:52.090 INF CORS policy execution successful. 
+08:55:52.092 INF Executing endpoint 'VentasVendedorasController.ValidarArchivo (Notizap.Api)' 
+08:55:52.126 INF Route matched with {action = "ValidarArchivo", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] ValidarArchivo(ArchivoDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:01.859 INF Executing OkObjectResult, writing value of type '<>f__AnonymousType19`2[[System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:56:01.873 INF Executed action VentasVendedorasController.ValidarArchivo (Notizap.Api) in 9743.0174ms 
+08:56:01.875 INF Executed endpoint 'VentasVendedorasController.ValidarArchivo (Notizap.Api)' 
+08:56:01.876 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:01.877 INF │ ✅ FIN REQUEST: POST /api/v1/ventas-vendedoras/validate | 200 | 9786ms | ID: 0HNEBE8M 
+08:56:01.883 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:01.885 INF  
+08:56:01.886 INF HTTP POST /api/v1/ventas-vendedoras/validate responded 200 in 9808.8367 ms 
+08:56:01.890 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/ventas-vendedoras/validate - 200 null application/json; charset=utf-8 9827.8725ms 
+08:56:02.834 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/upload - null null 
+08:56:02.839 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:02.840 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/upload | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:02.842 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:02.843 INF CORS policy execution successful. 
+08:56:02.845 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:02.848 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/upload | 204 | 2ms | ID: 0HNEBE8M 
+08:56:02.852 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:02.854 INF  
+08:56:02.856 INF HTTP OPTIONS /api/v1/ventas-vendedoras/upload responded 204 in 16.7532 ms 
+08:56:02.857 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/upload - 204 null null 23.2098ms 
+08:56:02.866 INF Request starting HTTP/1.1 POST http://localhost:5090/api/v1/ventas-vendedoras/upload - multipart/form-data; boundary=----WebKitFormBoundary8ZX4uFACOcPZFusz 961519 
+08:56:02.871 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:02.872 INF │ 🚀 NUEVA REQUEST: POST /api/v1/ventas-vendedoras/upload | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:02.874 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:02.875 INF CORS policy execution successful. 
+08:56:02.876 INF Executing endpoint 'VentasVendedorasController.SubirArchivoVentas (Notizap.Api)' 
+08:56:02.891 INF Route matched with {action = "SubirArchivoVentas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] SubirArchivoVentas(VentaVendedoraUploadDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:11.121 INF Archivo de ventas subido exitosamente: 27junio-23julio.xlsx 
+08:56:11.123 INF Executing OkObjectResult, writing value of type '<>f__AnonymousType18`2[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[VentaVendedoraStatsDto, Notizap.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+08:56:11.149 INF Executed action VentasVendedorasController.SubirArchivoVentas (Notizap.Api) in 8256.2258ms 
+08:56:11.152 INF Executed endpoint 'VentasVendedorasController.SubirArchivoVentas (Notizap.Api)' 
+08:56:11.154 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.155 INF │ ✅ FIN REQUEST: POST /api/v1/ventas-vendedoras/upload | 200 | 8278ms | ID: 0HNEBE8M 
+08:56:11.156 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.158 INF  
+08:56:11.158 INF HTTP POST /api/v1/ventas-vendedoras/upload responded 200 in 8287.2319 ms 
+08:56:11.168 INF Request finished HTTP/1.1 POST http://localhost:5090/api/v1/ventas-vendedoras/upload - 200 null application/json; charset=utf-8 8302.4074ms 
+08:56:11.180 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/sucursales - null null 
+08:56:11.180 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/vendedores - null null 
+08:56:11.180 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - null null 
+08:56:11.184 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.187 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.191 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.192 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/sucursales | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.193 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/vendedores | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.195 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/rango-fechas | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.199 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.202 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.204 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.205 INF CORS policy execution successful. 
+08:56:11.206 INF CORS policy execution successful. 
+08:56:11.207 INF CORS policy execution successful. 
+08:56:11.208 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.208 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.209 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.211 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/sucursales | 204 | 2ms | ID: 0HNEBE8M 
+08:56:11.213 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/vendedores | 204 | 2ms | ID: 0HNEBE8M 
+08:56:11.215 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/rango-fechas | 204 | 2ms | ID: 0HNEBE8M 
+08:56:11.216 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.218 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.221 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.222 INF  
+08:56:11.223 INF  
+08:56:11.224 INF  
+08:56:11.224 INF HTTP OPTIONS /api/v1/ventas-vendedoras/sucursales responded 204 in 40.3572 ms 
+08:56:11.225 INF HTTP OPTIONS /api/v1/ventas-vendedoras/vendedores responded 204 in 38.3270 ms 
+08:56:11.225 INF HTTP OPTIONS /api/v1/ventas-vendedoras/rango-fechas responded 204 in 34.8911 ms 
+08:56:11.228 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/sucursales - 204 null null 47.5844ms 
+08:56:11.232 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/vendedores - 204 null null 52.1561ms 
+08:56:11.235 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - 204 null null 55.0336ms 
+08:56:11.237 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/vendedores - null null 
+08:56:11.239 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/sucursales - null null 
+08:56:11.241 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - null null 
+08:56:11.243 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.248 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.249 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.250 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/vendedores | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.251 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/sucursales | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.252 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/rango-fechas | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.253 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.255 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.256 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.257 INF CORS policy execution successful. 
+08:56:11.257 INF CORS policy execution successful. 
+08:56:11.258 INF CORS policy execution successful. 
+08:56:11.259 INF Executing endpoint 'VentasVendedorasController.ObtenerVendedores (Notizap.Api)' 
+08:56:11.260 INF Executing endpoint 'VentasVendedorasController.ObtenerSucursales (Notizap.Api)' 
+08:56:11.261 INF Executing endpoint 'VentasVendedorasController.ObtenerRangoFechas (Notizap.Api)' 
+08:56:11.264 INF Route matched with {action = "ObtenerVendedores", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]]] ObtenerVendedores() on controller VentasVendedorasController (Notizap.Api). 
+08:56:11.265 INF Route matched with {action = "ObtenerSucursales", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[System.String]]] ObtenerSucursales() on controller VentasVendedorasController (Notizap.Api). 
+08:56:11.266 INF Route matched with {action = "ObtenerRangoFechas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] ObtenerRangoFechas() on controller VentasVendedorasController (Notizap.Api). 
+08:56:11.272 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:56:11.273 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:56:11.273 INF Executed action VentasVendedorasController.ObtenerSucursales (Notizap.Api) in 3.8989ms 
+08:56:11.275 INF Executed action VentasVendedorasController.ObtenerVendedores (Notizap.Api) in 7.1226ms 
+08:56:11.276 INF Executed endpoint 'VentasVendedorasController.ObtenerSucursales (Notizap.Api)' 
+08:56:11.277 INF Executed endpoint 'VentasVendedorasController.ObtenerVendedores (Notizap.Api)' 
+08:56:11.280 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.283 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.284 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/sucursales | 200 | 23ms | ID: 0HNEBE8M 
+08:56:11.284 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/vendedores | 200 | 26ms | ID: 0HNEBE8M 
+08:56:11.286 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.288 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.289 INF  
+08:56:11.290 INF  
+08:56:11.291 INF HTTP GET /api/v1/ventas-vendedoras/sucursales responded 200 in 43.0070 ms 
+08:56:11.291 INF Executing OkObjectResult, writing value of type '<>f__AnonymousType21`3[[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[<>f__AnonymousType22`2[[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], Notizap.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+08:56:11.291 INF HTTP GET /api/v1/ventas-vendedoras/vendedores responded 200 in 48.3265 ms 
+08:56:11.293 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/sucursales - 200 null application/json; charset=utf-8 53.3553ms 
+08:56:11.299 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/vendedores - 200 null application/json; charset=utf-8 61.7084ms 
+08:56:11.301 INF Executed action VentasVendedorasController.ObtenerRangoFechas (Notizap.Api) in 29.4825ms 
+08:56:11.305 INF Executed endpoint 'VentasVendedorasController.ObtenerRangoFechas (Notizap.Api)' 
+08:56:11.306 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.307 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/rango-fechas | 200 | 47ms | ID: 0HNEBE8M 
+08:56:11.308 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.309 INF  
+08:56:11.309 INF HTTP GET /api/v1/ventas-vendedoras/rango-fechas responded 200 in 60.0438 ms 
+08:56:11.314 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/rango-fechas - 200 null application/json; charset=utf-8 71.9273ms 
+08:56:11.356 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - null null 
+08:56:11.357 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - null null 
+08:56:11.357 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - null null 
+08:56:11.360 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.366 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.368 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.369 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.370 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/estadisticas | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.371 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.372 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.373 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.376 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.377 INF CORS policy execution successful. 
+08:56:11.379 INF CORS policy execution successful. 
+08:56:11.381 INF CORS policy execution successful. 
+08:56:11.382 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.383 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.384 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.385 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras | 204 | 5ms | ID: 0HNEBE8M 
+08:56:11.386 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/estadisticas | 204 | 4ms | ID: 0HNEBE8M 
+08:56:11.388 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras | 204 | 3ms | ID: 0HNEBE8M 
+08:56:11.391 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.394 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.399 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.401 INF  
+08:56:11.402 INF  
+08:56:11.403 INF  
+08:56:11.404 INF HTTP OPTIONS /api/v1/ventas-vendedoras responded 204 in 43.5577 ms 
+08:56:11.405 INF HTTP OPTIONS /api/v1/ventas-vendedoras/estadisticas responded 204 in 38.9092 ms 
+08:56:11.405 INF HTTP OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras responded 204 in 37.4470 ms 
+08:56:11.407 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - 204 null null 50.5006ms 
+08:56:11.409 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - 204 null null 52.8372ms 
+08:56:11.414 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - 204 null null 57.5823ms 
+08:56:11.419 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - null null 
+08:56:11.421 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - null null 
+08:56:11.425 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - null null 
+08:56:11.437 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.437 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.437 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.438 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.441 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/todas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.442 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/estadisticas | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:11.445 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.450 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.453 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.453 INF CORS policy execution successful. 
+08:56:11.454 INF CORS policy execution successful. 
+08:56:11.455 INF CORS policy execution successful. 
+08:56:11.456 INF Executing endpoint 'VentasVendedorasController.ObtenerVentas (Notizap.Api)' 
+08:56:11.457 INF Executing endpoint 'VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api)' 
+08:56:11.458 INF Executing endpoint 'VentasVendedorasController.ObtenerEstadisticas (Notizap.Api)' 
+08:56:11.464 INF Route matched with {action = "ObtenerVentas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[VentaVendedoraDto]]] ObtenerVentas(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:11.464 INF Route matched with {action = "ObtenerTodasLasVendedoras", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[VentaPorVendedoraDto]]] ObtenerTodasLasVendedoras(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:11.464 INF Route matched with {action = "ObtenerEstadisticas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[VentaVendedoraStatsDto]] ObtenerEstadisticas(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:11.571 INF Executing OkObjectResult, writing value of type '<>f__AnonymousType20`5[[System.Collections.Generic.List`1[[VentaVendedoraDto, Notizap.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:56:11.587 INF Executed action VentasVendedorasController.ObtenerVentas (Notizap.Api) in 120.0297ms 
+08:56:11.590 INF Executed endpoint 'VentasVendedorasController.ObtenerVentas (Notizap.Api)' 
+08:56:11.593 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.596 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras | 200 | 139ms | ID: 0HNEBE8M 
+08:56:11.601 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.603 INF  
+08:56:11.605 INF HTTP GET /api/v1/ventas-vendedoras responded 200 in 168.0848 ms 
+08:56:11.607 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - 200 null application/json; charset=utf-8 188.6728ms 
+08:56:11.732 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VentaPorVendedoraDto, Notizap.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+08:56:11.734 INF Executed action VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api) in 265.2532ms 
+08:56:11.736 INF Executed endpoint 'VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api)' 
+08:56:11.738 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.739 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/todas-vendedoras | 200 | 283ms | ID: 0HNEBE8M 
+08:56:11.741 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.742 INF  
+08:56:11.743 INF HTTP GET /api/v1/ventas-vendedoras/todas-vendedoras responded 200 in 306.3513 ms 
+08:56:11.752 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - 200 null application/json; charset=utf-8 326.8071ms 
+08:56:11.806 INF Executing OkObjectResult, writing value of type 'VentaVendedoraStatsDto'. 
+08:56:11.810 INF Executed action VentasVendedorasController.ObtenerEstadisticas (Notizap.Api) in 336.9986ms 
+08:56:11.816 INF Executed endpoint 'VentasVendedorasController.ObtenerEstadisticas (Notizap.Api)' 
+08:56:11.818 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:11.819 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/estadisticas | 200 | 363ms | ID: 0HNEBE8M 
+08:56:11.821 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:11.822 INF  
+08:56:11.823 INF HTTP GET /api/v1/ventas-vendedoras/estadisticas responded 200 in 385.5942 ms 
+08:56:11.824 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-16T23:24:07.613Z&fechaFin=2025-07-23T23:24:07.613Z - 200 null application/json; charset=utf-8 402.4923ms 
+08:56:27.504 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:27.505 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:27.505 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:27.509 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.511 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.517 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.518 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:27.519 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/estadisticas | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:27.521 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:27.523 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.525 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.527 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.532 INF CORS policy execution successful. 
+08:56:27.533 INF CORS policy execution successful. 
+08:56:27.534 INF CORS policy execution successful. 
+08:56:27.535 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.536 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.537 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.539 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras | 204 | 4ms | ID: 0HNEBE8M 
+08:56:27.540 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/estadisticas | 204 | 3ms | ID: 0HNEBE8M 
+08:56:27.541 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras | 204 | 3ms | ID: 0HNEBE8M 
+08:56:27.547 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.552 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.555 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.557 INF  
+08:56:27.558 INF  
+08:56:27.560 INF  
+08:56:27.562 INF HTTP OPTIONS /api/v1/ventas-vendedoras responded 204 in 53.6478 ms 
+08:56:27.564 INF HTTP OPTIONS /api/v1/ventas-vendedoras/estadisticas responded 204 in 53.1343 ms 
+08:56:27.566 INF HTTP OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras responded 204 in 49.0960 ms 
+08:56:27.568 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 204 null null 63.6114ms 
+08:56:27.570 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 204 null null 65.5342ms 
+08:56:27.572 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 204 null null 67.5452ms 
+08:56:27.575 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:27.581 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:27.587 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:27.589 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.593 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.602 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.604 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/todas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:27.605 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:27.608 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/estadisticas | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:27.611 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.615 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.618 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.619 INF CORS policy execution successful. 
+08:56:27.620 INF CORS policy execution successful. 
+08:56:27.621 INF CORS policy execution successful. 
+08:56:27.622 INF Executing endpoint 'VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api)' 
+08:56:27.623 INF Executing endpoint 'VentasVendedorasController.ObtenerVentas (Notizap.Api)' 
+08:56:27.624 INF Executing endpoint 'VentasVendedorasController.ObtenerEstadisticas (Notizap.Api)' 
+08:56:27.625 INF Route matched with {action = "ObtenerTodasLasVendedoras", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[VentaPorVendedoraDto]]] ObtenerTodasLasVendedoras(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:27.625 INF Route matched with {action = "ObtenerVentas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[VentaVendedoraDto]]] ObtenerVentas(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:27.626 INF Route matched with {action = "ObtenerEstadisticas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[VentaVendedoraStatsDto]] ObtenerEstadisticas(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:27.705 INF Executing OkObjectResult, writing value of type '<>f__AnonymousType20`5[[System.Collections.Generic.List`1[[VentaVendedoraDto, Notizap.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:56:27.708 INF Executed action VentasVendedorasController.ObtenerVentas (Notizap.Api) in 71.7533ms 
+08:56:27.709 INF Executed endpoint 'VentasVendedorasController.ObtenerVentas (Notizap.Api)' 
+08:56:27.712 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.719 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras | 200 | 91ms | ID: 0HNEBE8M 
+08:56:27.720 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VentaPorVendedoraDto, Notizap.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+08:56:27.721 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.723 INF Executed action VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api) in 90.5789ms 
+08:56:27.724 INF  
+08:56:27.726 INF Executed endpoint 'VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api)' 
+08:56:27.726 INF HTTP GET /api/v1/ventas-vendedoras responded 200 in 133.1271 ms 
+08:56:27.728 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.730 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 200 null application/json; charset=utf-8 148.7335ms 
+08:56:27.731 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/todas-vendedoras | 200 | 108ms | ID: 0HNEBE8M 
+08:56:27.735 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.736 INF  
+08:56:27.737 INF HTTP GET /api/v1/ventas-vendedoras/todas-vendedoras responded 200 in 147.9346 ms 
+08:56:27.739 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 200 null application/json; charset=utf-8 163.6299ms 
+08:56:27.745 INF Executing OkObjectResult, writing value of type 'VentaVendedoraStatsDto'. 
+08:56:27.749 INF Executed action VentasVendedorasController.ObtenerEstadisticas (Notizap.Api) in 110.1651ms 
+08:56:27.750 INF Executed endpoint 'VentasVendedorasController.ObtenerEstadisticas (Notizap.Api)' 
+08:56:27.751 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:27.752 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/estadisticas | 200 | 130ms | ID: 0HNEBE8M 
+08:56:27.755 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:27.757 INF  
+08:56:27.757 INF HTTP GET /api/v1/ventas-vendedoras/estadisticas responded 200 in 154.9946 ms 
+08:56:27.759 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-08T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 200 null application/json; charset=utf-8 171.8435ms 
+08:56:34.692 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:34.692 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:34.692 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:34.698 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.701 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.704 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.704 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/estadisticas | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:34.705 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:34.707 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:34.708 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.710 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.715 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.717 INF CORS policy execution successful. 
+08:56:34.718 INF CORS policy execution successful. 
+08:56:34.719 INF CORS policy execution successful. 
+08:56:34.721 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.723 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.724 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.725 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/estadisticas | 204 | 4ms | ID: 0HNEBE8M 
+08:56:34.727 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras | 204 | 4ms | ID: 0HNEBE8M 
+08:56:34.732 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras | 204 | 4ms | ID: 0HNEBE8M 
+08:56:34.737 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.740 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.743 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.744 INF  
+08:56:34.746 INF  
+08:56:34.747 INF  
+08:56:34.749 INF HTTP OPTIONS /api/v1/ventas-vendedoras/estadisticas responded 204 in 50.5669 ms 
+08:56:34.751 INF HTTP OPTIONS /api/v1/ventas-vendedoras responded 204 in 49.5652 ms 
+08:56:34.752 INF HTTP OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras responded 204 in 48.2369 ms 
+08:56:34.754 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 204 null null 61.239ms 
+08:56:34.755 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 204 null null 62.491ms 
+08:56:34.756 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 204 null null 63.7803ms 
+08:56:34.758 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:34.763 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:34.769 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:56:34.771 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.774 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.776 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.776 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/estadisticas | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:34.778 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:34.783 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/todas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:56:34.786 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.787 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.789 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.790 INF CORS policy execution successful. 
+08:56:34.791 INF CORS policy execution successful. 
+08:56:34.792 INF CORS policy execution successful. 
+08:56:34.793 INF Executing endpoint 'VentasVendedorasController.ObtenerEstadisticas (Notizap.Api)' 
+08:56:34.795 INF Executing endpoint 'VentasVendedorasController.ObtenerVentas (Notizap.Api)' 
+08:56:34.800 INF Executing endpoint 'VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api)' 
+08:56:34.802 INF Route matched with {action = "ObtenerEstadisticas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[VentaVendedoraStatsDto]] ObtenerEstadisticas(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:34.803 INF Route matched with {action = "ObtenerVentas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[VentaVendedoraDto]]] ObtenerVentas(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:34.805 INF Route matched with {action = "ObtenerTodasLasVendedoras", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[VentaPorVendedoraDto]]] ObtenerTodasLasVendedoras(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:56:34.829 INF Executing OkObjectResult, writing value of type '<>f__AnonymousType20`5[[System.Collections.Generic.List`1[[VentaVendedoraDto, Notizap.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:56:34.839 INF Executed action VentasVendedorasController.ObtenerVentas (Notizap.Api) in 29.4766ms 
+08:56:34.843 INF Executed endpoint 'VentasVendedorasController.ObtenerVentas (Notizap.Api)' 
+08:56:34.845 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VentaPorVendedoraDto, Notizap.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+08:56:34.846 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.849 INF Executed action VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api) in 28.3872ms 
+08:56:34.850 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras | 200 | 55ms | ID: 0HNEBE8M 
+08:56:34.852 INF Executed endpoint 'VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api)' 
+08:56:34.852 INF Executing OkObjectResult, writing value of type 'VentaVendedoraStatsDto'. 
+08:56:34.853 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.855 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.856 INF Executed action VentasVendedorasController.ObtenerEstadisticas (Notizap.Api) in 50.0007ms 
+08:56:34.857 INF  
+08:56:34.858 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/todas-vendedoras | 200 | 63ms | ID: 0HNEBE8M 
+08:56:34.859 INF Executed endpoint 'VentasVendedorasController.ObtenerEstadisticas (Notizap.Api)' 
+08:56:34.859 INF HTTP GET /api/v1/ventas-vendedoras responded 200 in 85.7798 ms 
+08:56:34.866 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.868 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:56:34.870 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 200 null application/json; charset=utf-8 107.1448ms 
+08:56:34.872 INF  
+08:56:34.873 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/estadisticas | 200 | 77ms | ID: 0HNEBE8M 
+08:56:34.884 INF HTTP GET /api/v1/ventas-vendedoras/todas-vendedoras responded 200 in 108.6761 ms 
+08:56:34.887 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:56:34.889 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 200 null application/json; charset=utf-8 119.5247ms 
+08:56:34.890 INF  
+08:56:34.894 INF HTTP GET /api/v1/ventas-vendedoras/estadisticas responded 200 in 122.3195 ms 
+08:56:34.900 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 200 null application/json; charset=utf-8 141.4778ms 
+08:57:30.641 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:57:30.641 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:57:30.641 INF Request starting HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:57:30.645 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.647 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.649 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.650 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:57:30.651 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/estadisticas | ID: 0HNEBE8M | Mozilla/5.0 
+08:57:30.652 INF │ 🚀 NUEVA REQUEST: OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:57:30.653 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.655 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.657 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.658 INF CORS policy execution successful. 
+08:57:30.658 INF CORS policy execution successful. 
+08:57:30.659 INF CORS policy execution successful. 
+08:57:30.660 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.661 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.662 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.663 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras | 204 | 2ms | ID: 0HNEBE8M 
+08:57:30.664 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/estadisticas | 204 | 2ms | ID: 0HNEBE8M 
+08:57:30.665 INF │ ✅ FIN REQUEST: OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras | 204 | 2ms | ID: 0HNEBE8M 
+08:57:30.667 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.670 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.673 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.674 INF  
+08:57:30.676 INF  
+08:57:30.678 INF  
+08:57:30.679 INF HTTP OPTIONS /api/v1/ventas-vendedoras responded 204 in 34.1902 ms 
+08:57:30.680 INF HTTP OPTIONS /api/v1/ventas-vendedoras/estadisticas responded 204 in 33.4553 ms 
+08:57:30.681 INF HTTP OPTIONS /api/v1/ventas-vendedoras/todas-vendedoras responded 204 in 32.5125 ms 
+08:57:30.684 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 204 null null 43.5381ms 
+08:57:30.687 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 204 null null 45.4063ms 
+08:57:30.689 INF Request finished HTTP/1.1 OPTIONS http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 204 null null 47.5062ms 
+08:57:30.703 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:57:30.707 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:57:30.708 INF Request starting HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - null null 
+08:57:30.712 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.715 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.718 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.719 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/estadisticas | ID: 0HNEBE8M | Mozilla/5.0 
+08:57:30.720 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:57:30.721 INF │ 🚀 NUEVA REQUEST: GET /api/v1/ventas-vendedoras/todas-vendedoras | ID: 0HNEBE8M | Mozilla/5.0 
+08:57:30.723 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.725 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.727 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.728 INF CORS policy execution successful. 
+08:57:30.730 INF CORS policy execution successful. 
+08:57:30.731 INF CORS policy execution successful. 
+08:57:30.733 INF Executing endpoint 'VentasVendedorasController.ObtenerEstadisticas (Notizap.Api)' 
+08:57:30.734 INF Executing endpoint 'VentasVendedorasController.ObtenerVentas (Notizap.Api)' 
+08:57:30.735 INF Executing endpoint 'VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api)' 
+08:57:30.736 INF Route matched with {action = "ObtenerEstadisticas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[VentaVendedoraStatsDto]] ObtenerEstadisticas(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:57:30.740 INF Route matched with {action = "ObtenerVentas", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[VentaVendedoraDto]]] ObtenerVentas(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:57:30.742 INF Route matched with {action = "ObtenerTodasLasVendedoras", controller = "VentasVendedoras"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.List`1[VentaPorVendedoraDto]]] ObtenerTodasLasVendedoras(VentaVendedoraFilterDto) on controller VentasVendedorasController (Notizap.Api). 
+08:57:30.818 INF Executing OkObjectResult, writing value of type '<>f__AnonymousType20`5[[System.Collections.Generic.List`1[[VentaVendedoraDto, Notizap.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'. 
+08:57:30.822 INF Executed action VentasVendedorasController.ObtenerVentas (Notizap.Api) in 74.841ms 
+08:57:30.823 INF Executed endpoint 'VentasVendedorasController.ObtenerVentas (Notizap.Api)' 
+08:57:30.825 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.826 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras | 200 | 95ms | ID: 0HNEBE8M 
+08:57:30.826 INF Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VentaPorVendedoraDto, Notizap.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'. 
+08:57:30.829 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.831 INF Executed action VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api) in 79.5971ms 
+08:57:30.832 INF  
+08:57:30.834 INF Executed endpoint 'VentasVendedorasController.ObtenerTodasLasVendedoras (Notizap.Api)' 
+08:57:30.835 INF HTTP GET /api/v1/ventas-vendedoras responded 200 in 119.6261 ms 
+08:57:30.836 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.839 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 200 null application/json; charset=utf-8 132.211ms 
+08:57:30.841 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/todas-vendedoras | 200 | 105ms | ID: 0HNEBE8M 
+08:57:30.850 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.853 INF  
+08:57:30.854 INF HTTP GET /api/v1/ventas-vendedoras/todas-vendedoras responded 200 in 136.4965 ms 
+08:57:30.856 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/todas-vendedoras?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 200 null application/json; charset=utf-8 148.3697ms 
+08:57:30.916 INF Executing OkObjectResult, writing value of type 'VentaVendedoraStatsDto'. 
+08:57:30.918 INF Executed action VentasVendedorasController.ObtenerEstadisticas (Notizap.Api) in 173.8661ms 
+08:57:30.920 INF Executed endpoint 'VentasVendedorasController.ObtenerEstadisticas (Notizap.Api)' 
+08:57:30.921 INF ┌─────────────────────────────────────────────────────────────────────────┐ 
+08:57:30.922 INF │ ✅ FIN REQUEST: GET /api/v1/ventas-vendedoras/estadisticas | 200 | 193ms | ID: 0HNEBE8M 
+08:57:30.924 INF └─────────────────────────────────────────────────────────────────────────┘ 
+08:57:30.925 INF  
+08:57:30.927 INF HTTP GET /api/v1/ventas-vendedoras/estadisticas responded 200 in 215.2307 ms 
+08:57:30.931 INF Request finished HTTP/1.1 GET http://localhost:5090/api/v1/ventas-vendedoras/estadisticas?incluirProductosDescuento=true&excluirDomingos=true&orderBy=fecha&orderDesc=true&page=1&pageSize=50&fechaInicio=2025-07-07T00:00:00.000Z&fechaFin=2025-07-07T00:00:00.000Z&sucursalNombre=25+DE+MAYO - 200 null application/json; charset=utf-8 228.2047ms 

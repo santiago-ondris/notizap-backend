@@ -46,10 +46,16 @@ public class VentaVendedora
 
     public int GetCantidadReal()
     {
-        // Si es producto descuento con cantidad -1, retornar 0 para estadísticas de cantidad
+        // Si es producto especial tipo EDICION o MEDIAS, siempre devolver 0
+        if (EsProductoDescuento && (
+            Producto.ToUpper().Contains("EDICION") || Producto.ToUpper().Contains("MEDIAS")
+        ))
+            return 0;
+
+        // Lógica original para los descuentos con cantidad -1
         if (EsProductoDescuento && Cantidad == -1)
             return 0;
-        
+
         return Cantidad;
     }
 
@@ -76,23 +82,12 @@ public class VentaVendedora
 
     public static bool EsProductoEspecial(string producto)
     {
-        if (string.IsNullOrWhiteSpace(producto)) return false;
-        
-        var productoLimpio = producto.Trim().ToUpper();
-        
-        // Caso especial: coincidencia exacta para "EDICION LIMITADA"
-        if (productoLimpio.Equals("EDICION LIMITADA", StringComparison.OrdinalIgnoreCase))
-        {
-            return true;
-        }
-        
         var palabrasEspeciales = new[] { 
             "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", 
-            "RESEÑA", "REDONDEO", "AJUSTE" 
+            "RESEÑA", "REDONDEO", "AJUSTE", "EDICION", "MEDIAS" 
         };
-        
         return palabrasEspeciales.Any(palabra => 
-            productoLimpio.Contains(palabra));
+            producto.ToUpper().Contains(palabra.ToUpper()));
     }
 
     public static bool EsDomingo(DateTime fecha)

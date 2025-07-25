@@ -169,7 +169,8 @@ public class VentaVendedoraService : IVentaVendedoraService
 
     private async Task<VentaVendedoraStatsDto> GenerarEstadisticasAsync(VentaVendedoraFilterDto filtros)
     {
-        // Implementación básica de estadísticas
+        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA", "EDICION", "MEDIAS" };
+
         var query = _context.VentasVendedoras
             .Include(v => v.Sucursal)
             .Include(v => v.Vendedor)
@@ -185,13 +186,23 @@ public class VentaVendedoraService : IVentaVendedoraService
 
         return new VentaVendedoraStatsDto
         {
-            TotalVentas = ventas.Count,
+            TotalVentas = ventas
+                .Where(v => !palabrasEspeciales.Any(p => v.Producto != null && v.Producto.ToUpper().Contains(p)))
+                .Sum(v => v.Cantidad),
+
             MontoTotal = ventas.Sum(v =>
                 v.Cantidad < 0
-                ? -v.Total  
-                : v.Total),
-            CantidadTotal = ventas.Sum(v => v.EsProductoDescuento && v.Cantidad == -1 ? 0 : v.Cantidad),
-            DiasConVentas = ventas.GroupBy(v => v.Fecha.Date).Count()
+                    ? -v.Total
+                    : v.Total),
+
+            CantidadTotal = ventas
+                .Where(v => !palabrasEspeciales.Any(p => v.Producto != null && v.Producto.ToUpper().Contains(p)))
+                .Sum(v => v.Cantidad),
+
+            DiasConVentas = ventas
+                .Where(v => !palabrasEspeciales.Any(p => v.Producto != null && v.Producto.ToUpper().Contains(p)))
+                .GroupBy(v => v.Fecha.Date)
+                .Count()
         };
     }
     
@@ -239,6 +250,8 @@ public class VentaVendedoraService : IVentaVendedoraService
 
     public async Task<VentaVendedoraStatsDto> ObtenerEstadisticasAsync(VentaVendedoraFilterDto filtros)
     {
+        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA", "EDICION", "MEDIAS" };
+
         var query = _context.VentasVendedoras
             .Include(v => v.Sucursal)
             .Include(v => v.Vendedor)
@@ -253,22 +266,26 @@ public class VentaVendedoraService : IVentaVendedoraService
             return new VentaVendedoraStatsDto();
         }
 
-        var diasConVentas = ventas
+        var ventasFiltradas = ventas
+            .Where(v => !palabrasEspeciales.Any(p => v.Producto != null && v.Producto.ToUpper().Contains(p)))
+            .ToList();
+
+        var diasConVentas = ventasFiltradas
             .Where(v => !filtros.ExcluirDomingos || !VentaVendedora.EsDomingo(v.Fecha))
             .GroupBy(v => v.Fecha.Date)
             .Count();
 
-        var topVendedoras = ventas
+        var topVendedoras = ventasFiltradas
             .GroupBy(v => v.Vendedor.Nombre)
             .Select(g => new VentaPorVendedoraDto
             {
                 VendedorNombre = g.Key,
-                TotalVentas = g.Count(),
+                TotalVentas = g.Sum(v => v.Cantidad),
                 MontoTotal = g.Sum(v =>
                     v.Cantidad < 0
-                        ? -v.Total  
+                        ? -v.Total
                         : v.Total),
-                CantidadTotal = g.Sum(v => v.EsProductoDescuento && v.Cantidad == -1 ? 0 : v.Cantidad),
+                CantidadTotal = g.Sum(v => v.Cantidad),
                 Promedio = diasConVentas > 0 ? g.Sum(v => v.Total) / diasConVentas : 0,
                 SucursalesQueTrabaja = g.Select(v => v.Sucursal.Nombre).Distinct().ToList()
             })
@@ -278,15 +295,16 @@ public class VentaVendedoraService : IVentaVendedoraService
 
         return new VentaVendedoraStatsDto
         {
-            TotalVentas = ventas.Count,
-            MontoTotal = ventas.Sum(v =>
+            TotalVentas = ventasFiltradas.Sum(v => v.Cantidad),
+            MontoTotal = ventasFiltradas.Sum(v =>
                 v.Cantidad < 0
-                ? -v.Total
-                : v.Total),
-            CantidadTotal = ventas.Sum(v => v.EsProductoDescuento && v.Cantidad == -1 ? 0 : v.Cantidad),
-            PromedioVentaPorDia = diasConVentas > 0 ? ventas.Sum(v => v.Total) / diasConVentas : 0,
-            PromedioVentaPorVendedora = ventas.GroupBy(v => v.VendedorId).Any() ? 
-                ventas.Sum(v => v.Total) / ventas.GroupBy(v => v.VendedorId).Count() : 0,
+                    ? -v.Total
+                    : v.Total),
+            CantidadTotal = ventasFiltradas.Sum(v => v.Cantidad),
+            PromedioVentaPorDia = diasConVentas > 0 ? ventasFiltradas.Sum(v => v.Total) / diasConVentas : 0,
+            PromedioVentaPorVendedora = ventasFiltradas.GroupBy(v => v.VendedorId).Any()
+                ? ventasFiltradas.Sum(v => v.Total) / ventasFiltradas.GroupBy(v => v.VendedorId).Count()
+                : 0,
             DiasConVentas = diasConVentas,
             TopVendedoras = topVendedoras,
             VentasPorSucursal = await ObtenerVentasPorSucursalAsync(filtros),
@@ -354,6 +372,8 @@ public class VentaVendedoraService : IVentaVendedoraService
 
     public async Task<List<VentaPorDiaDto>> ObtenerVentasPorDiaAsync(VentaVendedoraFilterDto filtros)
     {
+        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA", "EDICION", "MEDIAS" };
+
         var query = _context.VentasVendedoras.AsQueryable();
         query = AplicarFiltros(query, filtros);
 
@@ -364,14 +384,17 @@ public class VentaVendedoraService : IVentaVendedoraService
                 Fecha = g.Key,
                 DiaSemana = g.Key.ToString("dddd"),
                 TotalVentas = g.Sum(v => 
-                            v.EsProductoDescuento && v.Cantidad == -1 
-                                ? 0 
-                                : v.Cantidad),
+                    palabrasEspeciales.Any(p => EF.Functions.ILike(v.Producto, "%" + p + "%"))
+                        ? 0 
+                        : v.Cantidad),
                 MontoTotal = g.Sum(v =>
                     v.Cantidad < 0
                         ? -v.Total 
                         : v.Total),
-                CantidadTotal = g.Sum(v => v.EsProductoDescuento && v.Cantidad == -1 ? 0 : v.Cantidad),
+                CantidadTotal = g.Sum(v => 
+                    palabrasEspeciales.Any(p => EF.Functions.ILike(v.Producto, "%" + p + "%"))
+                        ? 0
+                        : v.Cantidad),
                 EsDomingo = g.Key.DayOfWeek == DayOfWeek.Sunday
             })
             .OrderBy(v => v.Fecha)
@@ -382,6 +405,8 @@ public class VentaVendedoraService : IVentaVendedoraService
 
     public async Task<List<VentaPorVendedoraDto>> ObtenerTopVendedorasAsync(VentaVendedoraFilterDto filtros, int top = 10)
     {
+        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA", "EDICION", "MEDIAS" };
+
         var query = _context.VentasVendedoras
             .Include(v => v.Vendedor)
             .Include(v => v.Sucursal)
@@ -399,12 +424,18 @@ public class VentaVendedoraService : IVentaVendedoraService
             .Select(g => new VentaPorVendedoraDto
             {
                 VendedorNombre = g.Key,
-                TotalVentas = g.Count(),
+                TotalVentas = g.Sum(v =>
+                    palabrasEspeciales.Any(p => EF.Functions.ILike(v.Producto, "%" + p + "%"))
+                        ? 0
+                        : v.Cantidad),
                 MontoTotal = g.Sum(v =>
                     v.Cantidad < 0
-                        ? -v.Total 
+                        ? -v.Total
                         : v.Total),
-                CantidadTotal = g.Sum(v => v.EsProductoDescuento && v.Cantidad == -1 ? 0 : v.Cantidad),
+                CantidadTotal = g.Sum(v =>
+                    palabrasEspeciales.Any(p => EF.Functions.ILike(v.Producto, "%" + p + "%"))
+                        ? 0
+                        : v.Cantidad),
                 Promedio = diasConVentas > 0 ? g.Sum(v => v.Total) / diasConVentas : 0,
                 SucursalesQueTrabaja = g.Select(v => v.Sucursal.Nombre).Distinct().ToList()
             })
@@ -417,6 +448,8 @@ public class VentaVendedoraService : IVentaVendedoraService
 
     public async Task<List<VentaPorSucursalDto>> ObtenerVentasPorSucursalAsync(VentaVendedoraFilterDto filtros)
     {
+        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA", "EDICION", "MEDIAS" };
+
         var query = _context.VentasVendedoras
             .Include(v => v.Sucursal)
             .AsQueryable();
@@ -427,13 +460,18 @@ public class VentaVendedoraService : IVentaVendedoraService
             .GroupBy(v => new { v.Sucursal.Nombre, v.Sucursal.AbreSabadoTarde })
             .Select(g => new {
                 SucursalNombre = g.Key.Nombre,
-                TotalVentas = g.Count(),
+                // Solo sumamos las ventas NO especiales
+                TotalVentas = g.Sum(v => 
+                    palabrasEspeciales.Any(p => EF.Functions.ILike(v.Producto, "%" + p + "%"))
+                        ? 0
+                        : v.Cantidad),
                 MontoTotal = g.Sum(v =>
                     v.Cantidad < 0
-                        ? -v.Total 
+                        ? -v.Total
                         : v.Total),
                 AbreSabadoTarde = g.Key.AbreSabadoTarde,
-                Ventas = g.ToList()
+                // Filtramos las ventas ya desde acá
+                Ventas = g.Where(v => !palabrasEspeciales.Any(p => EF.Functions.ILike(v.Producto, "%" + p + "%"))).ToList()
             })
             .ToListAsync();
 
@@ -443,7 +481,7 @@ public class VentaVendedoraService : IVentaVendedoraService
                 SucursalNombre = g.SucursalNombre,
                 TotalVentas = g.TotalVentas,
                 MontoTotal = g.MontoTotal,
-                CantidadTotal = g.Ventas.Sum(v => v.GetCantidadReal()), 
+                CantidadTotal = g.Ventas.Sum(v => v.Cantidad),
                 AbreSabadoTarde = g.AbreSabadoTarde
             })
             .OrderByDescending(v => v.MontoTotal)
@@ -454,6 +492,8 @@ public class VentaVendedoraService : IVentaVendedoraService
 
     public async Task<List<VentaPorTurnoDto>> ObtenerVentasPorTurnoAsync(VentaVendedoraFilterDto filtros)
     {
+        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA", "EDICION", "MEDIAS" };
+
         var query = _context.VentasVendedoras.AsQueryable();
         query = AplicarFiltros(query, filtros);
 
@@ -462,15 +502,18 @@ public class VentaVendedoraService : IVentaVendedoraService
             .Select(g => new VentaPorTurnoDto
             {
                 Turno = g.Key.ToString(),
-                TotalVentas = g.Sum(v => 
-                      v.EsProductoDescuento && v.Cantidad == -1 
-                        ? 0 
+                TotalVentas = g.Sum(v =>
+                    palabrasEspeciales.Any(p => EF.Functions.ILike(v.Producto, "%" + p + "%"))
+                        ? 0
                         : v.Cantidad),
                 MontoTotal = g.Sum(v =>
                     v.Cantidad < 0
-                        ? -v.Total  
+                        ? -v.Total
                         : v.Total),
-                CantidadTotal = g.Sum(v => v.EsProductoDescuento && v.Cantidad == -1 ? 0 : v.Cantidad)
+                CantidadTotal = g.Sum(v =>
+                    palabrasEspeciales.Any(p => EF.Functions.ILike(v.Producto, "%" + p + "%"))
+                        ? 0
+                        : v.Cantidad)
             })
             .OrderBy(v => v.Turno)
             .ToListAsync();
@@ -600,7 +643,7 @@ public class VentaVendedoraService : IVentaVendedoraService
             .GroupBy(v => v.Fecha.Date)
             .CountAsync();
 
-        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA" };
+        var palabrasEspeciales = new[] { "DESCUENTO", "CUPON", "CLUB", "GENERICO", "GIFT", "RESEÑA", "EDICION", "MEDIAS" };
 
         var todasVendedoras = await query
             .GroupBy(v => v.Vendedor.Nombre)
@@ -609,7 +652,7 @@ public class VentaVendedoraService : IVentaVendedoraService
                 VendedorNombre      = g.Key,
                 TotalVentas    = g.Sum(v => 
                          // devoluciones → -1; descuentos/ cupones ignorados; resto positivo
-                         v.EsProductoDescuento && v.Cantidad == -1 
+                         palabrasEspeciales.Any(p => EF.Functions.ILike(v.Producto, "%" + p + "%"))
                            ? 0 
                            : v.Cantidad),
                 MontoTotal = g.Sum(v =>
@@ -617,12 +660,9 @@ public class VentaVendedoraService : IVentaVendedoraService
                         ? -v.Total 
                         : v.Total),
                 CantidadTotal = g.Sum(v =>
-                    v.Cantidad < 0
-                    ? (palabrasEspeciales.Any(p => 
-                            EF.Functions.ILike(v.Producto, "%" + p + "%"))
+                    palabrasEspeciales.Any(p => EF.Functions.ILike(v.Producto, "%" + p + "%"))
                         ? 0
-                        : v.Cantidad)
-                    : v.Cantidad),
+                        : v.Cantidad),
                 Promedio            = g.Count() > 0
                                         ? g.Sum(v => v.Total) / (decimal)g.Count()
                                         : 0m,
@@ -633,6 +673,17 @@ public class VentaVendedoraService : IVentaVendedoraService
             .OrderByDescending(v => v.MontoTotal)
             .ToListAsync();
 
+        foreach (var grupo in await query.GroupBy(v => v.Vendedor.Nombre).ToListAsync())
+        {
+            var nombre = grupo.Key;
+            var ventas = grupo.ToList();
+            Console.WriteLine($"---- Vendedora: {nombre} ----");
+            foreach (var venta in ventas)
+            {
+                Console.WriteLine($"Producto: {venta.Producto}, Cantidad: {venta.Cantidad}, EsDescuento: {venta.EsProductoDescuento}");
+            }
+        }
+        
         return todasVendedoras;
     }
 }
